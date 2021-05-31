@@ -5,6 +5,7 @@ const { generateToken } = require('../helpers/web-token');
 const router = express.Router();
 // login
 router.post('/authentification', async (req, res)=>{
+    console.log(req.body.password);
     let account = new Account(req.body.telephone, req.body.password);
     try {
         let results = await account.logUser();
@@ -12,7 +13,14 @@ router.post('/authentification', async (req, res)=>{
             res.status(results.code).send(results.message);
         }else{
             let token = generateToken(req.body.telephone);
-            res.send({path: results.path, user_data: results.user_data, authToken: token}).status(200);
+            res.send(
+                {
+                    path: results.path, 
+                    name: results.user_data.nom, 
+                    surname: results.user_data.prenom, 
+                    type: results.user_data.type, 
+                    telephone: results.user_data.telephone, 
+                    authToken: token}).status(200);
         }
     } catch (error) {
         console.log('Router: '+error);
