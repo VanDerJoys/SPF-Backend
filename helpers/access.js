@@ -5,7 +5,7 @@ function defineAccess(type){
     } else if(type == 'Administrateur'){
         return "/administrateur";
     }  else{
-        // type == "Télévendeurs"
+        // type == "Télévendeur"
         return "/télé-vendeurs";
     }
 }

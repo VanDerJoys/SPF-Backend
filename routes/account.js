@@ -26,7 +26,7 @@ router.post('/authentification', async (req, res)=>{
     }
 });
 
-router.post('/register', async (req, res)=>{
+router.post('/register', (req, res)=>{
     let account = new Account();
     account.register(req.body.nom, req.body.prenom, req.body.telephone, req.body.password, req.body.type)
     .then((response)=>{

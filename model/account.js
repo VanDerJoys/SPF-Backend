@@ -1,5 +1,5 @@
 const connection = require('../config/database');
-class Model {
+class Model{
     register(nom, prenom, tel, password, type) {
         return new Promise((resolve, reject) => {
             connection.query(`CALL register('${nom}', '${prenom}', '${tel}', '${password}', '${type}')`, (err, results) => {
