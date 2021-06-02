@@ -1,17 +1,18 @@
 const ContactModel = require("../../model/Contact/contact");
 const db = new ContactModel();
 class ContactController{
-    constructor(id, nom, telephone, localisation){
+    constructor(id, nom, telephone, localisation, statut){
         this.id = id;
         this.nom = nom;
         this.telephone = telephone;
         this.localisation = localisation;
+        this.statut = statut;
     }
 
     async addContact(){
         try {
-            let response = await db.addContact(this.id, this.nom, this.telephone, this.localisation);
-            return {code: 200, message: "Contact enregistré"}
+            let response = await db.addContact(this.id, this.nom, this.telephone, this.localisation, this.statut);
+            return {code: 200, message: response}
         } catch (error) {
             console.log('Controller: '+error);
             return {code: 400, message: "Une erreur s'est produite"};
@@ -25,6 +26,16 @@ class ContactController{
         } catch (error) {
             console.log(error);
             // return {code: 400, message: "Une erreur s'est produite"};
+        }
+    }
+
+    async changeStatus(telephone, statut){
+        try {
+            let response = await db.changeStatus(telephone, statut);
+            return {code: 200, message: response};
+        } catch (error) {
+            console.log("Controller: "+error);
+            return {code: 400, message: "Une erreur s'est produite"};
         }
     }
 }

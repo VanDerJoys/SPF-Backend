@@ -4,15 +4,16 @@ const { verifyToken } = require('../../helpers/web-token');
 
 const router = express.Router();
 
-router.post('/new', (req, res)=>{
-    const db = new ContactController(
+router.post('/new', verifyToken, (req, res)=>{
+    const contact = new ContactController(
         req.body.id,
         req.body.nom,
         req.body.telephone, 
-        req.body.localisation
+        req.body.localisation,
+        req.body.statut
     );
 
-    db.addContact()
+    contact.addContact()
     .then(response =>{
         res.status(response.code).send(response.message);
     })
@@ -21,9 +22,9 @@ router.post('/new', (req, res)=>{
     })
 });
 
-router.get('/', (req, res)=>{
-    const db = new ContactController();
-    db.getContacts()
+router.get('/', verifyToken, (req, res)=>{
+    const contact = new ContactController();
+    contact.getContacts()
     .then(response =>{
         res.status(200).send(response);
     })
@@ -39,7 +40,12 @@ router.get('/:idUser', verifyToken, (req, res)=>{
 })
 
 // modify contact status
-router.put('/:idContact/:status', verifyToken, (req, res)=>{
-    
+router.put('/:telephone/:statut', (req, res)=>{
+    const contact = new ContactController();
+    contact.changeStatus(req.params.telephone, req.params.statut).then(response =>{
+        res.status(response.code).send(response.message);
+    }).catch(error =>{
+        console.log("Router: "+error);
+    })
 })
 module.exports = router;
