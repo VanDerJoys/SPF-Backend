@@ -29,9 +29,28 @@ class ContactController{
         }
     }
 
+    async getMarketerContacts(id){
+        try {
+            let response = await db.getMarketerContacts(id);
+            return response[0];
+        } catch (error) {
+            console.log("Controller: "+error);
+        }
+    }
+
     async changeStatus(telephone, statut){
         try {
             let response = await db.changeStatus(telephone, statut);
+            return {code: 200, message: response};
+        } catch (error) {
+            console.log("Controller: "+error);
+            return {code: 400, message: "Une erreur s'est produite"};
+        }
+    }
+
+    async addObservation(telephone, observation){
+        try {
+            let response = await db.addObservation(telephone, observation);
             return {code: 200, message: response};
         } catch (error) {
             console.log("Controller: "+error);

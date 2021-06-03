@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/new', verifyToken, (req, res)=>{
     const contact = new ContactController(
-        req.body.id,
+        req.body.id, //id of the base
         req.body.nom,
         req.body.telephone, 
         req.body.localisation,
@@ -34,18 +34,38 @@ router.get('/', verifyToken, (req, res)=>{
     })
 })
 
-// get user contacts
-router.get('/:idUser', verifyToken, (req, res)=>{
-
+// get marketer contacts
+router.get('/:idCompte', verifyToken, (req, res)=>{
+    const contact = new ContactController();
+    contact.getMarketerContacts(req.params.idCompte)
+    .then(response =>{
+        res.status(200).send(response);
+    })
+    .catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
 })
 
 // modify contact status
-router.put('/:telephone/:statut', (req, res)=>{
+router.put('/statut/:telephone', verifyToken, (req, res)=>{
     const contact = new ContactController();
-    contact.changeStatus(req.params.telephone, req.params.statut).then(response =>{
+    contact.changeStatus(req.params.telephone, req.body.statut).then(response =>{
         res.status(response.code).send(response.message);
     }).catch(error =>{
         console.log("Router: "+error);
     })
+})
+
+// add observation
+router.put('/observation/:telephone', verifyToken, (req, res)=>{
+    const contact = new ContactController();
+    contact.addObservation(req.params.telephone, req.body.observation)
+    .then(response =>{
+        res.status(response.code).send(response.message);
+    })
+    .catch(error =>{
+        console.log("Router: "+error);
+    });
 })
 module.exports = router;

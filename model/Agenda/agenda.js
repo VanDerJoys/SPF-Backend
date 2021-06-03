@@ -1,65 +1,65 @@
 const connection = require('../../config/database');
 
-class ContactModel{
-    addContact(id, nom, telephone, localisation, statut) {
+class AgendaModel{
+    addAgenda(id, intitule, date_heure){
         return new Promise((resolve, reject) => {
-            connection.query(`CALL addContact(${id}, '${nom}', '${telephone}', '${localisation}', '${statut}')`, (err, results) => {
+            connection.query(`CALL addAgenda(${id}, '${intitule}', '${date_heure}')`, (err, results) => {
                 if (err) {
                     reject(err.message);
                 } else {
-                    resolve("Contact enregistré");
+                    resolve("Agenda enregistré");
                 }
             })
         })
     }
 
-    getContacts(){
+    deleteAgenda(id){
         return new Promise((resolve, reject) => {
-            connection.query(`CALL getContacts()`, (err, results) => {
+            connection.query(`CALL deleteAgenda(${id})`, (err, results) => {
                 if (err) {
                     reject(err.message);
                 } else {
-                    resolve(results);
+                    resolve("Agenda supprimé");
                 }
             })
         })
     }
 
-    getMarketerContacts(id){
+    updateAgenda(id, intitule, date_heure){
         return new Promise((resolve, reject) => {
-            connection.query(`CALL getMarketerContacts(${id})`, (err, results) => {
+            connection.query(`CALL updateAgenda(${id}, '${intitule}', '${date_heure}')`, (err, results) => {
                 if (err) {
                     reject(err.message);
                 } else {
-                    resolve(results);
+                    resolve("Agenda modifié");
                 }
             })
         })
     }
 
-    changeStatus(telephone, statut){
+    getAgenda(){
         return new Promise((resolve, reject) => {
-            connection.query(`CALL changeStatus('${telephone}', '${statut}')`, (err, results) => {
+            connection.query(`CALL getAgenda()`, (err, results) => {
                 if (err) {
                     reject(err.message);
                 } else {
-                    resolve("Statut modifié");
+                    resolve(results[0]);
                 }
             })
         })
     }
 
-    addObservation(tel, obs){
+    getOneAgenda(id){
         return new Promise((resolve, reject) => {
-            connection.query(`CALL addObservation('${tel}', '${obs}')`, (err, results) => {
+            connection.query(`CALL getOneAgenda(${id})`, (err, results) => {
                 if (err) {
                     reject(err.message);
                 } else {
-                    resolve("Observation enregistrée");
+                    resolve(results[0]);
                 }
             })
         })
     }
 }
 
-module.exports = ContactModel;
+module.exports = AgendaModel;
