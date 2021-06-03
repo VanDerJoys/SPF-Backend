@@ -22,6 +22,7 @@ router.post('/new', verifyToken, (req, res)=>{
     })
 });
 
+// get all contacts
 router.get('/', verifyToken, (req, res)=>{
     const contact = new ContactController();
     contact.getContacts()
@@ -38,6 +39,19 @@ router.get('/', verifyToken, (req, res)=>{
 router.get('/:idCompte', verifyToken, (req, res)=>{
     const contact = new ContactController();
     contact.getMarketerContacts(req.params.idCompte)
+    .then(response =>{
+        res.status(200).send(response);
+    })
+    .catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
+
+// get base contacts
+router.get('/base/:idBase', verifyToken, (req, res)=>{
+    const contact = new ContactController();
+    contact.getBaseContacts(req.params.idBase)
     .then(response =>{
         res.status(200).send(response);
     })

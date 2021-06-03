@@ -37,6 +37,18 @@ class ContactModel{
         })
     }
 
+    getBaseContacts(id){
+        return new Promise((resolve, reject) => {
+            connection.query(`CALL getBaseContacts(${id})`, (err, results) => {
+                if (err) {
+                    reject(err.message);
+                } else {
+                    resolve(results);
+                }
+            })
+        })
+    }
+
     changeStatus(telephone, statut){
         return new Promise((resolve, reject) => {
             connection.query(`CALL changeStatus('${telephone}', '${statut}')`, (err, results) => {

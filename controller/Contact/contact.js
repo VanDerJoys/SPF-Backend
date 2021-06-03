@@ -38,6 +38,15 @@ class ContactController{
         }
     }
 
+    async getBaseContacts(id){
+        try {
+            let response = await db.getBaseContacts(id);
+            return response[0];
+        } catch (error) {
+            console.log("Controller: "+error);
+        }
+    }
+
     async changeStatus(telephone, statut){
         try {
             let response = await db.changeStatus(telephone, statut);
