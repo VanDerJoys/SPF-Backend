@@ -5,7 +5,7 @@ const { verifyToken } = require('../../helpers/web-token');
 const router = express.Router();
 
 router.post('/new', verifyToken, (req, res)=>{
-    const agenda = new AgendaController(req.body.id, req.body.intitule, req.body.date_heure);
+    const agenda = new AgendaController(req.body.id, req.body.intitule, req.body.period);
     agenda.addAgenda().then(response =>{
         res.status(response.code).send(response.message);
     })
@@ -13,16 +13,6 @@ router.post('/new', verifyToken, (req, res)=>{
         console.log("Router: "+error);
     });
 })
-
-router.get('/', verifyToken, (req, res)=>{
-    const agenda = new AgendaController();
-    agenda.getAgenda().then(response =>{
-        res.status(response.code).send(response.message);
-    })
-    .catch(error =>{
-        console.log("Router: "+error);
-    })
-});
 
 // get agenda for one person
 router.get('/:id', verifyToken, (req, res)=>{
