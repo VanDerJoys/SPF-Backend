@@ -15,10 +15,12 @@ router.post('/authentification', async (req, res)=>{
             res.send(
                 {
                     path: results.path, 
+                    id: results.user_data.id,
                     name: results.user_data.nom, 
                     surname: results.user_data.prenom, 
-                    type: results.user_data.type, 
-                    telephone: results.user_data.telephone, 
+                    role: results.user_data.type,
+                    archived: results.user_data.statut, 
+                    phone: results.user_data.telephone, 
                     authToken: token}).status(200);
         }
     } catch (error) {
@@ -28,7 +30,7 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
-    account.register(req.body.nom, req.body.prenom, req.body.telephone, req.body.password, req.body.type)
+    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type)
     .then((response)=>{
         res.status(response.code).send(response.message)
     })
