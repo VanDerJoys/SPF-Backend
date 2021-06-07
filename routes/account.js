@@ -5,7 +5,7 @@ const { generateToken } = require('../helpers/web-token');
 const router = express.Router();
 // login
 router.post('/authentification', async (req, res)=>{
-    let account = new Account(req.body.telephone, req.body.password);
+    let account = new Account(req.body.phone, req.body.password);
     try {
         let results = await account.logUser();
         if (results.code == 400) {
