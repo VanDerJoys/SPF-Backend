@@ -6,7 +6,7 @@ const webToken = {
         return token;
     },
     verifyToken (req, res, next){
-        const token = req.header('auth-token');
+        const token = req.header('authToken');
         if (!token) {
             return res.status(401).send('Accès refusé');
         }

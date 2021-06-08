@@ -62,9 +62,9 @@ router.get('/base/:idBase', verifyToken, (req, res)=>{
 })
 
 // modify contact status
-router.put('/statut/:telephone', verifyToken, (req, res)=>{
+router.put('/status/:telephone', verifyToken, (req, res)=>{
     const contact = new ContactController();
-    contact.changeStatus(req.params.telephone, req.body.statut).then(response =>{
+    contact.changeStatus(req.params.telephone, req.body.status).then(response =>{
         res.status(response.code).send(response.message);
     }).catch(error =>{
         console.log("Router: "+error);
