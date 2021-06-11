@@ -36,7 +36,7 @@ router.get('/', verifyToken, (req, res)=>{
 })
 
 // get marketer contacts
-router.get('/:idCompte', verifyToken, (req, res)=>{
+router.get('/:idCompte', (req, res)=>{
     const contact = new ContactController();
     contact.getMarketerContacts(req.params.idCompte)
     .then(response =>{

@@ -10,6 +10,9 @@ const Account = require('./routes/account');
 const Contact = require('./routes/Contact/contact');
 const Agenda = require('./routes/Agenda/agenda');
 const Telemarketer = require('./routes/Telemarketer/telemarketer');
+const Tchopetyamo = require('./routes/Tchopetyamo/Tchopetyamo');
+const Cub = require('./routes/Cub/Cub');
+const FemmeFatale = require('./routes/Femme-fatale/Femme-fatale');
 
 // Manage middlewares
 app.use(express.json());
@@ -19,6 +22,9 @@ app.use('/user', Account);
 app.use('/contact', Contact);
 app.use('/agenda', Agenda);
 app.use('/marketer', Telemarketer);
+app.use('/tchopetyamo', Tchopetyamo);
+app.use('/cub', Cub);
+app.use('/femme-fatale', FemmeFatale);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
