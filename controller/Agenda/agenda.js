@@ -1,4 +1,4 @@
-const AgendaModel = require("../../model/Agenda/agenda");
+const AgendaModel = require("../../model/Schemas/agenda");
 const db = new AgendaModel();
 class AgendaController{
     constructor(id, intitule, date_heure){

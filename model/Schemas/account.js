@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const TchopetyamoSchema = new mongoose.Schema({
-    base_name:{
+const AccountSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    name: {
+    surname: {
         type: String,
         required: true
     },
@@ -13,18 +13,18 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    town: {
+    password: {
         type: String,
         required: true
     },
-    posts: {
-        type: mongoose.Types.ObjectId,
-        required: false,
-        ref: 'Accounts'
-    },
-    recommandation: {
+    type: {
         type: String,
-        required: false
+        required: true
+    },
+    statut: {
+        type: Boolean,
+        required: false,
+        default: 0
     },
     created_at: {
         type: Date,
@@ -32,4 +32,5 @@ const TchopetyamoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Tchopetyamo-contacts', TchopetyamoSchema);
+module.exports = mongoose.model('Accounts', AccountSchema);
+

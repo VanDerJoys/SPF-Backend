@@ -5,22 +5,21 @@ const { generateToken } = require('../helpers/web-token');
 const router = express.Router();
 // login
 router.post('/authentification', async (req, res)=>{
-    let account = new Account(req.body.phone, req.body.password);
+    let account = new Account();
     try {
-        let results = await account.logUser();
+        let results = await account.logUser(req.body.phone, req.body.password);
         if (results.code == 400) {
             res.status(results.code).send(results.message);
         }else{
-            let token = generateToken(req.body.telephone);
+            let token = generateToken(req.body.phone);
             res.send(
                 {
-                    path: results.path, 
-                    id: results.user_data.id,
-                    name: results.user_data.nom, 
-                    surname: results.user_data.prenom, 
-                    role: results.user_data.type,
-                    archived: results.user_data.statut, 
-                    phone: results.user_data.telephone, 
+                    id: results._id,
+                    name: results.name, 
+                    surname: results.surname, 
+                    role: results.type,
+                    archived: results.status, 
+                    phone: results.phone, 
                     authToken: token}).status(200);
         }
     } catch (error) {
