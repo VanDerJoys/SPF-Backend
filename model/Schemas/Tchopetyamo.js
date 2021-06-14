@@ -17,10 +17,9 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    posts: {
-        type: mongoose.Types.ObjectId,
-        required: false,
-        ref: 'Accounts'
+    post: {
+        type: String,
+        required: false
     },
     recommandation: {
         type: String,

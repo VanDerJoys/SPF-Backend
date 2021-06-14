@@ -1,5 +1,5 @@
 const express = require('express');
-const MarketerController = require('../../controller/Telemarketer/telemarketer');
+const MarketerController = require('../../controller/Postes/posts');
 const { verifyToken } = require('../../helpers/web-token');
 
 const controller = new MarketerController();

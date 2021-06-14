@@ -38,6 +38,26 @@ class AccountController{
             return {code:400, message:"Une erreur est survenue"}
         }
     }
+
+    async getAccounts(){
+        try {
+            let accounts = await Account.find({phone: "677783356"})
+            return accounts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async deleteAccount(id){
+        try {
+            let accounts = await Account.deleteOne({_id: id})
+            return accounts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
 }
 
 module.exports = AccountController;

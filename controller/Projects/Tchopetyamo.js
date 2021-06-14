@@ -2,12 +2,12 @@ const Tchopetyamo = require("../../model/Schemas/Tchopetyamo");
 
 class TchopetyamoController{
 
-    constructor(base_name, name, phone, town, posts, reco){
+    constructor(base_name, name, phone, town, post, reco){
         this.base_name = base_name;
         this.name = name;
         this.phone = phone;
         this.town = town;
-        this.posts = posts;
+        this.post = post;
         this.reco = reco;
     }
 
@@ -18,7 +18,7 @@ class TchopetyamoController{
                 name: this.name,
                 phone: this.phone,
                 town: this.town,
-                posts: this.posts,
+                post: this.post,
                 recommandation: this.reco
             });
             contact.save().then(data =>{
@@ -27,6 +27,46 @@ class TchopetyamoController{
                 reject(err);
             })
         })
+    }
+
+    async getContacts(){
+        try {
+            let contacts = await Tchopetyamo.find();
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByBase(base_name){
+        try {
+            let contacts = await Tchopetyamo.find({base_name: base_name});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByPost(post){
+        try {
+            let contacts = await Tchopetyamo.find({post: post});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async deleteContact(id){
+        try {
+            let removedContact = await Tchopetyamo.deleteOne({_id: id});
+            return removedContact;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
     }
 }
 

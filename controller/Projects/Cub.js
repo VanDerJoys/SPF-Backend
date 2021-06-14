@@ -1,6 +1,6 @@
 const Cub = require("../../model/Schemas/Cub");
 
-class CubConstructor{
+class CubController{
     constructor(base_name, name, phone, cni, service, observation, quartier, facebook, status, posts, reco){
         this.base_name = base_name;
         this.name = name;
@@ -37,6 +37,46 @@ class CubConstructor{
             })
         })
     }
+
+    async getContacts(){
+        try {
+            let contacts = await Cub.find();
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByBase(base_name){
+        try {
+            let contacts = await Cub.find({base_name: base_name});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByPost(post){
+        try {
+            let contacts = await Cub.find({post: post});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async deleteContact(id){
+        try {
+            let removedContact = await Cub.deleteOne({_id: id});
+            return removedContact;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
 }
 
-module.exports = CubConstructor;
+module.exports = CubController;

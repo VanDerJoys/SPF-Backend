@@ -41,6 +41,46 @@ class FemmeFataleConstructor{
             })
         })
     }
+
+    async getContacts(){
+        try {
+            let contacts = await FemmeFatale.find();
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByBase(base_name){
+        try {
+            let contacts = await FemmeFatale.find({base_name: base_name});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async getContactsByPost(post){
+        try {
+            let contacts = await FemmeFatale.find({post: post});
+            return contacts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async deleteContact(id){
+        try {
+            let removedContact = await FemmeFatale.deleteOne({_id: id});
+            return removedContact;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
 }
 
 module.exports = FemmeFataleConstructor;

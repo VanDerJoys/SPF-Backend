@@ -38,4 +38,24 @@ router.post('/register', (req, res)=>{
     });
 })
 
+router.get('/', (req, res)=>{
+    let accounts = new Account();
+    accounts.getAccounts().then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
+
+router.delete('/:accountId', (req, res)=>{
+    let account = new Account();
+    account.deleteAccount(req.params.accountId).then(response =>{
+        res.status(200).send(Boolean(response.deletedCount))
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
+
 module.exports = router;

@@ -41,8 +41,8 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    posts: {
-        type: Array,
+    post: {
+        type: String,
         required: false
     },
     recommandation: {
