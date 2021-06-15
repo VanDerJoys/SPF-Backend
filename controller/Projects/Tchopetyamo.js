@@ -41,7 +41,7 @@ class TchopetyamoController{
 
     async getContactsByBase(base_name){
         try {
-            let contacts = await Tchopetyamo.find({base_name: base_name});
+            let contacts = await Tchopetyamo.find({base_name: base_name}, {'_id': 0, '__v':0, "created_at":0});
             return contacts;
         } catch (error) {
             console.log(error);
