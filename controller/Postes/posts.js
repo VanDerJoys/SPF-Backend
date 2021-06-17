@@ -1,13 +1,13 @@
-const Marketer = require("../../model/Telemarketer/telemarketer");
+const Marketer = require("../../model/Schemas/account");
 
-const db = new Marketer();
 class MarketerController{
     async getMarketer(){
         try {
-            let response = await db.getMarketer();
-            return response[0];
+            let response = await Marketer.find({type: "Télévendeur"}, {"password": 0, "created_at":0});
+            return response;
         } catch (error) {
             console.log(error);
+            return error;
         }
     }
 

@@ -21,6 +21,10 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    post: {
+        type: String,
+        required: false
+    },
     statut: {
         type: Boolean,
         required: false,

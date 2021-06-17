@@ -7,7 +7,7 @@ const controller = new MarketerController();
 const router = express.Router();
 
 // Create telemarketer base
-router.post('/base/new', verifyToken, (req, res)=>{
+router.post('/new', verifyToken, (req, res)=>{
     controller.createBase(req.body.id, req.body.nom).then(results =>{
         res.status(results.code).send(results.message);
     }).catch(error =>{
@@ -16,7 +16,7 @@ router.post('/base/new', verifyToken, (req, res)=>{
 })
 
 // get all telemarketers
-router.get('/', verifyToken, (req, res)=>{
+router.get('/', (req, res)=>{
     controller.getMarketer().then(results =>{
         res.status(200).send(results);
     }).catch(error =>{

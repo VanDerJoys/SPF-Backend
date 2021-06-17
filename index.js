@@ -21,7 +21,7 @@ app.use(cors());
 app.use('/user', Account);
 app.use('/contact', Contact);
 app.use('/agenda', Agenda);
-app.use('/posts', Posts);
+app.use('/telemarketer', Posts);
 app.use('/tchopetyamo', Tchopetyamo);
 app.use('/cub', Cub);
 app.use('/femme-fatale', FemmeFatale);
