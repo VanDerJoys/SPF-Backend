@@ -1,35 +1,35 @@
 const mongoose = require('mongoose');
 
 const CubSchema = new mongoose.Schema({
-    base_name:{
+    base_name:{ //1
         type: String,
         required: true
     },
-    name: {
+    name: { //2
         type: String,
         required: true
     },
-    phone: {
+    phone: { //2
         type: String,
         required: true
     },
-    cni: {
+    cni: { //2
         type: String,
         required: true
     },
-    service: {
+    service: { //3
         type: String,
         required: true
     },
     observation: {
         type: String,
-        required: true
+        required: false
     },
-    quartier:{
+    quartier:{ //3
         type: String,
         required: true
     },
-    facebook:{
+    facebook:{ //3
         type: String,
         required: true
     },
@@ -37,8 +37,8 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    post: {
-        type: String,
+    post: { //1
+        type: Number,
         required: false
     },
     recommandation: {

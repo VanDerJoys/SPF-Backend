@@ -34,7 +34,7 @@ const FemmeFataleSchema = new mongoose.Schema({
         required: true
     },
     payment_date: {
-        type: Date,
+        type: String,
         required: false,
     },
     payment_status: {
@@ -42,7 +42,7 @@ const FemmeFataleSchema = new mongoose.Schema({
         required: true
     },
     post: {
-        type: String,
+        type: Number,
         required: false
     },
     recommandation: {
