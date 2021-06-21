@@ -41,7 +41,7 @@ class AccountController{
 
     async getAccounts(){
         try {
-            let accounts = await Account.find({phone: "677783356"})
+            let accounts = await Account.find()
             return accounts;
         } catch (error) {
             console.log(error);
@@ -51,8 +51,34 @@ class AccountController{
 
     async deleteAccount(id){
         try {
-            let accounts = await Account.deleteOne({_id: id})
-            return accounts;
+            let account = await Account.deleteOne({"_id": id})
+            return account;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async updateAccount(id, name, surname, phone, post){
+        try {
+            let account = await Account.updateOne({"_id" : id}, {
+                name: name,
+                surname: surname,
+                phone: phone,
+                post: post
+            })
+            return account;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+
+    async archiveAccount(id){
+        try {
+            let account = await Account.findOne({"_id" : id})
+            account = await Account.updateOne({"_id" : id}, {"status": (account.status ? 0 : 1)});
+            return account;
         } catch (error) {
             console.log(error);
             return error;

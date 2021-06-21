@@ -25,7 +25,7 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    statut: {
+    status: {
         type: Boolean,
         required: false,
         default: 0

@@ -58,4 +58,30 @@ router.delete('/:accountId', (req, res)=>{
     })
 })
 
+router.put('/:idUser', (req, res)=>{
+    let account = new Account();
+    account.updateAccount(
+        req.params.idUser,
+        req.body.name,
+        req.body.surname,
+        req.body.phone,
+        req.body.post
+    ).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
+
+router.put('/archive/:idUser', (req, res)=>{
+    let account = new Account();
+    account.archiveAccount(req.params.idUser).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error)
+        res.status(200).send('Une erreur est survenue');
+    })
+})
+
 module.exports = router;
