@@ -2,8 +2,8 @@ const Tchopetyamo = require("../../model/Schemas/Tchopetyamo");
 
 class TchopetyamoController{
 
-    constructor(base_name, name, phone, town, post, reco){
-        this.base_name = base_name;
+    constructor(base_id, name, phone, town, post, reco){
+        this.base_id = base_id;
         this.name = name;
         this.phone = phone;
         this.town = town;
@@ -14,7 +14,7 @@ class TchopetyamoController{
     addContact(){
         return new Promise((resolve, reject)=>{
             const contact = new Tchopetyamo({
-                base_name: this.base_name,
+                base_name: this.base,
                 name: this.name,
                 phone: this.phone,
                 town: this.town,

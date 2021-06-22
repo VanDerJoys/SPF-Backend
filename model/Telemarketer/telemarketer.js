@@ -1,41 +1,28 @@
-const connection = require('../../config/database');
+const mongoose = require('mongoose');
 
-class MarketerModel{
-    getMarketer() {
-        return new Promise((resolve, reject) => {
-            connection.query(`CALL getMarketer()`, (err, results) => {
-                if (err) {
-                    reject(err.message);
-                } else {
-                    resolve(results);
-                }
-            })
-        })
+const MarketerSchema = new mongoose.Schema({
+    account: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "account",
+        require: true
+    },
+    post: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "post",
+        require: true
+     },
+    created_at: {
+        type: Date,
+        default: Date.now
     }
-
-    createBase(id, nom){
-        return new Promise((resolve, reject) => {
-            connection.query(`CALL createBase(${id}, '${nom}')`, (err, results) => {
-                if (err) {
-                    reject(err.message);
-                } else {
-                    resolve("Base créée");
-                }
-            })
-        })
+},  {
+        toJSON: { 
+            transform: function(doc, ret) {
+                ret.id = ret._id;
+                delete ret._id;
+            }
+        }
     }
+)
 
-    assignBase(id_base, id_user){
-        return new Promise((resolve, reject) => {
-            connection.query(`CALL assignBase(${id_base}, ${id_user})`, (err, results) => {
-                if (err) {
-                    reject(err.message);
-                } else {
-                    resolve("Base attribuée");
-                }
-            })
-        })
-    }
-}
-
-module.exports = MarketerModel;
+module.exports = mongoose.model('Telemarketers', MarketerSchema);

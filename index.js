@@ -7,7 +7,7 @@ const app = express();
 
 // load routes
 const Account = require('./routes/account');
-const Contact = require('./routes/Contact/contact');
+const Base = require('./routes/Base/base');
 const Agenda = require('./routes/Agenda/agenda');
 const Posts = require('./routes/Postes/posts');
 const Tchopetyamo = require('./routes/Tchopetyamo/Tchopetyamo');
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/user', Account);
-app.use('/contact', Contact);
+app.use('/base', Base);
 app.use('/agenda', Agenda);
 app.use('/telemarketer', Posts);
 app.use('/tchopetyamo', Tchopetyamo);

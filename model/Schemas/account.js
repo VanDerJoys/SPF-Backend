@@ -21,10 +21,6 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    post: {
-        type: String,
-        required: false
-    },
     status: {
         type: Boolean,
         required: false,
@@ -34,7 +30,15 @@ const AccountSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-})
+},  {
+        toJSON: { 
+            transform: function(doc, ret) {
+                ret.id = ret._id;
+                delete ret._id;
+            }
+        }
+    }
+)
 
 module.exports = mongoose.model('Accounts', AccountSchema);
 

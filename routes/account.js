@@ -20,7 +20,9 @@ router.post('/authentification', async (req, res)=>{
                     role: results.type,
                     archived: results.status, 
                     phone: results.phone, 
-                    authToken: token}).status(200);
+                    authToken: token
+                }
+            ).status(200);
         }
     } catch (error) {
         console.log('Router: '+error);
@@ -29,7 +31,7 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
-    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type)
+    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type, req.body.post)
     .then((response)=>{
         res.status(response.code).send(response.message)
     })
@@ -55,10 +57,12 @@ router.delete('/:accountId', (req, res)=>{
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
-    })
+    });
 })
 
 router.put('/:idUser', (req, res)=>{
+    console.log(req.params.idUser)
+    console.log(req.body);
     let account = new Account();
     account.updateAccount(
         req.params.idUser,
@@ -81,6 +85,16 @@ router.put('/archive/:idUser', (req, res)=>{
     }).catch(error =>{
         console.log(error)
         res.status(200).send('Une erreur est survenue');
+    })
+})
+
+router.put('/role/:idUser', (req, res)=>{
+    let account = new Account();
+    account.updateRole(req.params.idUser, req.body.role).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(200).send("Une erreur est survenue");
     })
 })
 
