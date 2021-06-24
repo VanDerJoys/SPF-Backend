@@ -26,6 +26,7 @@ router.get('/', (req, res)=>{
     });
 });
 
+// update a single base
 router.put('/:id_base', (req, res)=>{
     base.updateBase(req.params.id_base, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
@@ -35,6 +36,7 @@ router.put('/:id_base', (req, res)=>{
     })
 });
 
+// delete a single base
 router.delete('/:id_base', (req, res)=>{
     base.deleteBase(req.params.id_base).then(response =>{
         res.status(200).send(Boolean(response.deletedCount));

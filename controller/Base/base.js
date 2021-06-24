@@ -1,4 +1,4 @@
-const Base = require("../../model/Schemas/base");
+const Base = require("../../model/Tchopetyamo/base");
 
 class BaseController{
     async createBase(project, name){

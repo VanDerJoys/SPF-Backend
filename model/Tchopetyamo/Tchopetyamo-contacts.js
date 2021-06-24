@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const TchopetyamoSchema = new mongoose.Schema({
-    base_name:{
-        type: String,
-        required: true
-    },
     name: {
         type: String,
         required: true
@@ -18,6 +14,14 @@ const TchopetyamoSchema = new mongoose.Schema({
         required: true
     },
     post: {
+        type: String,
+        required: false
+    },
+    contact_status: {
+        type: String,
+        required: false
+    },
+    observation: {
         type: String,
         required: false
     },

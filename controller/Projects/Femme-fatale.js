@@ -1,8 +1,7 @@
-const FemmeFatale = require("../../model/Schemas/femme-fatale");
+const FemmeFatale = require("../../model/Femme-fatale/Femme-fatale-contacts");
 
 class FemmeFataleConstructor{
-    constructor(plaint, base_name, name, phone, order, amount, observation, location, contact_status, payment_date, payment_status, posts, reco){
-        this.base_name = base_name;
+    constructor(plaint, name, phone, order, amount, observation, location, contact_status, payment_date, payment_status, posts, reco){
         this.name = name;
         this.phone = phone;
         this.order = order;
@@ -21,7 +20,6 @@ class FemmeFataleConstructor{
         return new Promise((resolve, reject)=>{
             const contact = new FemmeFatale({
                 plaint: this.plaint,
-                base_name: this.base_name,
                 name: this.name,
                 phone: this.phone,
                 order: this.order,

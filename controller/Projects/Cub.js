@@ -1,8 +1,7 @@
-const Cub = require("../../model/Schemas/Cub");
+const Cub = require("../../model/Cub/Cub-contacts");
 
 class CubController{
     constructor(base_name, name, phone, cni, service, observation, quartier, facebook, status, posts, reco){
-        this.base_name = base_name;
         this.name = name;
         this.phone = phone;
         this.cni = cni;
@@ -18,7 +17,6 @@ class CubController{
     addContact(){
         return new Promise((resolve, reject)=>{
             const contact = new Cub({
-                base_name:  this.base_name,
                 name: this.name,
                 phone: this.phone,
                 cni: this.cni,

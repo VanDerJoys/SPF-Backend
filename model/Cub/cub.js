@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 
-const BaseSchema = new mongoose.Schema({
-    project: { 
-        type: String,
-        required: false
-    },
-    name: {
-        type: String,
+const CubSchema = new mongoose.Schema({
+    base_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bases",
         required: true
     },
     created_at: {
@@ -23,5 +20,5 @@ const BaseSchema = new mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('Bases', BaseSchema);
+module.exports = mongoose.model('cub', CubSchema);
 

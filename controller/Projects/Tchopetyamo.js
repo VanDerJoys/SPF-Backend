@@ -1,24 +1,26 @@
-const Tchopetyamo = require("../../model/Schemas/Tchopetyamo");
+const Tchopetyamo = require("../../model/Tchopetyamo/Tchopetyamo-contacts");
 
 class TchopetyamoController{
 
-    constructor(base_id, name, phone, town, post, reco){
-        this.base_id = base_id;
+    constructor(name, phone, town, post, contact_status, observation, reco){
         this.name = name;
         this.phone = phone;
         this.town = town;
         this.post = post;
+        this.contact_status = contact_status;
+        this.observation = observation;
         this.reco = reco;
     }
 
     addContact(){
         return new Promise((resolve, reject)=>{
             const contact = new Tchopetyamo({
-                base_name: this.base,
                 name: this.name,
                 phone: this.phone,
                 town: this.town,
                 post: this.post,
+                contact_status: this.contact_status,
+                observation: this.observation,
                 recommandation: this.reco
             });
             contact.save().then(data =>{

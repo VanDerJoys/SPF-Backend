@@ -11,8 +11,3 @@ const connection = mysql.createConnection({
 
 module.exports = connection; */
 
-const mongoose = require('mongoose');
-// database initialisation
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log("Connected to database...");
-}).catch(error => console.log(error));

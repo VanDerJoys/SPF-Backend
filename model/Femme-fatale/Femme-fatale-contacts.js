@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const FemmeFataleSchema = new mongoose.Schema({
-    base_name:{
-        type: String,
+    base_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "base",
         required: true
     },
     name: {

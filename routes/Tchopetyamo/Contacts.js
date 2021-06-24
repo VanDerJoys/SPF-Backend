@@ -6,11 +6,12 @@ const router = express.Router();
 
 router.post('/new', (req, res)=>{
     const contact = new TchopetyamoController(
-        req.body.base_name,
         req.body.name,
         req.body.phone,
         req.body.town,
-        req.body.stations,
+        req.body.post,
+        req.body.contact_status,
+        req.body.observation,
         req.body.recommandation
     );
     contact.addContact().then(response =>{
