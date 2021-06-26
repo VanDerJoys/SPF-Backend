@@ -1,9 +1,10 @@
 const Base = require("../../model/Tchopetyamo/base");
 
 class BaseController{
-    async createBase(name){
+    async createBase(name, post){
         const base = new Base({
-            name: name
+            name: name,
+            post: post
         })
         try {
             let response = await base.save();

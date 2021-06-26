@@ -1,7 +1,8 @@
 const Cub = require("../../model/Cub/Cub-contacts");
+const Base = require('../../model/Cub/base');
 
 class CubController{
-    constructor(base_name, name, phone, cni, service, observation, quartier, facebook, status, posts, reco){
+    constructor(base_id, name, phone, cni, service, observation, quartier, facebook, status, contact_status, reco){
         this.name = name;
         this.phone = phone;
         this.cni = cni;
@@ -9,9 +10,10 @@ class CubController{
         this.observation = observation;
         this.quartier = quartier;
         this.facebook = facebook;
-        this.status = status
-        this.posts = posts;
+        this.status = status;
+        this.contact_status = contact_status
         this.reco = reco;
+        this.base_id = base_id;
     }
 
     addContact(){
@@ -24,12 +26,13 @@ class CubController{
                 observation: this.observation,
                 quartier: this.quartier,
                 facebook: this.facebook,
-                posts: this.posts,
                 status: this.status,
+                contact_status: this.contact_status,
                 recommandation: this.reco
             });
             contact.save().then(data =>{
-                resolve(data);
+                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {contacts: data._id}});
+                resolve(addContact);
             }).catch(err =>{
                 reject(err);
             })
@@ -46,9 +49,9 @@ class CubController{
         }
     }
 
-    async getContactsByBase(base_name){
+    async getContactsByBase(){
         try {
-            let contacts = await Cub.find({base_name: base_name});
+            let contacts = await Base.find().populate({path:'contacts', model:Cub});
             return contacts;
         } catch (error) {
             console.log(error);

@@ -45,6 +45,13 @@ const CubSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+},  {
+    toJSON: { 
+        transform: function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
 })
 
 module.exports = mongoose.model('ccontacts', CubSchema);

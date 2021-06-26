@@ -15,6 +15,7 @@ router.post('/new', (req, res)=>{
         req.body.quartier,
         req.body.facebook,
         req.body.status,
+        req.body.contact_status,
         req.body.recommandation
     );
     contact.addContact().then(response =>{
@@ -37,9 +38,9 @@ router.get('/', (req, res)=>{
 })
 
 // get contacts of a specific base
-router.get('/base/:base_name', (req, res)=>{
+router.get('/base', (req, res)=>{
     const contact = new CubController();
-    contact.getContactsByBase(req.params.base_name).then(response =>{
+    contact.getContactsByBase().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);

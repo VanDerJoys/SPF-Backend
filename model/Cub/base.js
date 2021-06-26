@@ -5,7 +5,11 @@ const BaseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ccontacts:[{
+    post: {
+        type: String,
+        required: true
+    },
+    contacts:[{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: "ccontacts"

@@ -9,7 +9,7 @@ const BaseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    fcontacts:[{
+    contacts:[{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: "fcontacts"

@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Create a new base
 router.post('/new', (req, res)=>{
-    base.createBase(req.body.name).then(response =>{
+    base.createBase(req.body.name, req.body.post).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);

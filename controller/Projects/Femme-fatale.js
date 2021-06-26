@@ -2,7 +2,7 @@ const FemmeFatale = require("../../model/Femme-fatale/Femme-fatale-contacts");
 const Base = require('../../model/Femme-fatale/base');
 
 class FemmeFataleConstructor{
-    constructor(plaint, name, phone, order, amount, observation, location, contact_status, payment_date, payment_status, reco){
+    constructor(base_id, plaint, name, phone, order, amount, observation, location, contact_status, payment_date, payment_status, reco){
         this.name = name;
         this.phone = phone;
         this.order = order;
@@ -13,7 +13,8 @@ class FemmeFataleConstructor{
         this.payment_date = payment_date;
         this.payment_status = payment_status;
         this.reco = reco;
-        this.plaint = plaint
+        this.plaint = plaint;
+        this.base_id = base_id;
     }
 
     addContact(){
@@ -32,7 +33,7 @@ class FemmeFataleConstructor{
                 recommandation: this.reco
             });
             contact.save().then(data =>{
-                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {fcontacts: data._id}});
+                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {contacts: data._id}});
                 resolve(addContact);
             }).catch(err =>{
                 reject(err);
@@ -50,9 +51,9 @@ class FemmeFataleConstructor{
         }
     }
 
-    async getContactsByBase(base_name){
+    async getContactsByBase(){
         try {
-            let contacts = await FemmeFatale.find({base_name: base_name});
+            let contacts = await Base.find().populate({path:'contacts', model:FemmeFatale});
             return contacts;
         } catch (error) {
             console.log(error);

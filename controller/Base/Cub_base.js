@@ -1,4 +1,4 @@
-const Base = require("../../model/Femme-fatale/base");
+const Base = require("../../model/Cub/base");
 
 class BaseController{
     async createBase(name, post){

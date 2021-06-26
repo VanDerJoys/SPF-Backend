@@ -26,7 +26,7 @@ class TchopetyamoController{
                 recommandation: this.reco
             });
             contact.save().then(data =>{
-                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {tcontacts: data._id}});
+                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {contacts: data._id}});
                 resolve(addContact);
             }).catch(err =>{
                 console.log(err);
@@ -47,7 +47,7 @@ class TchopetyamoController{
 
     async getContactsByBase(){
         try {
-            let contacts = await Base.find().populate({path:'tcontacts', model:Tchopetyamo});
+            let contacts = await Base.find().populate({path:'contacts', model:Tchopetyamo});
             return contacts;
         } catch (error) {
             console.log(error);

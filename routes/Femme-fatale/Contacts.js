@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/new', (req, res)=>{
     const contact = new FemmeFataleConstructor(
+        req.body.base_id,
         req.body.plaint,
         req.body.name,
         req.body.phone,
@@ -37,9 +38,9 @@ router.get('/', (req, res)=>{
 })
 
 // get contacts of a specific base
-router.get('/base/:base_name', (req, res)=>{
+router.get('/base/', (req, res)=>{
     const contact = new FemmeFataleConstructor();
-    contact.getContactsByBase(req.params.base_name).then(response =>{
+    contact.getContactsByBase().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
