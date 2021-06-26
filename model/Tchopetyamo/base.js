@@ -5,10 +5,10 @@ const BaseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contact:[{
+    tcontacts:[{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: "Tchopetyamo-contact"
+        ref: "tcontacts"
     }],
     created_at: {
         type: Date,
@@ -24,5 +24,5 @@ const BaseSchema = new mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('Bases', BaseSchema);
+module.exports = mongoose.model('tbases', BaseSchema);
 

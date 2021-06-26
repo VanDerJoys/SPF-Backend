@@ -13,10 +13,6 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    post: {
-        type: String,
-        required: false
-    },
     contact_status: {
         type: String,
         required: false
@@ -35,4 +31,4 @@ const TchopetyamoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Tchopetyamo-contacts', TchopetyamoSchema);
+module.exports = mongoose.model('tcontacts', TchopetyamoSchema);

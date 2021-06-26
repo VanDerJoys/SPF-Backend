@@ -1,8 +1,10 @@
 const Tchopetyamo = require("../../model/Tchopetyamo/Tchopetyamo-contacts");
+const Base = require('../../model/Tchopetyamo/base');
 
 class TchopetyamoController{
 
-    constructor(name, phone, town, post, contact_status, observation, reco){
+    constructor(base_id, name, phone, town, post, contact_status, observation, reco){
+        this.base_id = base_id;
         this.name = name;
         this.phone = phone;
         this.town = town;
@@ -24,8 +26,10 @@ class TchopetyamoController{
                 recommandation: this.reco
             });
             contact.save().then(data =>{
-                resolve(data);
+                let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {tcontacts: data._id}});
+                resolve(addContact);
             }).catch(err =>{
+                console.log(err);
                 reject(err);
             })
         })
@@ -41,9 +45,9 @@ class TchopetyamoController{
         }
     }
 
-    async getContactsByBase(base_name){
+    async getContactsByBase(){
         try {
-            let contacts = await Tchopetyamo.find({base_name: base_name}, {'_id': 0, '__v':0, "created_at":0});
+            let contacts = await Base.find().populate({path:'tcontacts', model:Tchopetyamo});
             return contacts;
         } catch (error) {
             console.log(error);

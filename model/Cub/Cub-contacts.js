@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const CubSchema = new mongoose.Schema({
-    base_name:{ 
-        type: String,
-        required: true
-    },
     name: { 
         type: String,
         required: true
@@ -20,6 +16,10 @@ const CubSchema = new mongoose.Schema({
     service: { 
         type: String,
         required: true
+    },
+    contact_status: {
+        type: String,
+        required: false
     },
     observation: {
         type: String,
@@ -37,10 +37,6 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    post: { 
-        type: Number,
-        required: false
-    },
     recommandation: {
         type: String,
         required: false
@@ -51,4 +47,4 @@ const CubSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Cub-contacts', CubSchema);
+module.exports = mongoose.model('ccontacts', CubSchema);

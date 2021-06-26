@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const FemmeFataleSchema = new mongoose.Schema({
-    base_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "base",
-        required: true
-    },
     name: {
         type: String,
         required: true
@@ -34,6 +29,10 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    observation: {
+        type: String,
+        required: false
+    },
     payment_date: {
         type: String,
         required: false,
@@ -41,10 +40,6 @@ const FemmeFataleSchema = new mongoose.Schema({
     payment_status: {
         type: String,
         required: true
-    },
-    post: {
-        type: Number,
-        required: false
     },
     recommandation: {
         type: String,
@@ -56,4 +51,4 @@ const FemmeFataleSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Femme_fatale-contacts', FemmeFataleSchema);
+module.exports = mongoose.model('fcontacts', FemmeFataleSchema);

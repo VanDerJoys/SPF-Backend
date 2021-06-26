@@ -4,12 +4,12 @@ const MarketerSchema = new mongoose.Schema({
     account: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "account",
-        require: true
+        required: true
     },
     post: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "post",
-        require: true
+        required: true
      },
     created_at: {
         type: Date,

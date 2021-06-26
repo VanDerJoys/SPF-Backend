@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/new', (req, res)=>{
     const contact = new CubController(
-        req.body.base_name,
+        req.body.base_id,
         req.body.name,
         req.body.phone,
         req.body.cni,
@@ -15,7 +15,6 @@ router.post('/new', (req, res)=>{
         req.body.quartier,
         req.body.facebook,
         req.body.status,
-        req.body.posts,
         req.body.recommandation
     );
     contact.addContact().then(response =>{

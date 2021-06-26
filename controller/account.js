@@ -41,6 +41,7 @@ class AccountController{
                 try{
                     await telemarketer.save();
                 }catch(error){
+                    console.log(error);
                     throw error;
                 }
             }

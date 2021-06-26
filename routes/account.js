@@ -31,6 +31,7 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
+    console.log(req.body)
     account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type, req.body.post)
     .then((response)=>{
         res.status(response.code).send(response.message)

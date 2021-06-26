@@ -50,7 +50,7 @@ app.use('/agenda', Agenda);
 app.use('/telemarketer', Posts);
 
 // database initialisation
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
     console.log("Connected to database...");
 }).catch(error => console.log(error));
 

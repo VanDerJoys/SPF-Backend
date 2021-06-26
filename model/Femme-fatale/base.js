@@ -5,10 +5,14 @@ const BaseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contact:[{
+    post: {
+        type: String,
+        required: true
+    },
+    fcontacts:[{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: "femme_fatale-contact"
+        ref: "fcontacts"
     }],
     created_at: {
         type: Date,
@@ -24,5 +28,5 @@ const BaseSchema = new mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('Bases', BaseSchema);
+module.exports = mongoose.model('fbases', BaseSchema);
 

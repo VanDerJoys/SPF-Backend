@@ -6,7 +6,6 @@ const router = express.Router();
 router.post('/new', (req, res)=>{
     const contact = new FemmeFataleConstructor(
         req.body.plaint,
-        req.body.base_name,
         req.body.name,
         req.body.phone,
         req.body.order,
@@ -16,7 +15,6 @@ router.post('/new', (req, res)=>{
         req.body.contact_status,
         req.body.payment_date,
         req.body.payment_status,
-        req.body.posts,
         req.body.recommandation 
     );
     contact.addContact().then(response =>{

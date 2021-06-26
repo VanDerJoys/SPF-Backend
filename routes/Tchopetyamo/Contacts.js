@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/new', (req, res)=>{
     const contact = new TchopetyamoController(
+        req.body.base_id,
         req.body.name,
         req.body.phone,
         req.body.town,
@@ -17,7 +18,7 @@ router.post('/new', (req, res)=>{
     contact.addContact().then(response =>{
         res.status(200).send(response);
     }).catch(err=>{
-        console.log(error)
+        console.log(err)
         res.status(400).send("Une erreur est survenue");
     })
 });
@@ -34,9 +35,9 @@ router.get('/', (req, res)=>{
 })
 
 // get contacts of a specific base
-router.get('/base/:base_name', (req, res)=>{
+router.get('/base/', (req, res)=>{
     const contact = new TchopetyamoController();
-    contact.getContactsByBase(req.params.base_name).then(response =>{
+    contact.getContactsByBase().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
