@@ -47,7 +47,7 @@ class TchopetyamoController{
 
     async getContactsByBase(){
         try {
-            let contacts = await Base.find().populate({path:'contacts', model:Tchopetyamo});
+            let contacts = await Base.find().populate('contacts');
             return contacts;
         } catch (error) {
             console.log(error);

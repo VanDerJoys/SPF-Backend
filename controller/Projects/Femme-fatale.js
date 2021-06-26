@@ -53,7 +53,7 @@ class FemmeFataleConstructor{
 
     async getContactsByBase(){
         try {
-            let contacts = await Base.find().populate({path:'contacts', model:FemmeFatale});
+            let contacts = await Base.find().populate('contacts');
             return contacts;
         } catch (error) {
             console.log(error);
