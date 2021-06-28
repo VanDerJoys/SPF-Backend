@@ -46,7 +46,7 @@ router.post('/post/new', (req, res)=>{
     })
 })
 
-// Get multiple posts
+// Get all posts
 router.get('/post/', (req, res)=>{
     marketer.getPosts().then(response =>{
         res.status(200).send(response);

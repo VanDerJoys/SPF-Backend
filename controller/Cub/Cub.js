@@ -78,6 +78,27 @@ class CubController{
             return error;
         }
     }
+
+    async updateContact(contactId, name, phone, cni, service, observation, quartier, facebook, status, contact_status, reco){
+        try {
+            let updatedContact = await Tchopetyamo.updateOne({_id: contactId}, {
+                name: name,
+                phone: phone,
+                cni: cni,
+                service: service,
+                observation: observation,
+                quartier: quartier,
+                facebook: facebook,
+                status: status,
+                contact_status: contact_status,
+                recommandation: reco
+            });
+            return updatedContact;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = CubController;

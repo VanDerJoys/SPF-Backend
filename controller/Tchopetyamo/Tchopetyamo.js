@@ -37,7 +37,7 @@ class TchopetyamoController{
 
     async getContacts(){
         try {
-            let contacts = await Tchopetyamo.find({}, {'_id': 0, '__v':0, "created_at":0});
+            let contacts = await Tchopetyamo.find({}, {'__v':0, "created_at":0});
             return contacts;
         } catch (error) {
             console.log(error);
@@ -72,6 +72,24 @@ class TchopetyamoController{
         } catch (error) {
             console.log(error);
             return error;
+        }
+    }
+
+    async updateContact(contactId, name, phone, town, post, contact_status, obs, reco){
+        try {
+            let updatedContact = await Tchopetyamo.updateOne({_id: contactId}, {
+                name: name,
+                phone: phone,
+                town: town,
+                post: post,
+                contact_status: contact_status,
+                observation: obs,
+                recommandation: reco
+            });
+            return updatedContact;
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
     }
 }

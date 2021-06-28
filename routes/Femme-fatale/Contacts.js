@@ -6,17 +6,10 @@ const router = express.Router();
 router.post('/new', (req, res)=>{
     const contact = new FemmeFataleConstructor(
         req.body.base_id,
-        req.body.plaint,
         req.body.name,
         req.body.phone,
-        req.body.order,
-        req.body.amount,
         req.body.observation,
-        req.body.location,
-        req.body.contact_status,
-        req.body.payment_date,
-        req.body.payment_status,
-        req.body.recommandation 
+        req.body.contact_status
     );
     contact.addContact().then(response =>{
         res.status(200).send(response);
@@ -68,5 +61,21 @@ router.delete('/:contactId', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     })
 })
+
+router.put('/:contactId', (req, res)=>{
+    let contact = new FemmeFataleConstructor();
+    contact.updateContact(
+        req.params.contactId,
+        req.body.name,
+        req.body.phone,
+        req.body.observation,
+        req.body.contact_status
+    ).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+});
 
 module.exports = router;

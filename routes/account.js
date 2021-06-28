@@ -31,7 +31,6 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
-    console.log(req.body)
     account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type, req.body.post)
     .then((response)=>{
         res.status(response.code).send(response.message)
@@ -53,7 +52,7 @@ router.get('/', (req, res)=>{
 
 router.delete('/:accountId', (req, res)=>{
     let account = new Account();
-    account.deleteAccount(req.params.accountId).then(response =>{
+    account.deleteAccount(req.params.accountId, req.body.post_id).then(response =>{
         res.status(200).send(Boolean(response.deletedCount))
     }).catch(error =>{
         console.log(error);
@@ -70,6 +69,7 @@ router.put('/:idUser', (req, res)=>{
         req.body.name,
         req.body.surname,
         req.body.phone,
+        req.body.type,
         req.body.post
     ).then(response =>{
         res.status(200).send(Boolean(response.nModified));

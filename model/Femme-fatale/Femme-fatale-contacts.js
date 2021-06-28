@@ -9,22 +9,6 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    plainte: {
-        type: String,
-        required: false
-    },
-    order: {
-        type: String,
-        required: true
-    },
-    amount: {
-        type: Number,
-        required: true
-    },
-    location: { //lieu
-        type: String,
-        required: true
-    },
     contact_status:{
         type: String,
         required: true
@@ -33,17 +17,9 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    payment_date: {
-        type: String,
-        required: false,
-    },
-    payment_status: {
-        type: String,
-        required: true
-    },
-    recommandation: {
-        type: String,
-        required: false
+    archived: {
+        type: Boolean,
+        default: false
     },
     created_at: {
         type: Date,

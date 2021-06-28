@@ -29,6 +29,13 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+},  {
+    toJSON: { 
+        transform: function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
 })
 
 module.exports = mongoose.model('tcontacts', TchopetyamoSchema);

@@ -1,5 +1,5 @@
 const Account = require('../model/Schemas/account');
-const Telemarketer = require('../model/Telemarketer/telemarketer');
+const Post = require('../model/Schemas/post');
 const defineAccess = require('../helpers/access');
 const bcrypt = require('bcryptjs');
 
@@ -22,30 +22,32 @@ class AccountController{
         return user;
     }
 
-    async register(name, surname, phone, password, type, post){
+    async register(name, surname, phone, password, type, postId){
         let hashedPassword = await this.hashPassword(password);
-        const account = new Account({
-            name: name,
-            surname: surname,
-            phone: phone,
-            password: hashedPassword,
-            type: type
-        });
         try {
-            let results = await account.save();
             if(type == "Télévendeur"){
-                const telemarketer = new Telemarketer({
-                    account: results._id,
-                    post: post
+                const account = new Account({
+                    name: name,
+                    surname: surname,
+                    phone: phone,
+                    password: hashedPassword,
+                    type: type,
+                    post: postId
                 });
-                try{
-                    await telemarketer.save();
-                }catch(error){
-                    console.log(error);
-                    throw error;
-                }
+                const post = await Post.updateOne({_id: postId}, {available: false});
+                let results = await account.save();
+                return {code : 200, message: results};
+            }else{
+                const account = new Account({
+                    name: name,
+                    surname: surname,
+                    phone: phone,
+                    password: hashedPassword,
+                    type: type
+                });
+                let results = await account.save();
+                return {code : 200, message: results}
             }
-            return {code : 200, message: results}
         } catch (error) {
             console.log("Controller: "+error);
             return {code:400, message:"Une erreur est survenue"}
@@ -54,17 +56,20 @@ class AccountController{
 
     async getAccounts(){
         try {
-            let accounts = await Account.find().select({"password": 0})
-            return accounts
+            let accounts = await Account
+            .find()
+            .select({"password": 0});
+            return accounts;
         } catch (error) {
             console.log(error);
             return error;
         }
     }
 
-    async deleteAccount(id){
+    async deleteAccount(id, postId){
         try {
-            let account = await Account.deleteOne({"_id": id})
+            let account = await Account.deleteOne({"_id": id});
+            await Post.updateOne({_id: postId}, {available: true});
             return account;
         } catch (error) {
             console.log(error);
@@ -72,14 +77,15 @@ class AccountController{
         }
     }
 
-    async updateAccount(id, name, surname, phone, post){
+    async updateAccount(id, name, surname, phone, type, post){
         try {
             let account = await Account.updateOne({"_id" : id}, {
                 name: name,
                 surname: surname,
                 phone: phone,
+                type: type,
                 post: post
-            })
+            });
             return account;
         } catch (error) {
             console.log(error);

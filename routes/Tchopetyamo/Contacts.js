@@ -64,6 +64,25 @@ router.delete('/:contactId', (req, res)=>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     })
-})
+});
+
+router.put('/:contactId', (req, res)=>{
+    let contact = new TchopetyamoController();
+    contact.updateContact(
+        req.params.contactId,
+        req.body.name,
+        req.body.phone,
+        req.body.town,
+        req.body.post,
+        req.body.contact_status,
+        req.body.observation,
+        req.body.recommandation
+    ).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+});
 
 module.exports = router;

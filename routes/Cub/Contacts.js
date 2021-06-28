@@ -69,4 +69,26 @@ router.delete('/:contactId', (req, res)=>{
     })
 })
 
+router.put('/:contactId', (req, res)=>{
+    let contact = new CubController();
+    contact.updateContact(
+        req.params.contactId,
+        req.body.name,
+        req.body.phone,
+        req.body.cni,
+        req.body.service,
+        req.body.observation,
+        req.body.quartier,
+        req.body.facebook,
+        req.body.status,
+        req.body.contact_status,
+        req.body.recommandation
+    ).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+});
+
 module.exports = router;

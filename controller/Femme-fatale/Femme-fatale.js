@@ -80,6 +80,21 @@ class FemmeFataleConstructor{
             return error;
         }
     }
+
+    async updateContact(contactId, name, phone, observation, contact_status){
+        try {
+            let updatedContact = await Tchopetyamo.updateOne({_id: contactId}, {
+                name: name,
+                phone: phone,
+                observation: observation,
+                contact_status: contact_status,
+            });
+            return updatedContact;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = FemmeFataleConstructor;
