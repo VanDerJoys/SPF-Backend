@@ -1,6 +1,6 @@
 const express = require('express');
 
-const TchopetyamoController = require('../../controller/Projects/Tchopetyamo');
+const TchopetyamoController = require('../../controller/Tchopetyamo/Tchopetyamo');
 
 const router = express.Router();
 

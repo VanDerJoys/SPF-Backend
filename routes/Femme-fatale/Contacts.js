@@ -1,5 +1,5 @@
 const express = require('express');
-const FemmeFataleConstructor = require('../../controller/Projects/Femme-fatale');
+const FemmeFataleConstructor = require('../../controller/Femme-fatale/Femme-fatale');
 
 const router = express.Router();
 
