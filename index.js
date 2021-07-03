@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+let databaseInit = require('./config/database');
 
 dotenv.config();
+databaseInit();
+
 const app = express();
 
 // Manage middlewares
@@ -48,11 +50,6 @@ app.use('/agenda', Agenda);
 
 // #################### POST MIDDLEWARE ###################
 app.use('/telemarketer', Posts);
-
-// database initialisation
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
-    console.log("Connected to database...");
-}).catch(error => console.log(error));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
