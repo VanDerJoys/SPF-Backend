@@ -9,12 +9,12 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contact_status:{
+    observation:{
         type: String,
-        required: true
+        required: false
     },
-    observation: {
-        type: String,
+    rdv: {
+        type: Date,
         required: false
     },
     archived: {

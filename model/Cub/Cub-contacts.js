@@ -21,10 +21,6 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    observation: {
-        type: String,
-        required: false
-    },
     quartier:{ 
         type: String,
         required: true
@@ -37,7 +33,7 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    recommandation: {
+    observation: {
         type: String,
         required: false
     },

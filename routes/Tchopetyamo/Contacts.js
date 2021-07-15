@@ -9,11 +9,7 @@ router.post('/new', (req, res)=>{
         req.body.base_id,
         req.body.name,
         req.body.phone,
-        req.body.town,
-        req.body.post,
-        req.body.contact_status,
-        req.body.observation,
-        req.body.recommandation
+        req.body.town
     );
     contact.addContact().then(response =>{
         res.status(200).send(response);
@@ -34,7 +30,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-// get contacts of a specific base
+// get contacts of all bases
 router.get('/base/', (req, res)=>{
     const contact = new TchopetyamoController();
     contact.getContactsByBase().then(response =>{
@@ -46,9 +42,9 @@ router.get('/base/', (req, res)=>{
 })
 
 // get contacts of a specific post
-router.get('/post/:post', (req, res)=>{
+router.get('/post/:post_id', (req, res)=>{
     const contact = new TchopetyamoController();
-    contact.getContactsByPost(req.params.post).then(response =>{
+    contact.getPostContacts(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -67,22 +63,37 @@ router.delete('/:contactId', (req, res)=>{
 });
 
 router.put('/:contactId', (req, res)=>{
-    let contact = new TchopetyamoController();
-    contact.updateContact(
-        req.params.contactId,
-        req.body.name,
-        req.body.phone,
-        req.body.town,
-        req.body.post,
-        req.body.contact_status,
-        req.body.observation,
-        req.body.recommandation
-    ).then(response =>{
+    let contact = new TchopetyamoController(req.body.name,req.body.phone,req.body.town);
+    contact.updateContact(req.params.contactId).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     })
+});
+
+// Qualify a call
+router.put('/status/:contact_id', (req, res)=>{
+    let contact = new TchopetyamoController();
+    contact.changeStatus(req.params.contact_id, req.body.observation)
+    .then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
+// Archive a call
+router.put('/archive/:contact_id', (req, res)=>{
+    let contact = new TchopetyamoController();
+    contact.addToArchive(req.params.contact_id, req.body.archived)
+    .then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
 });
 
 module.exports = router;

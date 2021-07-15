@@ -2,35 +2,21 @@ const FemmeFatale = require("../../model/Femme-fatale/Femme-fatale-contacts");
 const Base = require('../../model/Femme-fatale/base');
 
 class FemmeFataleConstructor{
-    constructor(base_id, plaint, name, phone, order, amount, observation, location, contact_status, payment_date, payment_status, reco){
+    constructor(base_id, name, phone, location, contact_status){
         this.name = name;
         this.phone = phone;
-        this.order = order;
-        this.amount = amount;
-        this.observation = observation;
         this.location = location;
         this.contact_status = contact_status;
-        this.payment_date = payment_date;
-        this.payment_status = payment_status;
-        this.reco = reco;
-        this.plaint = plaint;
         this.base_id = base_id;
     }
 
     addContact(){
         return new Promise((resolve, reject)=>{
             const contact = new FemmeFatale({
-                plaint: this.plaint,
                 name: this.name,
                 phone: this.phone,
-                order: this.order,
-                amount: this.amount,
-                observation: this.observation,
                 location: this.location,
                 contact_status: this.contact_status,
-                payment_date: this.payment_date,
-                payment_status: this.payment_status,
-                recommandation: this.reco
             });
             contact.save().then(data =>{
                 let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {contacts: data._id}});
@@ -81,12 +67,11 @@ class FemmeFataleConstructor{
         }
     }
 
-    async updateContact(contactId, name, phone, observation, contact_status){
+    async updateContact(contactId, name, phone, contact_status){
         try {
             let updatedContact = await Tchopetyamo.updateOne({_id: contactId}, {
                 name: name,
                 phone: phone,
-                observation: observation,
                 contact_status: contact_status,
             });
             return updatedContact;

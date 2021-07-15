@@ -17,13 +17,13 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    observation: {
-        type: String,
-        required: false
-    },
     recommandation: {
         type: String,
         required: false
+    },
+    archived: {
+        type: Boolean,
+        default: false
     },
     created_at: {
         type: Date,

@@ -7,7 +7,7 @@ const BaseSchema = new mongoose.Schema({
     },
     post: {
         type: String,
-        required: true
+        required: false
     },
     contacts:[{
         type: mongoose.Schema.Types.ObjectId,

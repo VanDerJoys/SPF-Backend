@@ -3,15 +3,11 @@ const Base = require('../../model/Tchopetyamo/base');
 
 class TchopetyamoController{
 
-    constructor(base_id, name, phone, town, post, contact_status, observation, reco){
+    constructor(base_id, name, phone, town){
         this.base_id = base_id;
         this.name = name;
         this.phone = phone;
         this.town = town;
-        this.post = post;
-        this.contact_status = contact_status;
-        this.observation = observation;
-        this.reco = reco;
     }
 
     addContact(){
@@ -20,10 +16,6 @@ class TchopetyamoController{
                 name: this.name,
                 phone: this.phone,
                 town: this.town,
-                post: this.post,
-                contact_status: this.contact_status,
-                observation: this.observation,
-                recommandation: this.reco
             });
             contact.save().then(data =>{
                 let addContact = Base.findOneAndUpdate({_id: this.base_id}, {$push: {contacts: data._id}});
@@ -47,7 +39,10 @@ class TchopetyamoController{
 
     async getContactsByBase(){
         try {
-            let contacts = await Base.find().populate('contacts');
+            let contacts = await Base
+            .find()
+            .populate('contacts')
+            .populate('post');
             return contacts;
         } catch (error) {
             console.log(error);
@@ -55,9 +50,12 @@ class TchopetyamoController{
         }
     }
 
-    async getContactsByPost(post){
+    async getPostContacts(postId){
         try {
-            let contacts = await Tchopetyamo.find({post: post});
+            let contacts = await Base
+            .find({_id: postId})
+            .populate('contacts', {select : {_id: 0, __v: 0, created_at: 0}})
+            .populate('post', {select : {_id: 0, __v: 0, created_at: 0, available: 0}});
             return contacts;
         } catch (error) {
             console.log(error);
@@ -75,19 +73,40 @@ class TchopetyamoController{
         }
     }
 
-    async updateContact(contactId, name, phone, town, post, contact_status, obs, reco){
+    async updateContact(contactId){
         try {
             let updatedContact = await Tchopetyamo.updateOne({_id: contactId}, {
-                name: name,
-                phone: phone,
-                town: town,
-                post: post,
-                contact_status: contact_status,
-                observation: obs,
-                recommandation: reco
+                name: this.name,
+                phone: this.phone,
+                town: this.town
             });
             return updatedContact;
         } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async changeStatus(contactId, observation){
+        try {
+            let changedStatus = await Tchopetyamo.updateOne({_id: contactId}, {
+                observation: observation
+            });
+            return changedStatus;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async addToArchive(contactId, archive){
+        try{
+            let archived = await Tchopetyamo.updateOne({_id: contactId}, {
+                archived: archive
+            });
+            return archived;
+        }
+        catch(error){
             console.log(error);
             throw error;
         }
