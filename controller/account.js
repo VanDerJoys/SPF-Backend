@@ -22,35 +22,21 @@ class AccountController{
         return user;
     }
 
-    async register(name, surname, phone, password, type, postId){
+    async register(name, surname, phone, password, type){
         let hashedPassword = await this.hashPassword(password);
         try {
-            if(type == "Télévendeur"){
-                const account = new Account({
-                    name: name,
-                    surname: surname,
-                    phone: phone,
-                    password: hashedPassword,
-                    type: type,
-                    post: postId
-                });
-                const post = await Post.updateOne({_id: postId}, {available: false});
-                let results = await account.save();
-                return {code : 200, message: results};
-            }else{
-                const account = new Account({
-                    name: name,
-                    surname: surname,
-                    phone: phone,
-                    password: hashedPassword,
-                    type: type
-                });
-                let results = await account.save();
-                return {code : 200, message: results}
-            }
+            const account = new Account({
+                name: name,
+                surname: surname,
+                phone: phone,
+                password: hashedPassword,
+                type: type
+            });
+            let results = await account.save();
+            return {code: 200, message: results}
         } catch (error) {
             console.log("Controller: "+error);
-            return {code:400, message:"Une erreur est survenue"}
+            return {code: 400, message: error}
         }
     }
 

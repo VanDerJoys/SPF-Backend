@@ -24,12 +24,7 @@ const AccountSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         required: false,
-        default: 0
-    },
-    post:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: "posts"
+        default: false
     },
     created_at: {
         type: Date,

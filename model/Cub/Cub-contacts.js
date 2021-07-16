@@ -33,10 +33,6 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    observation: {
-        type: String,
-        required: false
-    },
     created_at: {
         type: Date,
         default: Date.now

@@ -31,12 +31,17 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
-    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type, req.body.post)
+    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type)
     .then((response)=>{
-        res.status(response.code).send(response.message)
+        if(response.code == 200){
+            res.status(response.code).send(response.message)
+        }else{
+            res.status(response.code).send(response.message.message);
+        }
     })
     .catch((error)=>{
         console.log("Router: "+error);
+        res.statut(400).send('Une erreur est survenue')
     });
 })
 
@@ -47,8 +52,8 @@ router.get('/', (req, res)=>{
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
-    })
-})
+    });
+});
 
 router.delete('/:accountId', (req, res)=>{
     let account = new Account();

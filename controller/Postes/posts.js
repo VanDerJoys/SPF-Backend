@@ -20,16 +20,6 @@ class MarketerController{
         }
     }
 
-    async createBase(id, nom){
-        try {
-            let response = await db.createBase(id, nom);
-            return {code: 200, message: response};
-        } catch (error) {
-            console.log(error);
-            return {code: 400, message: "Une erreur est survenue"};
-        }
-    }
-
     async assignBase(id_base, id_user){
         try {
             let response = await db.assignBase(id_base, id_user);
@@ -37,6 +27,16 @@ class MarketerController{
         } catch (error) {
             console.log(error);
             return {code: 400, message: "Une erreur est survenue"};
+        }
+    }
+
+    async getAvailablePosts(){
+        try {
+            let posts = await Post.find({available: true}).populate('account');
+            return posts;
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
     }
 
@@ -50,11 +50,12 @@ class MarketerController{
             throw error;
         }
     }
+
 // get multiple posts
     async getPosts(){
         try {
-            let post = await Post.find();
-            return post;
+            let posts = await Post.find().populate('account');
+            return posts;
         } catch (error) {
             console.log(error);
             throw error;
@@ -71,6 +72,16 @@ class MarketerController{
         }
     }
 
+    async assignPost(postId, accountId){
+        try{
+            let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
+            return post;
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
+
     async deletePost(id){
         try {
             let post = await Post.deleteOne({"_id": id});            
@@ -80,6 +91,7 @@ class MarketerController{
             throw error;
         }
     }
+
 // get a single post
     async getPost(id){
         try {

@@ -75,7 +75,7 @@ router.put('/:contactId', (req, res)=>{
 // Qualify a call
 router.put('/status/:contact_id', (req, res)=>{
     let contact = new TchopetyamoController();
-    contact.changeStatus(req.params.contact_id, req.body.observation)
+    contact.changeStatus(req.params.contact_id, req.body.contact_status)
     .then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
@@ -84,7 +84,7 @@ router.put('/status/:contact_id', (req, res)=>{
     });
 });
 
-// Archive a call
+// Archive a contact
 router.put('/archive/:contact_id', (req, res)=>{
     let contact = new TchopetyamoController();
     contact.addToArchive(req.params.contact_id, req.body.archived)

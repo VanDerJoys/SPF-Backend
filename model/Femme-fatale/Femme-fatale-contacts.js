@@ -9,7 +9,7 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    observation:{
+    contact_status:{
         type: String,
         required: false
     },

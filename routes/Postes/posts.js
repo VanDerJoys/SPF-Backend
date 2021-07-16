@@ -6,15 +6,6 @@ const marketer = new MarketerController();
 
 const router = express.Router();
 
-// Create telemarketer base
-router.post('/new', verifyToken, (req, res)=>{
-    marketer.createBase(req.body.id, req.body.nom).then(results =>{
-        res.status(results.code).send(results.message);
-    }).catch(error =>{
-        console.log("Router: "+error);
-    })
-})
-
 // get all telemarketers
 router.get('/', (req, res)=>{
     marketer.getMarketer().then(results =>{
@@ -22,7 +13,7 @@ router.get('/', (req, res)=>{
     }).catch(error =>{
         console.log(error);
         res.status(400).send("Une erreur est survenue");
-    })
+    });
 });
 
 // Assign a base to another telemarketer
@@ -36,7 +27,7 @@ router.put('/base', verifyToken, (req, res)=>{
     });
 });
 
-// Create a new station
+// Create a new post
 router.post('/post/new', (req, res)=>{
     marketer.createPost(req.body.name).then(response =>{
         res.status(200).send(response);
@@ -47,8 +38,18 @@ router.post('/post/new', (req, res)=>{
 })
 
 // Get all posts
-router.get('/post/', (req, res)=>{
+router.get('/post', (req, res)=>{
     marketer.getPosts().then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
+// get available posts
+router.get('/post/available', (req, res)=>{
+    marketer.getAvailablePosts().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -73,6 +74,16 @@ router.put('/post/:idPost', (req, res)=>{
         console.log(error);
         res.status(400).send('Une erreur est survenue')
     })
+});
+
+// assign a post to an account
+router.put('/post', (req, res)=>{
+    marketer.assignPost(req.body.postId, req.body.accountId).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
 });
 
 router.delete('/post/:idPost', (req, res)=>{

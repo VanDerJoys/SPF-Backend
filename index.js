@@ -26,7 +26,6 @@ const CubBase = require('./routes/Cub/Bases');
 const CubContacts = require('./routes/Cub/Contacts');
 
 const Account = require('./routes/account');
-const Agenda = require('./routes/Agenda/agenda');
 const Posts = require('./routes/Postes/posts');
 
 // Loading middlewares
@@ -44,9 +43,6 @@ app.use('/cub/contacts/', CubContacts);
 
 // #################### ACCOUNT MIDDLEWARE ###################
 app.use('/user', Account);
-
-// #################### AGENDA MIDDLEWARE ###################
-app.use('/agenda', Agenda);
 
 // #################### POST MIDDLEWARE ###################
 app.use('/telemarketer', Posts);
