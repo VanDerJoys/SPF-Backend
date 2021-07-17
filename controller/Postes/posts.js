@@ -20,16 +20,6 @@ class MarketerController{
         }
     }
 
-    async assignBase(id_base, id_user){
-        try {
-            let response = await db.assignBase(id_base, id_user);
-            return {code: 200, message: response};
-        } catch (error) {
-            console.log(error);
-            return {code: 400, message: "Une erreur est survenue"};
-        }
-    }
-
     async getAvailablePosts(){
         try {
             let posts = await Post.find({available: true}).populate('account');

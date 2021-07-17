@@ -16,9 +16,9 @@ class BaseController{
     }
 
 // get multiple bases
-    async getBases(project){
+    async getBases(){
         try {
-            let bases = await Base.find({project: project});
+            let bases = await Base.find().populate('contacts')
             return bases;
         } catch (error) {
             console.log(error);
@@ -47,9 +47,9 @@ class BaseController{
     }
     
 // get a single base
-    async getBase(id){
+    async getSingleBase(id){
         try {
-            let base = await Base.findOne({"_id": id});
+            let base = await Base.findOne({"_id": id}).populate('contacts');
             return base;
         } catch (error) {
             console.log(error);

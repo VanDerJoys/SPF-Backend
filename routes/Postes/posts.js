@@ -16,16 +16,7 @@ router.get('/', (req, res)=>{
     });
 });
 
-// Assign a base to another telemarketer
-router.put('/base', verifyToken, (req, res)=>{
-    marketer.assignBase(req.body.id_base, req.body.id_user)
-    .then(results =>{
-        res.status(results.code).send(results.message);
-    })
-    .catch(error =>{
-        console.log("Router: "+error);
-    });
-});
+
 
 // Create a new post
 router.post('/post/new', (req, res)=>{

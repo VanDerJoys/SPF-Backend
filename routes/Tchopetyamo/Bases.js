@@ -18,10 +18,32 @@ router.post('/new', (req, res)=>{
 
 // Get multiple bases
 router.get('/', (req, res)=>{
-    base.getBases(req.body.project_name).then(response =>{
+    base.getBases().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
+// Get a single base
+router.get('/:baseId', (req, res)=>{
+    base.getSingleBase(req.params.baseId).then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
+// Assign a base to another post
+router.put('/', (req, res)=>{
+    base.assignBase(req.body.baseId, req.body.accountId)
+    .then(results =>{
+        res.status(200).send(Boolean(results.nModified));
+    })
+    .catch(error =>{
+        console.log("Router: "+error);
         res.status(400).send('Une erreur est survenue');
     });
 });
@@ -32,7 +54,7 @@ router.put('/:id_base', (req, res)=>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
-        res.status(400).send('Une erreur est survenue')
+        res.status(400).send('Une erreur est survenue');
     })
 });
 
