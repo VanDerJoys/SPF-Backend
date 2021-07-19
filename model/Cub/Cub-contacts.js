@@ -33,6 +33,10 @@ const CubSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rdv: {
+        type: String,
+        required: false
+    },
     created_at: {
         type: Date,
         default: Date.now

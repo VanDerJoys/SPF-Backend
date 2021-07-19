@@ -14,7 +14,7 @@ const FemmeFataleSchema = new mongoose.Schema({
         required: false
     },
     rdv: {
-        type: Date,
+        type: String,
         required: false
     },
     archived: {
