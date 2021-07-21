@@ -73,9 +73,7 @@ router.put('/:idUser', (req, res)=>{
         req.params.idUser,
         req.body.name,
         req.body.surname,
-        req.body.phone,
-        req.body.type,
-        req.body.post
+        req.body.phone
     ).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
@@ -94,7 +92,7 @@ router.put('/archive/:idUser', (req, res)=>{
     })
 })
 
-router.put('/role/:idUser', (req, res)=>{
+/* router.put('/role/:idUser', (req, res)=>{
     let account = new Account();
     account.updateRole(req.params.idUser, req.body.role).then(response =>{
         res.status(200).send(Boolean(response.nModified));
@@ -102,6 +100,6 @@ router.put('/role/:idUser', (req, res)=>{
         console.log(error);
         res.status(200).send("Une erreur est survenue");
     })
-})
+}) */
 
 module.exports = router;

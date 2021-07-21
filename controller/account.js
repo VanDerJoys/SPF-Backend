@@ -55,7 +55,7 @@ class AccountController{
     async deleteAccount(id, postId){
         try {
             let account = await Account.deleteOne({"_id": id});
-            await Post.updateOne({_id: postId}, {available: true});
+            await Post.updateOne({_id: postId}, {available: true, $unset: {account: 1}});
             return account;
         } catch (error) {
             console.log(error);
@@ -63,14 +63,12 @@ class AccountController{
         }
     }
 
-    async updateAccount(id, name, surname, phone, type, post){
+    async updateAccount(id, name, surname, phone){
         try {
             let account = await Account.updateOne({"_id" : id}, {
                 name: name,
                 surname: surname,
-                phone: phone,
-                type: type,
-                post: post
+                phone: phone
             });
             return account;
         } catch (error) {
@@ -82,7 +80,7 @@ class AccountController{
     async archiveAccount(id){
         try {
             let account = await Account.findOne({"_id" : id})
-            account = await Account.updateOne({"_id" : id}, {"status": (account.status ? 0 : 1)});
+            account = await Account.updateOne({"_id" : id}, {"status": (account.status ? false : true)});
             return account;
         } catch (error) {
             console.log(error);
@@ -90,15 +88,15 @@ class AccountController{
         }
     }
 
-    async updateRole(id, role){
+    /* async updateRole(id, role){
         try {
-            let account = await Account.updateOne({"_id" : id}, { type: role })
+            let account = await Account.updateOne({"_id" : id}, { type: role });
             return account;
         } catch (error) {
             console.log(error);
             return error;
         }
-    }
+    } */
 }
 
 module.exports = AccountController;

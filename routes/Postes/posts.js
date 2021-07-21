@@ -16,8 +16,6 @@ router.get('/', (req, res)=>{
     });
 });
 
-
-
 // Create a new post
 router.post('/post/new', (req, res)=>{
     marketer.createPost(req.body.name).then(response =>{
