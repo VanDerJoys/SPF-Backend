@@ -13,10 +13,6 @@ const FemmeFataleSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    rdv: {
-        type: String,
-        required: false
-    },
     archived: {
         type: Boolean,
         default: false

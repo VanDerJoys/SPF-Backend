@@ -21,10 +21,6 @@ const TchopetyamoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    rdv: {
-        type: String,
-        required: false
-    },
     created_at: {
         type: Date,
         default: Date.now
