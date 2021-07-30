@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-let databaseInit = require('./config/database');
+const helmet = require('helmet');
+require('dotenv').config();
 
-dotenv.config();
+let databaseInit = require('./config/database');
 databaseInit();
 
 const app = express();
@@ -11,6 +11,7 @@ const app = express();
 // Manage middlewares
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 // Loading routes
 // ##################### TCHOP ET YAMO ROUTES #########################
