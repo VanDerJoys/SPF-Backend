@@ -1,21 +1,29 @@
 const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
-    base_id: [{
-        type: mongoose.Schema.Types.ObjectId, // identifiant de la base
+const ListeningSchema = new mongoose.Schema({
+    post_id: [{
+        type: mongoose.Schema.Types.ObjectId, // identifiant du poste
         ref: "Bases",
         required: false
     }],    
-    name: {
+    hours: {  // Heures d'appel
         type: String,
         required: true
     },
-    account:{
-        type: mongoose.Schema.Types.ObjectId,  // identifiant du compte
+    duration:{  // durée de l'appel
+        type: String,
         required: false,
         ref: "Accounts"
     },
-    available: {
+    notes: {
+        type: Boolean,
+        default: true
+    },
+    observation: {
+        type: Boolean,
+        default: true
+    },
+    actions: {
         type: Boolean,
         default: true
     },
@@ -33,5 +41,5 @@ const PostSchema = new mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('Posts', PostSchema);
+module.exports = mongoose.model('Listenings', ListeningSchema);
 

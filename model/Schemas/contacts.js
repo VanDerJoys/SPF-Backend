@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
+    base_id: [{
+        type: mongoose.Schema.Types.ObjectId, // identifiant de la base
+        ref: "Bases",
+        required: false
+    }],
     name:{  //Nom
         type: String,
-        required: false
+        required: true
     },
     surname:{  //Prénom
         type: String,
@@ -11,7 +16,7 @@ const ContactSchema = new mongoose.Schema({
     },
     phone:{  //Numéro de téléphone
         type: String,
-        required: false
+        required: true
     },
     cni:{ //Numéro de CNI
         type: String,
@@ -32,6 +37,14 @@ const ContactSchema = new mongoose.Schema({
     archived:{ //Archivé?
         type: Boolean,
         required: false
+    },
+    service: { 
+        type: String,
+        required: true
+    },
+    status:{ //locataire ou propiétaire
+        type: String,
+        required: true
     },
     marital_status:{  // Situation matrimoniale
         type: String,
@@ -116,6 +129,10 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    paiement:{
+        type: String,  // paiement par l'entreprise ou par le client
+        required: false
+    },
     deplacement:{  // Habitude de déplacement: Seul ou accompagné
         type: String,
         required: false
@@ -192,9 +209,20 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    suggestion:{
+        type: String,
+        required: false
+    },
     created_at:{
         type: Date,
         default: Date.now
+    }
+},  {
+    toJSON: { 
+        transform: function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+        }
     }
 })
 

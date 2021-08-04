@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const AccountSchema = new mongoose.Schema({
+    project_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: false
+    },
     name: {
         type: String,
         required: true
@@ -17,7 +21,7 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type: {
+    role: {
         type: String,
         required: true
     },
