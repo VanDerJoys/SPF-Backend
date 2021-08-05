@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const ListeningSchema = new mongoose.Schema({
-    post_id: [{
+    post_id: {
         type: mongoose.Schema.Types.ObjectId, // identifiant du poste
         ref: "Bases",
         required: false
-    }],    
+    },    
     hours: {  // Heures d'appel
         type: String,
         required: true

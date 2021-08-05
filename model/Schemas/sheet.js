@@ -6,15 +6,21 @@ const SheetSchema = new mongoose.Schema({
         required: true,
         ref: "Posts"
     },
-    calls:{  // appellé
+    calls:{  // appelé
         type: Number,
         required: false,
         default: 0
     },
-    notebooks: [{  // rendez-vous
-        type: mongoose.Schema.Types.ObjectId, // identifiant du contact
-        required: false,
-        ref: "Contacts"
+    notebooks: [{// rendez-vous
+        contact: {  
+            type: mongoose.Schema.Types.ObjectId, // identifiant du contact
+            required: false,
+            ref: "Contacts"
+        },
+        period:{
+            type: String,
+            required: true
+        }
     }],
     arguments:{  // argumentaires
         type: Number,
