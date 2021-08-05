@@ -1,5 +1,5 @@
 const FemmeFatale = require("../../model/Femme-fatale/Femme-fatale-contacts");
-const Base = require('../../model/Femme-fatale/base');
+const Base = require('../../model/Schemas/base');
 
 class FemmeFataleConstructor{
     constructor(base_id, name, phone, location, contact_status){

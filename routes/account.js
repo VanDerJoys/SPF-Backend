@@ -22,7 +22,7 @@ router.post('/authentification', async (req, res)=>{
                     phone: results.phone, 
                     authToken: token
                 }
-            ).status(200);
+            ).status(201);
         }
     } catch (error) {
         console.log('Router: '+error);
@@ -31,7 +31,7 @@ router.post('/authentification', async (req, res)=>{
 
 router.post('/register', (req, res)=>{
     let account = new Account();
-    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type)
+    account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.role)
     .then((response)=>{
         if(response.code == 200){
             res.status(response.code).send(response.message)

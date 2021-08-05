@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
-    base_id: [{
+    base_id: {
         type: mongoose.Schema.Types.ObjectId, // identifiant de la base
         ref: "Bases",
         required: false
-    }],
+    },
+    project_id: {
+        type: mongoose.Schema.Types.ObjectId, // identifiant du projet
+        ref: "Projects",
+        required: false
+    },
     name:{  //Nom
         type: String,
         required: true

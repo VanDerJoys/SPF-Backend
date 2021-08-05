@@ -1,18 +1,12 @@
 const express = require('express');
-const ContactController = require('../../controller/Contact/contact');
+const ContactController = require('../../controller/contact');
 const { verifyToken } = require('../../helpers/web-token');
 
 const router = express.Router();
 
+// Add new contact
 router.post('/new', verifyToken, (req, res)=>{
-    const contact = new ContactController(
-        req.body.id, //id of the base
-        req.body.nom,
-        req.body.telephone, 
-        req.body.localisation,
-        req.body.statut
-    );
-
+    const contact = new ContactController(req.body);
     contact.addContact()
     .then(response =>{
         res.status(response.code).send(response.message);

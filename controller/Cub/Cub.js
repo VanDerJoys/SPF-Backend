@@ -1,5 +1,5 @@
 const Cub = require("../../model/Cub/Cub-contacts");
-const Base = require('../../model/Cub/base');
+const Base = require('../../model/Schemas/base');
 
 class CubController{
     constructor(base_id, name, phone, cni, service, observation, quartier, facebook, status, contact_status, reco){

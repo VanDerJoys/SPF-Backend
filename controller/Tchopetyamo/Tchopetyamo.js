@@ -1,5 +1,5 @@
 const Tchopetyamo = require("../../model/Tchopetyamo/Tchopetyamo-contacts");
-const Base = require('../../model/Tchopetyamo/base');
+const Base = require('../../model/Schemas/base');
 
 class TchopetyamoController{
 

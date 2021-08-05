@@ -1,6 +1,5 @@
 const Account = require('../model/Schemas/account');
 const Post = require('../model/Schemas/post');
-const defineAccess = require('../helpers/access');
 const bcrypt = require('bcryptjs');
 
 class AccountController{
@@ -22,7 +21,7 @@ class AccountController{
         return user;
     }
 
-    async register(name, surname, phone, password, type){
+    async register(name, surname, phone, password, role){
         let hashedPassword = await this.hashPassword(password);
         try {
             const account = new Account({
@@ -30,10 +29,10 @@ class AccountController{
                 surname: surname,
                 phone: phone,
                 password: hashedPassword,
-                type: type
+                role: role
             });
             let results = await account.save();
-            return {code: 200, message: results}
+            return {code: 201, message: results}
         } catch (error) {
             console.log("Controller: "+error);
             return {code: 400, message: error}
@@ -87,16 +86,6 @@ class AccountController{
             return error;
         }
     }
-
-    /* async updateRole(id, role){
-        try {
-            let account = await Account.updateOne({"_id" : id}, { type: role });
-            return account;
-        } catch (error) {
-            console.log(error);
-            return error;
-        }
-    } */
 }
 
 module.exports = AccountController;
