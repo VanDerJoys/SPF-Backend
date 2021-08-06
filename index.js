@@ -14,10 +14,8 @@ app.use(cors());
 app.use(helmet());
 
 // Loading routes
-// ##################### TCHOP ET YAMO ROUTES #########################
-const TeyBase = require('./routes/Tchopetyamo/Bases');
-const TeyContacts = require('./routes/Tchopetyamo/Contacts');
-const TeyNotebook = require('./routes/Tchopetyamo/notebook');
+// ##################### CONTACT ROUTES #########################
+const Contact = require('./routes/Contact/contact');
 
 // ##################### FEMME FATALE ROUTES #########################
 const FemmeFataleBase = require('./routes/Femme-fatale/Bases');
@@ -40,9 +38,7 @@ const Posts = require('./routes/Postes/posts');
 
 // Loading middlewares
 // #######################   TCHOP ET YAMO MIDDLEWARES  ###########################
-app.use('/tchopetyamo/base', TeyBase);
-app.use('/tchopetyamo/contacts', TeyContacts);
-app.use('/tchopetyamo/notebook', TeyNotebook);
+app.use('/contact', Contact);
 
 // #######################   FEMME FATALE MIDDLEWARES  ###########################
 app.use('/femme-fatale/base', FemmeFataleBase);

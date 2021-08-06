@@ -22,36 +22,36 @@ const SheetSchema = new mongoose.Schema({
             required: true
         }
     }],
-    arguments:{  // argumentaires
-        type: Number,
-        required: false,
-        default: 0
-    },
-    orders:{  // commandes
-        type: Number,
-        required: false,
-        default: 0
-    },
-    busy_calls:{  // appel en absence
-        type: Number,
-        required: false,
-        default: 0
-    },
-    unavailable:{ // indisponible
-        type: Number,
-        required: false,
-        default: 0
-    },
-    unreachable:{  // injoignable
-        type: Number,
-        required: false,
-        default: 0
-    },
-    do_not_call:{  // Ne plus appeler
-        type: Number,
-        required: false,
-        default: 0
-    },
+    arguments: [{  // argumentaires
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
+    orders: [{  // commandes
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
+    busy_calls: [{  // appel en absence
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
+    unavailable: [{  // indisponible
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
+    unreachable: [{  // injoignable
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
+    do_not_call: [{  // ne plus appeler
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Contacts",
+        required: false
+    }],
     created_at:{
         type: Date,
         default: Date.now

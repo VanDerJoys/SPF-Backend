@@ -1,25 +1,26 @@
 const express = require('express');
 const ContactController = require('../../controller/contact');
-const { verifyToken } = require('../../helpers/web-token');
+// const { verifyToken } = require('../../helpers/web-token');
 
 const router = express.Router();
 
 // Add new contact
-router.post('/new', verifyToken, (req, res)=>{
-    const contact = new ContactController(req.body);
-    contact.addContact()
+router.post('/', (req, res)=>{
+    const contact = new ContactController();
+    contact.addContact(req.body)
     .then(response =>{
-        res.status(response.code).send(response.message);
+        res.status(201).send(response);
     })
     .catch(error =>{
         console.log("Router: "+error);
+        res.status(400).send('Une erreur est survenue');
     })
 });
 
 // get all contacts
-router.get('/', verifyToken, (req, res)=>{
+router.get('/', (req, res)=>{
     const contact = new ContactController();
-    contact.getContacts()
+    contact.getAllContacts()
     .then(response =>{
         res.status(200).send(response);
     })
@@ -30,9 +31,9 @@ router.get('/', verifyToken, (req, res)=>{
 })
 
 // get marketer contacts
-router.get('/:idCompte', (req, res)=>{
+router.get('/project/:project', (req, res)=>{
     const contact = new ContactController();
-    contact.getMarketerContacts(req.params.idCompte)
+    contact.getProjectContacts(req.params.project)
     .then(response =>{
         res.status(200).send(response);
     })
@@ -43,9 +44,9 @@ router.get('/:idCompte', (req, res)=>{
 })
 
 // get base contacts
-router.get('/base/:idBase', verifyToken, (req, res)=>{
+router.get('/base/:base', (req, res)=>{
     const contact = new ContactController();
-    contact.getBaseContacts(req.params.idBase)
+    contact.getBaseContacts(req.params.base)
     .then(response =>{
         res.status(200).send(response);
     })
@@ -53,27 +54,5 @@ router.get('/base/:idBase', verifyToken, (req, res)=>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     })
-})
-
-// modify contact status
-router.put('/status/:telephone', verifyToken, (req, res)=>{
-    const contact = new ContactController();
-    contact.changeStatus(req.params.telephone, req.body.status).then(response =>{
-        res.status(response.code).send(response.message);
-    }).catch(error =>{
-        console.log("Router: "+error);
-    })
-})
-
-// add observation
-router.put('/observation/:telephone', verifyToken, (req, res)=>{
-    const contact = new ContactController();
-    contact.addObservation(req.params.telephone, req.body.observation)
-    .then(response =>{
-        res.status(response.code).send(response.message);
-    })
-    .catch(error =>{
-        console.log("Router: "+error);
-    });
 })
 module.exports = router;

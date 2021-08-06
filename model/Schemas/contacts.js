@@ -45,11 +45,11 @@ const ContactSchema = new mongoose.Schema({
     },
     service: { 
         type: String,
-        required: true
+        required: false
     },
     status:{ //locataire ou propiétaire
         type: String,
-        required: true
+        required: false
     },
     marital_status:{  // Situation matrimoniale
         type: String,
@@ -72,7 +72,7 @@ const ContactSchema = new mongoose.Schema({
         required: false
     },
     parts:{  // Intéressé par des parts ?
-        type: String,
+        type: Boolean,
         required: false
     },
     consumption_habits:{  // Habitude de consommation
