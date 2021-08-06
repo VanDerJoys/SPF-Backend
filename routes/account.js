@@ -33,7 +33,7 @@ router.post('/register', (req, res)=>{
     let account = new Account();
     account.register(req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.role)
     .then((response)=>{
-        if(response.code == 200){
+        if(response.code == 201){
             res.status(response.code).send(response.message)
         }else{
             res.status(response.code).send(response.message.message);

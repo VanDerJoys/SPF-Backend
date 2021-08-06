@@ -41,7 +41,8 @@ const ContactSchema = new mongoose.Schema({
     },
     archived:{ //Archivé?
         type: Boolean,
-        required: false
+        required: false,
+        default: false
     },
     service: { 
         type: String,

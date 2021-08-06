@@ -1,18 +1,17 @@
-const Marketer = require("../../model/Telemarketer/telemarketer");
 const Post = require('../../model/Schemas/post');
 const Account = require('../../model/Schemas/account');
 
 class MarketerController{
     async getMarketer(){
-        let populateQuery = [
+        /* let populateQuery = [
             {path:'post', model: Post, select: {_id: 0, __v: 0, created_at: 0}}, 
             {path:'account', model: Account, select: {_id: 0, __v: 0, password: 0, created_at: 0}}
-        ];
+        ]; */
         try {
-            let response = await Marketer
+            let response = await Post
             .find()
-            .select({_id: 0, __v: 0})
-            .populate(populateQuery);
+            .select({_id: 0, __v: 0, base_id: 0})
+            .populate({path:'account', select: {_id: 0, __v: 0, password: 0, created_at: 0}});
             return response;
         } catch (error) {
             console.log(error);

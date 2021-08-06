@@ -38,7 +38,7 @@ const Posts = require('./routes/Postes/posts');
 
 // Loading middlewares
 // #######################   TCHOP ET YAMO MIDDLEWARES  ###########################
-app.use('/contact', Contact);
+app.use('/contacts', Contact);
 
 // #######################   FEMME FATALE MIDDLEWARES  ###########################
 app.use('/femme-fatale/base', FemmeFataleBase);
@@ -54,7 +54,7 @@ app.use('/cub/notebook', CubNotebook);
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/telemarketer', Posts);
+app.use('/posts', Posts);
 
 // #################### SHEET MIDDLEWARE #####################
 app.use('/sheet', Sheet);
