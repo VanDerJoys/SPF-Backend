@@ -22,7 +22,7 @@ class MarketerController{
 
     async getAvailablePosts(){
         try {
-            let posts = await Post.find({available: true}).populate('account');
+            let posts = await Post.find({available: true});
             return posts;
         } catch (error) {
             console.log(error);

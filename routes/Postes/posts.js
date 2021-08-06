@@ -75,13 +75,13 @@ router.put('/post', (req, res)=>{
     });
 });
 
-router.delete('/post/:idPost', (req, res)=>{
-    marketer.deletePost(req.params.idPost).then(response =>{
-        res.status(200).send(Boolean(response.deletedCount));
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    });
-});
+// router.delete('/post/:idPost', (req, res)=>{
+//     marketer.deletePost(req.params.idPost).then(response =>{
+//         res.status(200).send(Boolean(response.deletedCount));
+//     }).catch(error =>{
+//         console.log(error);
+//         res.status(400).send('Une erreur est survenue');
+//     });
+// });
 
 module.exports = router;
