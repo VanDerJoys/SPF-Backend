@@ -1,7 +1,7 @@
 const Post = require('../../model/Schemas/post');
 // const Account = require('../../model/Schemas/account');
 
-class MarketerController{
+class PostController{
     async getMarketer(){
         /* let populateQuery = [
             {path:'post', model: Post, select: {_id: 0, __v: 0, created_at: 0}}, 
@@ -21,7 +21,7 @@ class MarketerController{
 
     async getAvailablePosts(){
         try {
-            let posts = await Post.find({available: true});
+            let posts = await Post.find({available: true}, {__v: 0});
             return posts;
         } catch (error) {
             console.log(error);
@@ -44,7 +44,7 @@ class MarketerController{
     async getPosts(){
         try {
             let posts = await Post
-            .find()
+            .find({}, {__v: 0})
             .populate({path:'account', select: {__v: 0, password: 0, created_at: 0}});
             return posts;
         } catch (error) {
@@ -56,7 +56,7 @@ class MarketerController{
     async updatePost(id, name){
         console.log(name)
         try {
-            let post = await Post.updateOne({"_id":id}, {name: name})
+            let post = await Post.updateOne({_id:id}, {name: name})
             return post;
         } catch (error) {
             console.log(error);
@@ -77,7 +77,9 @@ class MarketerController{
 // get a single post
     async getPost(id){
         try {
-            let post = await Post.findOne({"_id": id});
+            let post = await Post
+            .findOne({"_id": id}, {__v: 0})
+            .populate({path:'account', select: {__v: 0, password: 0, created_at: 0}});
             return post;
         } catch (error) {
             console.log(error);
@@ -86,4 +88,4 @@ class MarketerController{
     }
 }
 
-module.exports = MarketerController;
+module.exports = PostController;

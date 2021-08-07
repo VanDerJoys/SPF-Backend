@@ -7,7 +7,7 @@ const base = new BaseController();
 const router = express.Router();
 
 // Create a new base
-router.post('/new', (req, res)=>{
+router.post('/', (req, res)=>{
     base.createBase(req.body.name).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
@@ -26,8 +26,8 @@ router.get('/', (req, res)=>{
     });
 });
 
-router.put('/:id_base', (req, res)=>{
-    base.updateBase(req.params.id_base, req.body.name).then(response =>{
+router.put('/:base_id', (req, res)=>{
+    base.updateBase(req.params.base_id, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);

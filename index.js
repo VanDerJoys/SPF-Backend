@@ -18,14 +18,7 @@ app.use(helmet());
 const Contact = require('./routes/Contact/contact');
 
 // ##################### FEMME FATALE ROUTES #########################
-const FemmeFataleBase = require('./routes/Femme-fatale/Bases');
-const FemmeFataleContacts = require('./routes/Femme-fatale/Contacts');
-const FemmeFataleNotebook = require('./routes/Femme-fatale/notebook');
-
-// #################### CUB ROUTES ########################
-const CubBase = require('./routes/Cub/Bases');
-const CubContacts = require('./routes/Cub/Contacts');
-const CubNotebook = require('./routes/Cub/notebook');
+const Base = require('./routes/Base/base');
 
 // #################### SHEET ROUTE #####################
 const Sheet = require('./routes/Sheet/sheet');
@@ -42,27 +35,18 @@ const Projets = require('./routes/Projets/projet');
 
 
 // Loading middlewares
-// #######################   TCHOP ET YAMO MIDDLEWARES  ###########################
+// #######################   CONTACTS MIDDLEWARE  ###########################
 app.use('/contacts', Contact);
 
-// #######################   FEMME FATALE MIDDLEWARES  ###########################
-app.use('/femme-fatale/base', FemmeFataleBase);
-app.use('/femme-fatale/contacts', FemmeFataleContacts);
-app.use('/femme-fatale/notebook', FemmeFataleNotebook);
-
-// #######################  CUB MIDDLEWARES  ###########################
-app.use('/cub/base', CubBase);
-app.use('/cub/contacts/', CubContacts);
-app.use('/cub/notebook', CubNotebook);
+// #######################   BASES MIDDLEWARE  ###########################
+app.use('/bases', Base);
 
 // #################### ACCOUNT MIDDLEWARE ###################
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/telemarketer', Posts);
-
-// #################### POST MIDDLEWARE ###################
 app.use('/base', Bases);
+app.use('/posts', Posts);
 
 // #################### PROJET MIDDLEWARE ###################
 app.use('/projet', Projets);

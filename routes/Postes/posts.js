@@ -1,14 +1,14 @@
 const express = require('express');
-const MarketerController = require('../../controller/Postes/posts');
+const PostController = require('../../controller/Postes/posts');
 // const { verifyToken } = require('../../helpers/web-token');
 
-const marketer = new MarketerController();
+const post = new PostController();
 
 const router = express.Router();
 
 // get all telemarketers
 /* router.get('/', (req, res)=>{
-    marketer.getMarketer().then(results =>{
+    post.getMarketer().then(results =>{
         res.status(200).send(results);
     }).catch(error =>{
         console.log(error);
@@ -18,7 +18,7 @@ const router = express.Router();
 
 // Create a new post
 router.post('/', (req, res)=>{
-    marketer.createPost(req.body.name).then(response =>{
+    post.createPost(req.body.name).then(response =>{
         res.status(201).send(response);
     }).catch(error =>{
         console.log(error);
@@ -28,7 +28,7 @@ router.post('/', (req, res)=>{
 
 // Get all posts
 router.get('/', (req, res)=>{
-    marketer.getPosts().then(response =>{
+    post.getPosts().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -38,7 +38,7 @@ router.get('/', (req, res)=>{
 
 // get available posts
 router.get('/available', (req, res)=>{
-    marketer.getAvailablePosts().then(response =>{
+    post.getAvailablePosts().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -48,7 +48,7 @@ router.get('/available', (req, res)=>{
 
 // Get a single post
 router.get('/:post_id', (req, res)=>{
-    marketer.getPost(req.params.post_id).then(response =>{
+    post.getPost(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -57,8 +57,7 @@ router.get('/:post_id', (req, res)=>{
 })
 
 router.put('/:post_id', (req, res)=>{
-    console.log(req.body)
-    marketer.updatePost(req.params.post_id, req.body.name).then(response =>{
+    post.updatePost(req.params.post_id, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
@@ -68,7 +67,7 @@ router.put('/:post_id', (req, res)=>{
 
 // assign a post to an account
 router.put('/:post_id/account/:account_id', (req, res)=>{
-    marketer.assignPost(req.params.post_id, req.params.account_id).then(response =>{
+    post.assignPost(req.params.post_id, req.params.account_id).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
