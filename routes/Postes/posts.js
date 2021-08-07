@@ -1,25 +1,25 @@
 const express = require('express');
 const MarketerController = require('../../controller/Postes/posts');
-const { verifyToken } = require('../../helpers/web-token');
+// const { verifyToken } = require('../../helpers/web-token');
 
 const marketer = new MarketerController();
 
 const router = express.Router();
 
 // get all telemarketers
-router.get('/', (req, res)=>{
+/* router.get('/', (req, res)=>{
     marketer.getMarketer().then(results =>{
         res.status(200).send(results);
     }).catch(error =>{
         console.log(error);
         res.status(400).send("Une erreur est survenue");
     });
-});
+}); */
 
 // Create a new post
-router.post('/post/new', (req, res)=>{
+router.post('/', (req, res)=>{
     marketer.createPost(req.body.name).then(response =>{
-        res.status(200).send(response);
+        res.status(201).send(response);
     }).catch(error =>{
         console.log(error);
         res.send(400).send('Une erreur est survenue');
@@ -27,7 +27,7 @@ router.post('/post/new', (req, res)=>{
 })
 
 // Get all posts
-router.get('/post', (req, res)=>{
+router.get('/', (req, res)=>{
     marketer.getPosts().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
@@ -37,7 +37,7 @@ router.get('/post', (req, res)=>{
 });
 
 // get available posts
-router.get('/post/available', (req, res)=>{
+router.get('/available', (req, res)=>{
     marketer.getAvailablePosts().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
@@ -47,8 +47,8 @@ router.get('/post/available', (req, res)=>{
 });
 
 // Get a single post
-router.get('/post/:idPost', (req, res)=>{
-    marketer.getPost(req.params.idPost).then(response =>{
+router.get('/:post_id', (req, res)=>{
+    marketer.getPost(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -56,7 +56,7 @@ router.get('/post/:idPost', (req, res)=>{
     })
 })
 
-router.put('/post/:idPost', (req, res)=>{
+router.put('/:post_id', (req, res)=>{
     marketer.updatePost(req.params.idPost, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
@@ -66,18 +66,9 @@ router.put('/post/:idPost', (req, res)=>{
 });
 
 // assign a post to an account
-router.put('/post', (req, res)=>{
-    marketer.assignPost(req.body.postId, req.body.accountId).then(response =>{
+router.put('/:post_id/base/:base_id', (req, res)=>{
+    marketer.assignPost(req.params.post_id, req.params.base_id).then(response =>{
         res.status(200).send(Boolean(response.nModified));
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    });
-});
-
-router.delete('/post/:idPost', (req, res)=>{
-    marketer.deletePost(req.params.idPost).then(response =>{
-        res.status(200).send(Boolean(response.deletedCount));
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');

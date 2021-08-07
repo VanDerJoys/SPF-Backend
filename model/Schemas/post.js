@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
-    base: [{
-        type: mongoose.Schema.Types.ObjectId, // identifiant de la base
-        ref: "Bases",
-        required: false
-    }],    
+const PostSchema = new mongoose.Schema({  
     name: {
         type: String,
         required: true

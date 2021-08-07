@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const BaseSchema = new mongoose.Schema({
-    project_id: {
-        type: mongoose.Schema.Types.ObjectId, // identifiant du projet
-        ref: "Projects",
+    post: {
+        type: mongoose.Schema.Types.ObjectId, // identifiant du post
+        ref: "Posts",
         required: false
     },    
     name: {

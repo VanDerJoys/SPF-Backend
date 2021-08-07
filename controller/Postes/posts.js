@@ -1,5 +1,5 @@
 const Post = require('../../model/Schemas/post');
-const Account = require('../../model/Schemas/account');
+// const Account = require('../../model/Schemas/account');
 
 class MarketerController{
     async getMarketer(){
@@ -43,7 +43,9 @@ class MarketerController{
 // get multiple posts
     async getPosts(){
         try {
-            let posts = await Post.find().populate('account');
+            let posts = await Post
+            .find()
+            .populate({path:'account', select: {__v: 0, password: 0, created_at: 0}});
             return posts;
         } catch (error) {
             console.log(error);
@@ -66,16 +68,6 @@ class MarketerController{
             let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
             return post;
         }catch(error){
-            console.log(error);
-            throw error;
-        }
-    }
-
-    async deletePost(id){
-        try {
-            let post = await Post.deleteOne({"_id": id});            
-            return post;
-        } catch (error) {
             console.log(error);
             throw error;
         }
