@@ -5,7 +5,7 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    account_id:{
+    account:{
         type: mongoose.Schema.Types.ObjectId,  // identifiant du compte
         required: false,
         ref: "Accounts"

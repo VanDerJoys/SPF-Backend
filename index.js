@@ -57,7 +57,7 @@ app.use('/cub/notebook', CubNotebook);
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/telemarketer', Posts);
+app.use('/posts', Posts);
 // #################### PROJET MIDDLEWARE ###################
 app.use('/projet', Projets);
 
