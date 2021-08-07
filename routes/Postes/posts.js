@@ -66,8 +66,8 @@ router.put('/:post_id', (req, res)=>{
 });
 
 // assign a post to an account
-router.put('/:post_id/base/:base_id', (req, res)=>{
-    marketer.assignPost(req.params.post_id, req.params.base_id).then(response =>{
+router.put('/:post_id/account/:account_id', (req, res)=>{
+    marketer.assignPost(req.params.post_id, req.params.account_id).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
