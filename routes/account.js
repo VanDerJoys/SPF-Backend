@@ -12,15 +12,18 @@ router.post("/authentification", async (req, res) => {
       res.status(results.code).send(results.message);
     } else {
       let token = generateToken(req.body.phone);
+      console.log(results)
       res
         .send({
           id: results._id,
           name: results.name,
           surname: results.surname,
-          role: results.type,
+          role: results.role,
           archived: results.status,
+          project_id: results.project_id,
           phone: results.phone,
           authToken: token,
+
         })
         .status(201);
     }
@@ -37,7 +40,8 @@ router.post("/register", (req, res) => {
       req.body.surname,
       req.body.phone,
       req.body.password,
-      req.body.role
+      req.body.role,
+      req.body.project_id
     )
     .then((response) => {
       if (response.code == 201) {

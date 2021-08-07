@@ -54,6 +54,7 @@ class PostController{
     }
 
     async updatePost(id, name){
+        console.log(name)
         try {
             let post = await Post.updateOne({_id:id}, {name: name})
             return post;

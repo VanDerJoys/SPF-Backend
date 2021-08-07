@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const AccountSchema = new mongoose.Schema({
     project:{
         type: mongoose.Schema.Types.ObjectId,
-        required: false
+        required: false,
+        ref: "Projects"
     },
     name: {
         type: String,
