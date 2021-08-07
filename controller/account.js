@@ -21,7 +21,7 @@ class AccountController{
         return user;
     }
 
-    async register(name, surname, phone, password, role){
+    async register(name, surname, phone, password, role,project_id=null){
         let hashedPassword = await this.hashPassword(password);
         try {
             const account = new Account({
@@ -29,7 +29,8 @@ class AccountController{
                 surname: surname,
                 phone: phone,
                 password: hashedPassword,
-                role: role
+                role: role,
+                project_id:project_id
             });
             let results = await account.save();
             return {code: 201, message: results}
@@ -43,6 +44,17 @@ class AccountController{
         try {
             let accounts = await Account
             .find()
+            .select({"password": 0});
+            return accounts;
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
+    async getAccountsArchived(){
+        try {
+            let accounts = await Account
+            .find({status:true})
             .select({"password": 0});
             return accounts;
         } catch (error) {

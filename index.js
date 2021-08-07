@@ -35,6 +35,9 @@ const Account = require('./routes/account');
 
 // ################### POST ROUTE #######################
 const Posts = require('./routes/Postes/posts');
+// ################### Projet ROUTE #######################
+const Projets = require('./routes/Projets/projet');
+
 
 // Loading middlewares
 // #######################   TCHOP ET YAMO MIDDLEWARES  ###########################
@@ -54,7 +57,9 @@ app.use('/cub/notebook', CubNotebook);
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/posts', Posts);
+app.use('/telemarketer', Posts);
+// #################### PROJET MIDDLEWARE ###################
+app.use('/projet', Projets);
 
 // #################### SHEET MIDDLEWARE #####################
 app.use('/sheet', Sheet);
