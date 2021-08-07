@@ -1,5 +1,5 @@
 const express = require('express');
-const BaseController = require('../../controller/Base/base');
+const BaseController = require('../../controller/Bases/bases');
 const { verifyToken } = require('../../helpers/web-token');
 
 const base = new BaseController();

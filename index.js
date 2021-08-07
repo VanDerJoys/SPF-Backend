@@ -35,6 +35,8 @@ const Account = require('./routes/account');
 
 // ################### POST ROUTE #######################
 const Posts = require('./routes/Postes/posts');
+// ################### POST ROUTE #######################
+const Bases = require('./routes/Bases/bases');
 // ################### Projet ROUTE #######################
 const Projets = require('./routes/Projets/projet');
 
@@ -58,6 +60,10 @@ app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
 app.use('/telemarketer', Posts);
+
+// #################### POST MIDDLEWARE ###################
+app.use('/base', Bases);
+
 // #################### PROJET MIDDLEWARE ###################
 app.use('/projet', Projets);
 

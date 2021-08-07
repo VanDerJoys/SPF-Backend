@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const BaseSchema = new mongoose.Schema({
-    post: {
+    post_id: {
         type: mongoose.Schema.Types.ObjectId, // identifiant du post
         ref: "Posts",
         required: false
