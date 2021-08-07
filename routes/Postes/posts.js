@@ -57,7 +57,8 @@ router.get('/:post_id', (req, res)=>{
 })
 
 router.put('/:post_id', (req, res)=>{
-    marketer.updatePost(req.params.idPost, req.body.name).then(response =>{
+    console.log(req.body)
+    marketer.updatePost(req.params.post_id, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
