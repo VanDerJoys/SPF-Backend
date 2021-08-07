@@ -14,7 +14,7 @@ router.post('/', (req, res)=>{
     .catch(error =>{
         console.log("Router: "+error);
         res.status(400).send('Une erreur est survenue');
-    })
+    });
 });
 
 // get all contacts
@@ -27,8 +27,8 @@ router.get('/', (req, res)=>{
     .catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
-    })
-})
+    });
+});
 
 // get marketer contacts
 router.get('/project/:project', (req, res)=>{

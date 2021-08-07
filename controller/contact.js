@@ -70,7 +70,11 @@ class AccountController{
 
     async getAllContacts(){
         try {
-            const contact = await Contact.find({}, {'__v':0});
+            /* const contact = await Contact.aggregate([
+                {$group:{_id:"$quartier",contacts: { $push: "$$ROOT" }}},
+                {$project:{_id: 0}}
+            ]); */
+            const contact = await Contact.find({archived: false});
             return contact;
         } catch (error) {
             console.log("Controller: "+error);

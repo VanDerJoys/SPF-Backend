@@ -41,7 +41,7 @@ const Projets = require('./routes/Projets/projet');
 
 // Loading middlewares
 // #######################   TCHOP ET YAMO MIDDLEWARES  ###########################
-app.use('/contact', Contact);
+app.use('/contacts', Contact);
 
 // #######################   FEMME FATALE MIDDLEWARES  ###########################
 app.use('/femme-fatale/base', FemmeFataleBase);
