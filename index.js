@@ -28,10 +28,12 @@ const Account = require('./routes/account');
 
 // ################### POST ROUTE #######################
 const Posts = require('./routes/Postes/posts');
+
 // ################### POST ROUTE #######################
 const Bases = require('./routes/Bases/bases');
-// ################### Projet ROUTE #######################
-const Projets = require('./routes/Projets/projet');
+
+// ################### Project ROUTE #######################
+const Projects = require('./routes/Projects/project');
 
 
 // Loading middlewares
@@ -49,7 +51,7 @@ app.use('/base', Bases);
 app.use('/posts', Posts);
 
 // #################### PROJET MIDDLEWARE ###################
-app.use('/projet', Projets);
+app.use('/project', Projects);
 
 // #################### SHEET MIDDLEWARE #####################
 app.use('/sheet', Sheet);
