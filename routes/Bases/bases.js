@@ -54,4 +54,13 @@ router.delete('/:base', (req, res)=>{
     });
 });
 
+router.put('/:base/posts/:post', (req, res)=>{
+    base.assignBase(req.params.base, req.params.post).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send("Une erreur est survenue");
+    })
+})
+
 module.exports = router;

@@ -2,7 +2,7 @@ const Base = require('../../model/Schemas/base');
 // const Account = require('../../model/Schemas/account');
 
 class BaseController{
-    async getBase(){
+    async getBases(){
         /* let populateQuery = [
             {path:'Base', model: Base, select: {_id: 0, __v: 0, created_at: 0}}, 
             {path:'account', model: Account, select: {_id: 0, __v: 0, password: 0, created_at: 0}}
