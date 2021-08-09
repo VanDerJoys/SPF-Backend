@@ -95,17 +95,17 @@ router.delete("/:accountId", (req, res) => {
 });
 
 router.put("/:idUser", (req, res) => {
-  console.log(req.params.idUser);
-  console.log(req.body);
   let account = new Account();
   account
     .updateAccount(
       req.params.idUser,
       req.body.name,
       req.body.surname,
-      req.body.phone
+      req.body.phone,
+      req.body.project_id
     )
     .then((response) => {
+      console.log('ici')
       res.status(200).send(Boolean(response.nModified));
     })
     .catch((error) => {

@@ -25,7 +25,7 @@ class AccountController {
 
   async register(name, surname, phone, password, role, project_id) {
     let hashedPassword = await this.hashPassword(password);
-    console.log(project_id);
+
     try {
       const account = new Account({
         name: name,
@@ -80,7 +80,7 @@ class AccountController {
     }
   }
 
-  async updateAccount(id, name, surname, phone) {
+  async updateAccount(id, name, surname, phone, project_id) {
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -88,8 +88,10 @@ class AccountController {
           name: name,
           surname: surname,
           phone: phone,
+          project_id: project_id,
         }
       );
+
       return account;
     } catch (error) {
       console.log(error);
