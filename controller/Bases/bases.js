@@ -2,22 +2,6 @@ const Base = require('../../model/Schemas/base');
 // const Account = require('../../model/Schemas/account');
 
 class BaseController{
-    async getBases(){
-        /* let populateQuery = [
-            {path:'Base', model: Base, select: {_id: 0, __v: 0, created_at: 0}}, 
-            {path:'account', model: Account, select: {_id: 0, __v: 0, password: 0, created_at: 0}}
-        ]; */
-        try {
-            let response = await Base
-            .find()
-            .populate("base_id");
-            return response;
-        } catch (error) {
-            console.log(error);
-            return error;
-        }
-    }
-
     async getAvailableBases(){
         try {
             let bases = await Base.find({available: true});
