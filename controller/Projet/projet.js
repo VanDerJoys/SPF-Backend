@@ -2,25 +2,7 @@ const Projet = require('../../model/Schemas/project');
 const Account = require('../../model/Schemas/account');
 
 class ProjetController{
-    // async getMarketer(){
-    //     let populateQuery = [
-    //         {path:'post', model: Post, select: {_id: 0, __v: 0, created_at: 0}}, 
-    //         {path:'account', model: Account, select: {_id: 0, __v: 0, password: 0, created_at: 0}}
-    //     ];
-    //     try {
-    //         let response = await Marketer
-    //         .find()
-    //         .select({_id: 0, __v: 0})
-    //         .populate(populateQuery);
-    //         return response;
-    //     } catch (error) {
-    //         console.log(error);
-    //         return error;
-    //     }
-    // }
-
     
-
     async createProjet(projetName){
         const projet = new Projet({ name: projetName, archived:false });
         try {

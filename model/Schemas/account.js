@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const AccountSchema = new mongoose.Schema({
-    project:{
+    project_id:{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: "Projects"
