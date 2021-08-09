@@ -29,12 +29,12 @@ class BaseController{
     }
 
     async createBase(baseName){
-        const base = new Base({ name: baseName });
         try {
+            const base = new Base({ name: baseName });
             let message = await base.save();
             return message;
         } catch (error) {
-            console.log(error);
+            console.log("Controller: "+error);
             throw error;
         }
     }
@@ -43,8 +43,8 @@ class BaseController{
     async getBases(){
         try {
             let bases = await Base
-            .find()
-            .populate("base_id");
+            .find({}, {__v: 0, created_at: 0})
+            .populate("post_id");
             return bases;
         } catch (error) {
             console.log(error);
@@ -75,7 +75,7 @@ class BaseController{
 // get a single Base
     async getBase(id){
         try {
-            let base = await Base.findOne({"_id": id});
+            let base = await Base.findOne({"_id": id}, {__v: 0, created_at: 0}).populate('post_id');
             return base;
         } catch (error) {
             console.log(error);

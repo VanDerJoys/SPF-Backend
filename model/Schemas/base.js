@@ -8,7 +8,8 @@ const BaseSchema = new mongoose.Schema({
     },    
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     created_at: {
         type: Date,
