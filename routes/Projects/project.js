@@ -1,14 +1,14 @@
 const express = require('express');
-const ProjetController = require('../../controller/Projet/projet');
-const { verifyToken } = require('../../helpers/web-token');
+const ProjectController = require('../../controller/Project/project');
+// const { verifyToken } = require('../../helpers/web-token');
 
-const Projet= new ProjetController();
+const project= new ProjectController();
 
 const router = express.Router();
 
 // Create a new projet
 router.post('/new', (req, res)=>{
-    Projet.createProjet(req.body.name).then(response =>{
+    project.createProject(req.body.name).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -18,7 +18,7 @@ router.post('/new', (req, res)=>{
 
 // Get all projets
 router.get('/', (req, res)=>{
-    Projet.getProjets().then(response =>{
+    project.getProjects().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
@@ -28,7 +28,7 @@ router.get('/', (req, res)=>{
 
 
 router.put('/:idProjet', (req, res)=>{
-    Projet.updatePost(req.params.idPost, req.body.name).then(response =>{
+    project.updateProject(req.params.idPost, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
