@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProjectManageSchema = new mongoose.Schema({
-    project_id:{
+    project:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Projects"

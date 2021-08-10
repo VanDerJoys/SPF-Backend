@@ -58,6 +58,8 @@ class AccountController{
                 type_care: data.type_care,
                 service: data.service,
                 suggestion: data.suggestion,
+                project_id: data.project_id,
+                account_id: data.account_id
                 
             });
             let results = await contact.save();

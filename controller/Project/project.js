@@ -1,4 +1,5 @@
 const Project = require('../../model/Schemas/project');
+const ProjectManager = require('../../model/Schemas/gestion_projet');
 // const Account = require('../../model/Schemas/account');
 
 class ProjectController{
@@ -17,7 +18,7 @@ class ProjectController{
 // get multiple projects
     async getProjects(){
         try {
-            let projects = await Project.find();
+            let projects = await Project.find({}, {__v: 0, created_at: 0});
             return projects;
         } catch (error) {
             console.log(error);
@@ -35,7 +36,6 @@ class ProjectController{
         }
     }
 
-    
     async deleteProject(id){
         try {
             let project = await Project.deleteOne({"_id": id});            
@@ -52,6 +52,19 @@ class ProjectController{
             let project = await Project.findOne({"_id": id});
             return project;
         } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    // Assign a project to an account
+    async assignProject(project_id, account_id){
+        const filter = { project: project_id, account: account_id };
+        const update = {project: project_id};
+        try {
+            let project = await ProjectManager.findOneAndUpdate(update, filter,{new: true,upsert: true});
+            return project;
+        }catch(error){
             console.log(error);
             throw error;
         }

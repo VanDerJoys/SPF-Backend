@@ -17,7 +17,7 @@ app.use(helmet());
 // ##################### CONTACT ROUTES #########################
 const Contact = require('./routes/Contact/contact');
 
-// ##################### FEMME FATALE ROUTES #########################
+// ##################### BASES ROUTES #########################
 const Base = require('./routes/Bases/bases');
 
 // #################### SHEET ROUTE #####################
@@ -28,9 +28,6 @@ const Account = require('./routes/account');
 
 // ################### POST ROUTE #######################
 const Posts = require('./routes/Postes/posts');
-
-// ################### POST ROUTE #######################
-const Bases = require('./routes/Bases/bases');
 
 // ################### Project ROUTE #######################
 const Projects = require('./routes/Projects/project');
@@ -47,11 +44,10 @@ app.use('/bases', Base);
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/base', Bases);
 app.use('/posts', Posts);
 
 // #################### PROJET MIDDLEWARE ###################
-app.use('/project', Projects);
+app.use('/projects', Projects);
 
 // #################### SHEET MIDDLEWARE #####################
 app.use('/sheet', Sheet);

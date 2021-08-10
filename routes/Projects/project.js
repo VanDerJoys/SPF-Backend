@@ -6,17 +6,17 @@ const project= new ProjectController();
 
 const router = express.Router();
 
-// Create a new projet
-router.post('/new', (req, res)=>{
+// Create a new project
+router.post('/', (req, res)=>{
     project.createProject(req.body.name).then(response =>{
-        res.status(200).send(response);
+        res.status(201).send(response);
     }).catch(error =>{
         console.log(error);
         res.send(400).send('Une erreur est survenue');
     })
 })
 
-// Get all projets
+// Get all projects
 router.get('/', (req, res)=>{
     project.getProjects().then(response =>{
         res.status(200).send(response);
@@ -26,24 +26,34 @@ router.get('/', (req, res)=>{
     });
 });
 
-
-router.put('/:idProjet', (req, res)=>{
-    project.updateProject(req.params.idPost, req.body.name).then(response =>{
+// Update a project
+router.put('/:project_id', (req, res)=>{
+    project.updateProject(req.params.project_id, req.body.name).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
-        res.status(400).send('Une erreur est survenue')
+        res.status(400).send('Une erreur est survenue');
     })
 });
 
+// delete a project
+router.delete('/:project_id', (req, res)=>{
+    project.deleteProject(req.params.project_id).then(response =>{
+        res.status(200).send(Boolean(response.deletedCount));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
 
-// router.delete('/post/:idPost', (req, res)=>{
-//     ProjetController.deletePost(req.params.idPost).then(response =>{
-//         res.status(200).send(Boolean(response.deletedCount));
-//     }).catch(error =>{
-//         console.log(error);
-//         res.status(400).send('Une erreur est survenue');
-//     });
-// });
+// Assign project to an account
+router.post('/assign', (req, res)=>{
+    project.assignProject(req.body.project_id, req.body.account_id).then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
 
 module.exports = router;

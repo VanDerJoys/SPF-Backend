@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
+    account_id: {
+        type: mongoose.Schema.Types.ObjectId, // identifiant du compte
+        ref: "Accounts",
+        required: false
+    },
     base_id: {
         type: mongoose.Schema.Types.ObjectId, // identifiant de la base
         ref: "Bases",
@@ -212,6 +217,10 @@ const ContactSchema = new mongoose.Schema({
         required: false
     },
     type_care:{  // Intérêt en matière de soin
+        type: String,
+        required: false
+    },
+    beauty_problem:{ // Problème sur le plan beauté
         type: String,
         required: false
     },
