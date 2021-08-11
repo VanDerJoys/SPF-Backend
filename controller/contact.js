@@ -103,6 +103,16 @@ class AccountController{
             throw error;
         }
     }
+
+    async getCollectorContacts(){
+        try {
+            const contact = await Contact.find({}, {'__v':0});
+            return contact;
+        } catch (error) {
+            console.log("Controller: "+error);
+            throw error;
+        }
+    }
 }
 
 module.exports = AccountController;

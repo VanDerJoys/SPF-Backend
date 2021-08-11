@@ -32,8 +32,7 @@ class AccountController {
         surname: surname,
         phone: phone,
         password: hashedPassword,
-        role: role,
-        project_id: project_id,
+        role: role
       });
       let results = await account.save();
       return { code: 201, message: results };
@@ -71,7 +70,7 @@ class AccountController {
       let account = await Account.deleteOne({ _id: id });
       await Post.updateOne(
         { _id: postId },
-        { available: true, $unset: { account: 1 } }
+        { available: true}
       );
       return account;
     } catch (error) {
@@ -87,8 +86,7 @@ class AccountController {
         {
           name: name,
           surname: surname,
-          phone: phone,
-          project_id: project_id,
+          phone: phone
         }
       );
 
@@ -110,6 +108,17 @@ class AccountController {
     } catch (error) {
       console.log(error);
       return error;
+    }
+  }
+
+  async assignPost(postId, accountId){
+    try{
+        await Post.updateOne({_id: postId}, {available: false});
+        let account = await Account.updateOne({_id: accountId}, {post_id: postId});
+        return account;
+    }catch(error){
+        console.log(error);
+        throw error;
     }
   }
 }

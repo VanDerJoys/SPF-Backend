@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const AccountSchema = new mongoose.Schema({
-    project_id:{
+    post_id:{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: "Projects"
+        ref: "Posts"
     },
     name: {
         type: String,

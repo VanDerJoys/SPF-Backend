@@ -55,4 +55,17 @@ router.get('/base/:base', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     })
 })
+
+// get contact by collector
+router.get('/collector', (req, res)=>{
+    const contact = new ContactController();
+    contact.getCollectorContacts()
+    .then(response =>{
+        res.status(200).send(response);
+    })
+    .catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
 module.exports = router;

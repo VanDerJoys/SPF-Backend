@@ -64,7 +64,7 @@ class PostController{
         }
     }
 
-    async assignPost(postId, accountId){
+    /* async assignPost(postId, accountId){
         try{
             let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
             return post;
@@ -72,7 +72,7 @@ class PostController{
             console.log(error);
             throw error;
         }
-    }
+    } */
 
 // get a single post
     async getPost(id){

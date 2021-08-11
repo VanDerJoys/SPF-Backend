@@ -5,11 +5,6 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    account:{
-        type: mongoose.Schema.Types.ObjectId,  // identifiant du compte
-        required: false,
-        ref: "Accounts"
-    },
     available: {
         type: Boolean,
         required: false,
