@@ -12,7 +12,6 @@ router.post("/authentification", async (req, res) => {
       res.status(results.code).send(results.message);
     } else {
       let token = generateToken(req.body.phone);
-      console.log(results)
       res
         .send({
           id: results._id,
@@ -60,6 +59,19 @@ router.get("/", (req, res) => {
   let accounts = new Account();
   accounts
     .getAccounts()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
+});
+
+router.get("/televendeur", (req, res) => {
+  let accounts = new Account();
+  accounts
+    .getAccountsTelevendeur()
     .then((response) => {
       res.status(200).send(response);
     })

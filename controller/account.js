@@ -64,6 +64,18 @@ class AccountController {
       return error;
     }
   }
+  async getAccountsTelevendeur() {
+    try {
+      let accounts = await Account.find({ status: false, type: "Télévendeur",post_id:null}).select({
+        password: 0,
+      });
+      return accounts;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
 
   async deleteAccount(id, postId) {
     try {
