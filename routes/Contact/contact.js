@@ -30,7 +30,7 @@ router.get('/', (req, res)=>{
     });
 });
 
-// get marketer contacts
+// get contacts of a project
 router.get('/project/:project', (req, res)=>{
     const contact = new ContactController();
     contact.getProjectContacts(req.params.project)

@@ -1,5 +1,6 @@
 const Project = require('../../model/Schemas/project');
 const ProjectManager = require('../../model/Schemas/gestion_projet');
+const Contact = require('../../model/Schemas/contacts');
 // const Account = require('../../model/Schemas/account');
 
 class ProjectController{
@@ -38,7 +39,9 @@ class ProjectController{
 
     async deleteProject(id){
         try {
-            let project = await Project.deleteOne({"_id": id});            
+            await Project.deleteOne({"_id": id});    
+            await Contact.deleteMany({"project_id": id});
+            let project = await ProjectManager.deleteMany({"project": id});        
             return project;
         } catch (error) {
             console.log(error);
@@ -60,7 +63,7 @@ class ProjectController{
     // Assign a project to an account
     async assignProject(project_id, account_id){
         const filter = { project: project_id, account: account_id };
-        const update = {project: project_id};
+        const update = {account: account_id};
         try {
             let project = await ProjectManager.findOneAndUpdate(update, filter,{new: true,upsert: true});
             return project;
