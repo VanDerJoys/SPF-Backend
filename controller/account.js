@@ -76,7 +76,6 @@ class AccountController {
     }
   }
 
-
   async deleteAccount(id, postId) {
     try {
       let account = await Account.deleteOne({ _id: id });
@@ -101,7 +100,6 @@ class AccountController {
           phone: phone
         }
       );
-
       return account;
     } catch (error) {
       console.log(error);
@@ -114,7 +112,7 @@ class AccountController {
       let account = await Account.findOne({ _id: id });
       account = await Account.updateOne(
         { _id: id },
-        { status: account.status ? false : true }
+        { archived: account.archived ? false : true }
       );
       return account;
     } catch (error) {

@@ -26,12 +26,7 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    post_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: "Posts"
-    },
-    status: {
+    archived: {
         type: Boolean,
         required: false,
         default: false
