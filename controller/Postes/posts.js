@@ -64,15 +64,15 @@ class PostController{
         }
     }
 
-    async assignPost(postId, accountId){
-        try{
-            let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
-            return post;
-        }catch(error){
-            console.log(error);
-            throw error;
-        }
-    }
+    // async assignPost(postId, accountId){
+    //     try{
+    //         let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
+    //         return post;
+    //     }catch(error){
+    //         console.log(error);
+    //         throw error;
+    //     }
+    // }
 
 // get a single post
     async getPost(id){
