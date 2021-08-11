@@ -36,6 +36,16 @@ router.put('/:project_id', (req, res)=>{
     })
 });
 
+// Assign project to an account
+router.put('/assign/:project_id', (req, res)=>{
+    project.assignProject(req.params.project_id, req.body.account_id).then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    })
+})
+
 // delete a project
 router.delete('/:project_id', (req, res)=>{
     project.deleteProject(req.params.project_id).then(response =>{
@@ -45,15 +55,5 @@ router.delete('/:project_id', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     });
 });
-
-// Assign project to an account
-router.post('/assign', (req, res)=>{
-    project.assignProject(req.body.project_id, req.body.account_id).then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    })
-})
 
 module.exports = router;
