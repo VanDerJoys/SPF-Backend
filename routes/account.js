@@ -150,4 +150,14 @@ router.put('/:account_id/post/:post_id', (req, res)=>{
   });
 });
 
+router.get('/best-collectors', (req, res)=>{
+  let account = new Account();
+  account.getTheBests().then(response =>{
+    res.status(200).send(response);
+  }).catch(error =>{
+    console.log(error);
+    res.status(400).send('Une erreur est survenue');
+  })
+})
+
 module.exports = router;
