@@ -1,5 +1,6 @@
 const Account = require("../model/Schemas/account");
 const Post = require("../model/Schemas/post");
+
 const bcrypt = require("bcryptjs");
 
 class AccountController {
@@ -25,7 +26,6 @@ class AccountController {
 
   async register(name, surname, phone, password, role, project_id, post_id) {
     let hashedPassword = await this.hashPassword(password);
-
     try {
       const account = new Account({
         name: name,
@@ -79,13 +79,12 @@ class AccountController {
     }
   }
 
-
   async deleteAccount(id, postId) {
     try {
       let account = await Account.deleteOne({ _id: id });
       await Post.updateOne(
         { _id: postId },
-        { available: true, $unset: { account: 1 } }
+        { available: true}
       );
       return account;
     } catch (error) {
@@ -106,7 +105,6 @@ class AccountController {
           post_id: post_id,
         }
       );
-
       return account;
     } catch (error) {
       console.log(error);
@@ -119,12 +117,23 @@ class AccountController {
       let account = await Account.findOne({ _id: id });
       account = await Account.updateOne(
         { _id: id },
-        { status: account.status ? false : true }
+        { archived: account.archived ? false : true }
       );
       return account;
     } catch (error) {
       console.log(error);
       return error;
+    }
+  }
+
+  async assignPost(postId, accountId){
+    try{
+        await Post.updateOne({_id: postId}, {available: false});
+        let account = await Account.updateOne({_id: accountId}, {post_id: postId});
+        return account;
+    }catch(error){
+        console.log(error);
+        throw error;
     }
   }
 }

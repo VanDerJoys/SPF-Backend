@@ -1,5 +1,5 @@
-// const Account = require('../model/Schemas/account');
-const Contact = require("../model/Schemas/contacts");
+const Account = require('../model/Schemas/account');
+const Contact = require('../model/Schemas/contacts');
 
 class AccountController {
   async addContact(data) {
@@ -140,10 +140,7 @@ class AccountController {
   }
   async getAllContacts() {
     try {
-      /* const contact = await Contact.aggregate([
-                {$group:{_id:"$quartier",contacts: { $push: "$$ROOT" }}},
-                {$project:{_id: 0}}
-            ]); */
+    
       const contact = await Contact.find({ archived: false });
       return contact;
     } catch (error) {
@@ -174,6 +171,29 @@ class AccountController {
       throw error;
     }
   }
+  async getCollectorContacts(){
+    try {
+        const contact = await Contact.find({}, {'__v':0});
+        return contact;
+    } catch (error) {
+        console.log("Controller: "+error);
+        throw error;
+    }
+}
+
+async getTheBests(){
+    try{
+        const contact = await Contact.aggregate([
+            {$group: {_id:"$account_id", collectionsNumber: {$sum: 1}}},
+            {$lookup: {"from": "accounts", "localField": "account_id", "foreignField": "account_id", "as": "collecteur"}}
+        ]);
+        // const collectors = await Account.find({role: "collecteur"})
+        return contact;
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
 }
 
 module.exports = AccountController;

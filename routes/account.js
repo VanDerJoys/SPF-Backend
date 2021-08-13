@@ -69,6 +69,7 @@ router.get("/", (req, res) => {
       res.status(400).send("Une erreur est survenue");
     });
 });
+
 router.get("/televendeur", (req, res) => {
   let accounts = new Account();
   accounts
@@ -81,6 +82,7 @@ router.get("/televendeur", (req, res) => {
       res.status(400).send("Une erreur est survenue");
     });
 });
+
 router.get("/archived", (req, res) => {
   let accounts = new Account();
   accounts
@@ -140,14 +142,15 @@ router.put("/archive/:idUser", (req, res) => {
     });
 });
 
-/* router.put('/role/:idUser', (req, res)=>{
-    let account = new Account();
-    account.updateRole(req.params.idUser, req.body.role).then(response =>{
-        res.status(200).send(Boolean(response.nModified));
-    }).catch(error =>{
-        console.log(error);
-        res.status(200).send("Une erreur est survenue");
-    })
-}) */
+// assign to post
+router.put('/:account_id/post/:post_id', (req, res)=>{
+  let account = new Account();
+  account.assignPost(req.params.post_id, req.params.account_id).then(response =>{
+      res.status(200).send(Boolean(response.nModified));
+  }).catch(error =>{
+      console.log(error);
+      res.status(400).send('Une erreur est survenue');
+  });
+});
 
 module.exports = router;
