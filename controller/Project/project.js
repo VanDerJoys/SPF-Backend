@@ -1,5 +1,4 @@
 const Project = require('../../model/Schemas/project');
-const ProjectManager = require('../../model/Schemas/gestion_projet');
 const Contact = require('../../model/Schemas/contacts');
 // const Account = require('../../model/Schemas/account');
 
@@ -29,7 +28,7 @@ class ProjectController{
 
     async updateProject(id, name){
         try {
-            let project = await Project.updateOne({"_id":id}, {name: name})
+            let project = await Project.updateOne({"_id":id}, {name: name});
             return project;
         } catch (error) {
             console.log(error);

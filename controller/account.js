@@ -170,6 +170,19 @@ class AccountController {
       return error;
     }
   }
+
+  // Assign a project to an account
+  async assignProject(project_id, account_id){
+    const filter = { project: project_id, account: account_id };
+    const update = {account: account_id};
+    try {
+        let project = await ProjectManager.findOneAndUpdate(update, filter,{new: true,upsert: true});
+        return project;
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
+}
 }
 
 module.exports = AccountController;
