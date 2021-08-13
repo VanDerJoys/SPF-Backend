@@ -149,4 +149,14 @@ router.put('/:account_id/post/:post_id', (req, res)=>{
   });
 });
 
+// Assign project to an account
+router.put('/assign/:project_id', (req, res)=>{
+  project.assignProject(req.params.project_id, req.body.account_id).then(response =>{
+      res.status(200).send(response);
+  }).catch(error =>{
+      console.log(error);
+      res.status(400).send('Une erreur est survenue');
+  })
+})
+
 module.exports = router;
