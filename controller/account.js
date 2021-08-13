@@ -96,8 +96,8 @@ class AccountController {
     }
   }
 
-  async updateAccount(id, name, surname, phone,  post_id) {
-    console.log('isi')
+  async updateAccount(id, name, surname, phone, post_id) {
+    console.log("isi");
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -143,22 +143,21 @@ class AccountController {
     }
   }
   // Assign a project to an account
-  async assignProject(account_id,project_id) {
-    const filter = { project_id: project_id, account_id: account_id };
-    const update = { project_id: project_id };
+  async assignProject(account_id, project_id) {
+    const update = { project_id: project_id, account_id: account_id };
+    const filter = { project_id: project_id };
     try {
       let project = await ProjectManager.findOneAndUpdate(update, filter, {
         new: true,
         upsert: true,
       });
-      console.log(project)
+      console.log(project);
       return project;
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-  // Assign a project to an account
   async getProjectByAccount(account_id) {
     try {
       let projectManagers = await ProjectManager.find({
@@ -170,19 +169,6 @@ class AccountController {
       return error;
     }
   }
-
-  // Assign a project to an account
-  async assignProject(project_id, account_id){
-    const filter = { project: project_id, account: account_id };
-    const update = {account: account_id};
-    try {
-        let project = await ProjectManager.findOneAndUpdate(update, filter,{new: true,upsert: true});
-        return project;
-    }catch(error){
-        console.log(error);
-        throw error;
-    }
-}
 }
 
 module.exports = AccountController;
