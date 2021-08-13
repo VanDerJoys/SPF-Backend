@@ -20,6 +20,7 @@ router.post("/authentification", async (req, res) => {
           role: results.role,
           archived: results.status,
           project_id: results.project_id,
+          post_id: results.post_id,
           phone: results.phone,
           authToken: token,
 
@@ -40,7 +41,8 @@ router.post("/register", (req, res) => {
       req.body.phone,
       req.body.password,
       req.body.role,
-      req.body.project_id
+      req.body.project_id,
+      req.body.post_id
     )
     .then((response) => {
       if (response.code == 201) {
@@ -113,10 +115,10 @@ router.put("/:idUser", (req, res) => {
       req.body.name,
       req.body.surname,
       req.body.phone,
-      req.body.project_id
+      req.body.project_id,
+      req.body.post_id
     )
     .then((response) => {
-      console.log('ici')
       res.status(200).send(Boolean(response.nModified));
     })
     .catch((error) => {

@@ -55,4 +55,15 @@ router.get('/base/:base', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     })
 })
+
+router.put('/:contact', (req, res)=>{
+    const contact = new ContactController();
+    contact.updateContact(req.params.contact, req.body).then(response =>{
+        res.status(200).send(Boolean(response.nModified));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue')
+    })
+});
+
 module.exports = router;
