@@ -21,7 +21,7 @@ class PostController{
 
     async getAvailablePosts(){
         try {
-            let posts = await Post.find({available: true}, {__v: 0});
+            let posts = await Post.find({available: false}, {__v: 0});
             return posts;
         } catch (error) {
             console.log(error);

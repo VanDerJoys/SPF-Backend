@@ -13,7 +13,7 @@ class AccountController {
 
   async logUser(phone, password) {
     // checking if the phone number exists
-    let user = await Account.findOne({ phone: phone }).populate("project_id");
+    let user = await Account.findOne({ phone: phone }).populate("project_id").populate("post_id");
     if (!user)
       return { code: 400, message: "le numéro de téléphone est incorrecte" };
 
@@ -25,7 +25,7 @@ class AccountController {
     return user;
   }
 
-  async register(name, surname, phone, password, role) {
+  async register(name, surname, phone, password, role, project_id, post_id) {
     let hashedPassword = await this.hashPassword(password);
     try {
       const account = new Account({
@@ -33,7 +33,9 @@ class AccountController {
         surname: surname,
         phone: phone,
         password: hashedPassword,
-        role: role
+        role: role,
+        project_id: project_id,
+        post_id: post_id,
       });
       let results = await account.save();
       return { code: 201, message: results };
@@ -47,7 +49,8 @@ class AccountController {
     try {
       let accounts = await Account.find()
         .select({ password: 0 })
-        .populate("project_id");
+        .populate("project_id")
+        .populate("post_id");
       return accounts;
     } catch (error) {
       console.log(error);
@@ -91,14 +94,16 @@ class AccountController {
     }
   }
 
-  async updateAccount(id, name, surname, phone, project_id) {
+  async updateAccount(id, name, surname, phone, project_id, post_id ) {
     try {
       let account = await Account.updateOne(
         { _id: id },
         {
           name: name,
           surname: surname,
-          phone: phone
+          phone: phone,
+          project_id: project_id,
+          post_id: post_id,
         }
       );
       return account;
