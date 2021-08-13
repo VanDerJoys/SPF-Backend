@@ -1,5 +1,6 @@
 const Account = require("../model/Schemas/account");
 const Post = require("../model/Schemas/post");
+
 const bcrypt = require("bcryptjs");
 
 class AccountController {
@@ -23,9 +24,8 @@ class AccountController {
     return user;
   }
 
-  async register(name, surname, phone, password, role, project_id) {
+  async register(name, surname, phone, password, role) {
     let hashedPassword = await this.hashPassword(password);
-
     try {
       const account = new Account({
         name: name,

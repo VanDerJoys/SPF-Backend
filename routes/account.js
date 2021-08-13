@@ -39,8 +39,7 @@ router.post("/register", (req, res) => {
       req.body.surname,
       req.body.phone,
       req.body.password,
-      req.body.role,
-      req.body.project_id
+      req.body.role
     )
     .then((response) => {
       if (response.code == 201) {
@@ -149,15 +148,5 @@ router.put('/:account_id/post/:post_id', (req, res)=>{
       res.status(400).send('Une erreur est survenue');
   });
 });
-
-router.get('/best-collectors', (req, res)=>{
-  let account = new Account();
-  account.getTheBests().then(response =>{
-    res.status(200).send(response);
-  }).catch(error =>{
-    console.log(error);
-    res.status(400).send('Une erreur est survenue');
-  })
-})
 
 module.exports = router;
