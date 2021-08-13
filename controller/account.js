@@ -1,6 +1,6 @@
 const Account = require("../model/Schemas/account");
 const Post = require("../model/Schemas/post");
-
+const ProjectManager = require("../model/Schemas/gestion_projet");
 const bcrypt = require("bcryptjs");
 
 class AccountController {
@@ -12,7 +12,9 @@ class AccountController {
 
   async logUser(phone, password) {
     // checking if the phone number exists
-    let user = await Account.findOne({ phone: phone }).populate("project_id").populate("post_id");
+    let user = await Account.findOne({ phone: phone })
+      .populate("project_id")
+      .populate("post_id");
     if (!user)
       return { code: 400, message: "le numéro de téléphone est incorrecte" };
 
@@ -69,7 +71,11 @@ class AccountController {
   }
   async getAccountsTelevendeur() {
     try {
-      let accounts = await Account.find({ status: false, type: "Télévendeur",post_id:null}).select({
+      let accounts = await Account.find({
+        status: false,
+        type: "Télévendeur",
+        post_id: null,
+      }).select({
         password: 0,
       });
       return accounts;
@@ -82,10 +88,7 @@ class AccountController {
   async deleteAccount(id, postId) {
     try {
       let account = await Account.deleteOne({ _id: id });
-      await Post.updateOne(
-        { _id: postId },
-        { available: true}
-      );
+      await Post.updateOne({ _id: postId }, { available: true });
       return account;
     } catch (error) {
       console.log(error);
@@ -93,7 +96,8 @@ class AccountController {
     }
   }
 
-  async updateAccount(id, name, surname, phone, project_id, post_id ) {
+  async updateAccount(id, name, surname, phone,  post_id) {
+    console.log('isi')
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -101,7 +105,6 @@ class AccountController {
           name: name,
           surname: surname,
           phone: phone,
-          project_id: project_id,
           post_id: post_id,
         }
       );
@@ -126,14 +129,45 @@ class AccountController {
     }
   }
 
-  async assignPost(postId, accountId){
-    try{
-        await Post.updateOne({_id: postId}, {available: false});
-        let account = await Account.updateOne({_id: accountId}, {post_id: postId});
-        return account;
-    }catch(error){
-        console.log(error);
-        throw error;
+  async assignPost(postId, accountId) {
+    try {
+      await Post.updateOne({ _id: postId }, { available: false });
+      let account = await Account.updateOne(
+        { _id: accountId },
+        { post_id: postId }
+      );
+      return account;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  // Assign a project to an account
+  async assignProject(account_id,project_id) {
+    const filter = { project_id: project_id, account_id: account_id };
+    const update = { project_id: project_id };
+    try {
+      let project = await ProjectManager.findOneAndUpdate(update, filter, {
+        new: true,
+        upsert: true,
+      });
+      console.log(project)
+      return project;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  // Assign a project to an account
+  async getProjectByAccount(account_id) {
+    try {
+      let projectManagers = await ProjectManager.find({
+        account_id: account_id,
+      }).populate("project_id");
+      return projectManagers;
+    } catch (error) {
+      console.log(error);
+      return error;
     }
   }
 }

@@ -36,15 +36,7 @@ router.put('/:project_id', (req, res)=>{
     })
 });
 
-// Assign project to an account
-router.put('/assign/:project_id', (req, res)=>{
-    project.assignProject(req.params.project_id, req.body.account_id).then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    })
-})
+
 
 // delete a project
 router.delete('/:project_id', (req, res)=>{

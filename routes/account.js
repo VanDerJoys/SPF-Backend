@@ -111,6 +111,7 @@ router.delete("/:accountId", (req, res) => {
 
 router.put("/:idUser", (req, res) => {
   let account = new Account();
+  console.log('test')
   account
     .updateAccount(
       req.params.idUser,
@@ -153,4 +154,24 @@ router.put('/:account_id/post/:post_id', (req, res)=>{
   });
 });
 
+// Assign project to an account
+router.put('/manage-project/assign', (req, res)=>{
+  let account = new Account();
+  account.assignProject(req.body.account_id, req.body.project_id).then(response =>{
+      res.status(200).send(response);
+  }).catch(error =>{
+      console.log(error);
+      res.status(400).send('Une erreur est survenue');
+  })
+})
+// get  project for an account
+router.get('/management/:account_id', (req, res)=>{
+  let account = new Account();
+  account.getProjectByAccount(req.params.account_id).then(response =>{
+      res.status(200).send(response);
+  }).catch(error =>{
+      console.log(error);
+      res.status(400).send('Une erreur est survenue');
+  })
+})
 module.exports = router;
