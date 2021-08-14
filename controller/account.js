@@ -144,13 +144,13 @@ class AccountController {
   }
   // Assign a project to an account
   async assignProject(account_id, project_id) {
-    const update = { project_id: project_id, account_id: account_id };
-    const filter = { project_id: project_id };
     try {
-      let project = await ProjectManager.findOneAndUpdate(update, filter, {
-        new: true,
-        upsert: true,
+      const project = new ProjectManager({
+        project_id: project_id,
+        account_id: account_id,
       });
+
+      let project = await ProjectManager.save();
       console.log(project);
       return project;
     } catch (error) {
