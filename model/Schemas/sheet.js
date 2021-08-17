@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const SheetSchema = new mongoose.Schema({
-    post: {  // identifiant du poste
+    post_id: {  // identifiant du poste
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "Posts"
+        ref: "Accounts"
     },
     calls:{  // appelé
         type: Number,
@@ -43,6 +43,11 @@ const SheetSchema = new mongoose.Schema({
     },
     do_not_call: {  // ne plus appeler
         type: Number,
+        required: true,
+        default: 0
+    },
+    tranche: {  // tranche horaire
+        type: String,
         required: true,
         default: 0
     },
