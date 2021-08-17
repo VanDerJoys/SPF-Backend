@@ -19,7 +19,6 @@ router.post("/authentification", async (req, res) => {
           surname: results.surname,
           role: results.role,
           archived: results.status,
-          project_id: results.project_id,
           post_id: results.post_id,
           phone: results.phone,
           authToken: token,
@@ -41,7 +40,6 @@ router.post("/register", (req, res) => {
       req.body.phone,
       req.body.password,
       req.body.role,
-      req.body.project_id,
       req.body.post_id
     )
     .then((response) => {
@@ -96,6 +94,17 @@ router.get("/archived", (req, res) => {
     });
 });
 
+// get project for an account
+router.get('/management/:account_id', (req, res)=>{
+  let account = new Account();
+  account.getProjectByAccount(req.params.account_id).then(response =>{
+      res.status(200).send(response);
+  }).catch(error =>{
+      console.log(error);
+      res.status(400).send('Une erreur est survenue');
+  })
+})
+
 router.delete("/:accountId", (req, res) => {
   let account = new Account();
   account
@@ -109,9 +118,23 @@ router.delete("/:accountId", (req, res) => {
     });
 });
 
+// delete project assignation
+router.delete('/:account_id/:project_id', (req, res)=>{
+  let account = new Account();
+  account.deleteProjectAssignation(req.params.account_id, req.params.project_id).then(response =>{
+    if (Boolean(response.deletedCount)){
+      res.status(200).send("Suppression effectuée");
+    }else {
+      res.status(404).send("La ressource à supprimer n'existe pas");
+    }
+  }).catch(error =>{
+    console.log("Router: "+error);
+    res.status(400).send("Une erreur est survenue");
+  })
+})
+
 router.put("/:idUser", (req, res) => {
   let account = new Account();
-  console.log('test')
   account
     .updateAccount(
       req.params.idUser,
@@ -164,14 +187,5 @@ router.put('/manage-project/assign', (req, res)=>{
       res.status(400).send('Une erreur est survenue');
   })
 })
-// get  project for an account
-router.get('/management/:account_id', (req, res)=>{
-  let account = new Account();
-  account.getProjectByAccount(req.params.account_id).then(response =>{
-      res.status(200).send(response);
-  }).catch(error =>{
-      console.log(error);
-      res.status(400).send('Une erreur est survenue');
-  })
-})
+
 module.exports = router;

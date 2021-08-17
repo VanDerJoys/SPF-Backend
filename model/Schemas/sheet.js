@@ -8,50 +8,44 @@ const SheetSchema = new mongoose.Schema({
     },
     calls:{  // appelé
         type: Number,
-        required: false,
+        required: true,
         default: 0
     },
-    notebooks: [{// rendez-vous
-        contact: {  
-            type: mongoose.Schema.Types.ObjectId, // identifiant du contact
-            required: false,
-            ref: "Contacts"
-        },
-        period:{
-            type: String,
-            required: true
-        }
-    }],
-    arguments: [{  // argumentaires
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
-    orders: [{  // commandes
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
-    busy_calls: [{  // appel en absence
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
-    unavailable: [{  // indisponible
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
-    unreachable: [{  // injoignable
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
-    do_not_call: [{  // ne plus appeler
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contacts",
-        required: false
-    }],
+    notebooks: {// rendez-vous
+        type: Number,
+        required: true,
+        default: 0
+    },
+    arguments: {  // argumentaires
+        type: Number,
+        required: true,
+        default: 0
+    },
+    orders: {  // commandes
+        type: Number,
+        required: true,
+        default: 0
+    },
+    busy_calls: {  // appel en absence
+        type: Number,
+        required: true,
+        default: 0
+    },
+    unavailable: {  // indisponible
+        type: Number,
+        required: true,
+        default: 0
+    },
+    unreachable: {  // injoignable
+        type: Number,
+        required: true,
+        default: 0
+    },
+    do_not_call: {  // ne plus appeler
+        type: Number,
+        required: true,
+        default: 0
+    },
     created_at:{
         type: Date,
         default: Date.now

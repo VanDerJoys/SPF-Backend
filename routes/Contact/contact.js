@@ -72,6 +72,7 @@ router.put("/:contact", (req, res) => {
       res.status(400).send("Une erreur est survenue");
     });
 });
+
 // get contact by collector
 router.get("/collector", (req, res) => {
   const contact = new ContactController();

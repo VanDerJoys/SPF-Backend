@@ -2,8 +2,19 @@ const express = require('express');
 const Sheet = require('../../controller/Sheet/sheet');
 const router = express.Router();
 
+// create a sheet
 router.post('/', (req, res)=>{
-    let sheet = new Sheet(req.body.project_name, req.body.post_id);
+    let sheet = new Sheet(
+        req.body.post_id,
+        req.body.call, 
+        req.body.notebook,
+        req.body.argument,
+        req.body.order,
+        req.body.busy_call,
+        req.body.unavailable,
+        req.body.unreachable,
+        req.body.do_not_call
+    );
     sheet.createSheet().then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
@@ -12,34 +23,26 @@ router.post('/', (req, res)=>{
     })
 })
 
-router.post('/call', (req, res)=>{
-    let sheet = new Sheet(req.body.project_name, req.body.id);
-    sheet.addCall(req.body.contacts).then(response =>{
+// get a sheet of a single post
+router.get('/:post_id', (req, res)=>{
+    let sheet = new Sheet();
+    sheet.getSheetOfOnePost(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
-        res.status(400).send('Une erreur est survenue');
+        res.status(400).send('Une erreur est survenue');   
     })
 })
 
-router.post('/notebook', (req, res)=>{
-    let sheet = new Sheet(req.body.project_name, req.body.post_id);
-    sheet.addNotebook(req.body.notebooks).then(response =>{
+// delete a single sheet
+router.delete('/:sheet_id', (req, res)=>{
+    let sheet = new Sheet();
+    sheet.deleteOneSheet(req.params.sheet_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
-    })
-})
-
-router.post('/argument', (req, res)=>{
-    let sheet = new Sheet(req.body.project_name, req.body.post_id);
-    sheet.addArgument(req.body.arguments).then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    })
-})
+    });
+});
 
 module.exports = router;

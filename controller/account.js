@@ -26,7 +26,7 @@ class AccountController {
     return user;
   }
 
-  async register(name, surname, phone, password, role, project_id, post_id) {
+  async register(name, surname, phone, password, role, post_id) {
     let hashedPassword = await this.hashPassword(password);
     try {
       const account = new Account({
@@ -35,7 +35,6 @@ class AccountController {
         phone: phone,
         password: hashedPassword,
         role: role,
-        project_id: project_id,
         post_id: post_id,
       });
       let results = await account.save();
@@ -50,7 +49,6 @@ class AccountController {
     try {
       let accounts = await Account.find()
         .select({ password: 0 })
-        .populate("project_id")
         .populate("post_id");
       return accounts;
     } catch (error) {
@@ -85,6 +83,18 @@ class AccountController {
     }
   }
 
+  async getProjectByAccount(account_id) {
+    try {
+      let projectManagers = await ProjectManager.find({
+        account_id: account_id,
+      }).populate("project_id");
+      return projectManagers;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
   async deleteAccount(id, postId) {
     try {
       let account = await Account.deleteOne({ _id: id });
@@ -97,7 +107,6 @@ class AccountController {
   }
 
   async updateAccount(id, name, surname, phone, post_id) {
-    console.log("isi");
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -142,6 +151,7 @@ class AccountController {
       throw error;
     }
   }
+
   // Assign a project to an account
   async assignProject(account_id, project_id) {
     try {
@@ -151,22 +161,22 @@ class AccountController {
       });
 
       let result = await project.save();
-      console.log(result);
       return result;
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-  async getProjectByAccount(account_id) {
-    try {
-      let projectManagers = await ProjectManager.find({
-        account_id: account_id,
-      }).populate("project_id");
-      return projectManagers;
-    } catch (error) {
-      console.log(error);
-      return error;
+
+  // delete project assignation
+  async deleteProjectAssignation(account_id, project_id){
+    try{
+      let project = ProjectManager.deleteOne({account_id: account_id, project_id: project_id});
+      return project;
+    }
+    catch(error){
+      console.log('Controller: '+error);
+      throw error;
     }
   }
 }
