@@ -40,7 +40,7 @@ class ListeningController{
 
     async getListenings(){
         try{
-            const listenings = await Listening.find({}, {__v: 0}).populate('post_id');
+            const listenings = await Listening.find({}, {__v: 0}).populate({path: 'post_id', select: {__v: 0}});
             return listenings;
         }catch(error){
             console.log(error);
