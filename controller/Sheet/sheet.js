@@ -38,21 +38,16 @@ class Calls{
         try {
             let sheets = await SheetSchema.aggregate([
                 {
-                  $group: {
-                    _id: "$post",
-                    totalCalls: { $sum: "$calls" },
-                    totalNotebooks: { $sum: "$notebooks"},
-                    totalArguments: { $sum: "$arguments"},
-                    totalOrders: { $sum: "$orders"},
-                    totalBusy_calls: { $sum: "$busy_calls" },
-                    totalUnavailables: { $sum: "$unavailable" },
-                    totalUnreachables: { $sum: "$unreachable" },
-                    totalDo_not_calls: { $sum: "$do_not_call" }
-                  }
-                },
-                {
-                    $match: {
-                        post: post_id
+                    $group: {
+                        _id: post_id,
+                        totalCalls: { $sum: "$calls" },
+                        totalNotebooks: { $sum: "$notebooks"},
+                        totalArguments: { $sum: "$arguments"},
+                        totalOrders: { $sum: "$orders"},
+                        totalBusy_calls: { $sum: "$busy_calls" },
+                        totalUnavailables: { $sum: "$unavailable" },
+                        totalUnreachables: { $sum: "$unreachable" },
+                        totalDo_not_calls: { $sum: "$do_not_call" }
                     }
                 }
             ]);
