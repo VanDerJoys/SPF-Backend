@@ -1,4 +1,5 @@
 const SheetSchema = require('../../model/Schemas/sheet');
+const mongoose = require('mongoose');
 
 class Calls{
     constructor(post_id, call, notebook, argument, order, busy_call, unavailable, unreachable, do_not_call){
@@ -38,8 +39,13 @@ class Calls{
         try {
             let sheets = await SheetSchema.aggregate([
                 {
+                    $match: {
+                        post: mongoose.Types.ObjectId(post_id) 
+                    }
+                },
+                {
                     $group: {
-                        _id: post_id,
+                        _id: "$post",
                         totalCalls: { $sum: "$calls" },
                         totalNotebooks: { $sum: "$notebooks"},
                         totalArguments: { $sum: "$arguments"},
@@ -50,7 +56,7 @@ class Calls{
                         totalDo_not_calls: { $sum: "$do_not_call" }
                     }
                 }
-            ]);
+            ])
             return sheets;
         } catch (error) {
             console.log(error);
