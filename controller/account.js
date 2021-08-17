@@ -150,9 +150,9 @@ class AccountController {
         account_id: account_id,
       });
 
-      let project = await ProjectManager.save();
-      console.log(project);
-      return project;
+      let result = await project.save();
+      console.log(result);
+      return result;
     } catch (error) {
       console.log(error);
       throw error;
