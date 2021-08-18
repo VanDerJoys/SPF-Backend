@@ -43,6 +43,33 @@ router.get("/", (req, res) => {
     });
 });
 
+// get all sheets of a post
+router.get('/all/:post_id', (req, res)=>{
+    let sheet = new Sheet();
+    sheet.getAllSheetsOfOnePost(req.params.post_id).then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');   
+    });
+});
+
+// update a sheet
+router.put('/:sheet_id', (req, res)=>{
+    let sheet = new Sheet();
+    sheet.updateSheet(req.params.sheet_id, req.body).then(response =>{
+        if(Boolean(response.nModified)){
+            res.status(200).send(Boolean(response.nModified));
+        }
+        else{
+            res.status(404).send("La fiche n'existe pas")
+        }
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send("Une erreur est survenue");
+    });
+});
+
 // delete a single sheet
 router.delete("/:sheet_id", (req, res) => {
   let sheet = new Sheet();

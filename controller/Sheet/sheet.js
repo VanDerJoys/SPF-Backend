@@ -26,7 +26,6 @@ class Calls {
   //     this.tranche = tranche;
   //   }
   async createSheet(data) {
-    console.log(data);
     const sheet = new SheetSchema({
       post_id: data.post_id,
       calls: data.calls,
@@ -48,29 +47,7 @@ class Calls {
     }
   }
 
-  //   async createSheet() {
-  //     console.log(this);
-  //     try {
-  //       let sheet = new SheetSchema({
-  //         post_id: this.post_id,
-  //         calls: this.call,
-  //         notebooks: this.notebook,
-  //         arguments: this.argument,
-  //         orders: this.order,
-  //         busy_calls: this.busy_call,
-  //         unavailable: this.unavailable,
-  //         unreachable: this.unreachable,
-  //         do_not_call: this.do_not_call,
-  //         tranche: this.tranche,
-  //       });
-  //       let results = await sheet.save();
-  //       return results;
-  //     } catch (error) {
-  //       console.log(error);
-  //       throw error;
-  //     }
-  //   }
-
+  
   async getSheetOfADate(date1, date2) {
     try {
       const date1Search = new Date(date1);
@@ -110,18 +87,21 @@ class Calls {
       throw error;
     }
   }
-  async getAllFiche() {
+
+  
+  async getAllSheetsOfOnePost(post_id) {
     try {
-      const sheet = await SheetSchema.find();
-      return sheet;
+      let sheets = await SheetSchema.find({ post: post_id }, { __v: 0 });
+      return sheets;
     } catch (error) {
-      console.log("Controller: " + error);
+      console.log(error);
       throw error;
     }
   }
+
   async deleteOneSheet(sheet_id) {
     try {
-      let call = await SheetSchema.deleteOne({ _id: sheet_id }, { __v: 0 });
+      let call = await SheetSchema.deleteOne({ _id: sheet_id });
       return call;
     } catch (error) {
       console.log(error);
