@@ -1,49 +1,47 @@
-const express = require('express');
-const Sheet = require('../../controller/Sheet/sheet');
+const express = require("express");
+const Sheet = require("../../controller/Sheet/sheet");
 const router = express.Router();
 
 // create a sheet
-router.post('/', (req, res)=>{
-    let sheet = new Sheet(
-        req.body.post_id,
-        req.body.call, 
-        req.body.notebook,
-        req.body.argument,
-        req.body.order,
-        req.body.busy_call,
-        req.body.unavailable,
-        req.body.unreachable,
-        req.body.do_not_call
-    );
-    sheet.createSheet().then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
+router.post("/", (req, res) => {
+  let sheet = new Sheet();
+  sheet
+    .createSheet(req.body)
+    .then((response) => {
+      res.status(200).send(response);
     })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
 });
 
-// get all sheets by post
-router.get('/', (req, res)=>{
-    let sheet = new Sheet();
-    sheet.getAllByPost().then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    })
-})
-
 // get a sheet of a single post
-router.get('/:post_id', (req, res)=>{
-    let sheet = new Sheet();
-    sheet.getSheetOfOnePost(req.params.post_id).then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');   
+router.post("/shetbydate", (req, res) => {
+  let sheet = new Sheet();
+  sheet
+    .getSheetOfADate(req.body.date1, req.body.date2)
+    .then((response) => {
+      res.status(200).send(response);
     })
-})
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
+});
+// get all shet
+router.get("/", (req, res) => {
+  let sheet = new Sheet();
+  sheet
+    .getAllFiche()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
+});
 
 // get all sheets of a post
 router.get('/all/:post_id', (req, res)=>{
@@ -73,13 +71,16 @@ router.put('/:sheet_id', (req, res)=>{
 });
 
 // delete a single sheet
-router.delete('/:sheet_id', (req, res)=>{
-    let sheet = new Sheet();
-    sheet.deleteOneSheet(req.params.sheet_id).then(response =>{
-        res.status(200).send(Boolean(response.deletedCount));
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
+router.delete("/:sheet_id", (req, res) => {
+  let sheet = new Sheet();
+  sheet
+    .deleteOneSheet(req.params.sheet_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
     });
 });
 
