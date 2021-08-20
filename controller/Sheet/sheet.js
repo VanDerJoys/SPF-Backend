@@ -49,7 +49,7 @@ class Calls{
                         totalUnavailables: { $sum: "$unavailable" },
                         totalUnreachables: { $sum: "$unreachable" },
                         totalDo_not_calls: { $sum: "$do_not_call" },
-                        post: {$push: "$post"}
+                        post: {$push: "$post_id"}
                     }
                 }
             ])
