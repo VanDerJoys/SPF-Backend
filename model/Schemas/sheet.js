@@ -6,10 +6,13 @@ const SheetSchema = new mongoose.Schema({
         required: true,
         ref: "Posts"
     },
-    calls:{  // appelé
-        type: Number,
-        required: true,
-    },
+    calls:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Contacts'
+        }
+    ],
     notebooks: {// rendez-vous
         type: Number,
         required: true,

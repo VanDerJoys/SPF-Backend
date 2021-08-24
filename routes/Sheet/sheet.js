@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
 });
 
 // get a sheet of a single post
-router.post("/shetbydate", (req, res) => {
+router.get("/", (req, res) => {
   let sheet = new Sheet();
   sheet
     .getSheetOfADate(req.body.date1, req.body.date2)
@@ -29,7 +29,8 @@ router.post("/shetbydate", (req, res) => {
       res.status(400).send("Une erreur est survenue");
     });
 });
-// get all shet
+
+// get all sheet 
 router.get("/", (req, res) => {
   let sheet = new Sheet();
   sheet

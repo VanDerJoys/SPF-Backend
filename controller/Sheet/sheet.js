@@ -2,29 +2,6 @@ const SheetSchema = require("../../model/Schemas/sheet");
 const mongoose = require("mongoose");
 
 class Calls {
-  //   constructor(
-  //     post_id,
-  //     call,
-  //     notebook,
-  //     argument,
-  //     order,
-  //     busy_call,
-  //     unavailable,
-  //     unreachable,
-  //     do_not_call,
-  //     tranche
-  //   ) {
-  //     this.post_id = post_id;
-  //     this.call = call;
-  //     this.notebook = notebook;
-  //     this.argument = argument;
-  //     this.order = order;
-  //     this.busy_call = busy_call;
-  //     this.unavailable = unavailable;
-  //     this.unreachable = unreachable;
-  //     this.do_not_call = do_not_call;
-  //     this.tranche = tranche;
-  //   }
   async createSheet(data) {
     const sheet = new SheetSchema({
       post_id: data.post_id,
