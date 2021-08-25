@@ -17,10 +17,10 @@ router.post("/", (req, res) => {
 });
 
 // get a sheet of a single post
-router.get("/", (req, res) => {
+/* router.get("/:firstDate/:lastDate", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .getSheetOfADate(req.body.date1, req.body.date2)
+    .getSheetOfADate(req.params.firstDate, req.params.lastDate)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -28,10 +28,10 @@ router.get("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-});
+}); */
 
 // get all sheet 
-router.get("/", (req, res) => {
+/* router.get("/", (req, res) => {
   let sheet = new Sheet();
   sheet
     .getAllFiche()
@@ -42,10 +42,10 @@ router.get("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-});
+}); */
 
 // get all sheets of a post
-router.get('/all/:post_id', (req, res)=>{
+router.get('/:post_id', (req, res)=>{
     let sheet = new Sheet();
     sheet.getAllSheetsOfOnePost(req.params.post_id).then(response =>{
         res.status(200).send(response);

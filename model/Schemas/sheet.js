@@ -6,13 +6,10 @@ const SheetSchema = new mongoose.Schema({
         required: true,
         ref: "Posts"
     },
-    calls:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Contacts'
-        }
-    ],
+    calls:{// appels
+        type: Number,
+        required: true,
+    },
     notebooks: {// rendez-vous
         type: Number,
         required: true,
@@ -41,13 +38,9 @@ const SheetSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    tranche: {  // tranche horaire
-        type: String,
-        required: true,
-    },
     created_at:{
-        type: Date,
-        default: Date.now
+        type: String,
+        default: new Date().toDateString()
     }
 })
 
