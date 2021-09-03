@@ -23,14 +23,13 @@ class Calls {
     }
   }
 
-  /* async getSheetOfADate(date1, date2) {
+  // get all sheets grouped by post
+  async getAllSheets() {
     try {
-      const date1Search = new Date(date1);
-      const date2Search = new Date(date2);
       let sheets = await SheetSchema.aggregate([
         {
           $match: {
-            created_at: { $gte: date1Search, $lte: date2Search },
+            created_at: new Date().toDateString(),
           },
         },
         {
@@ -61,14 +60,15 @@ class Calls {
       console.log(error);
       throw error;
     }
-  } */
+  }
 
-  async getAllSheetsOfOnePost(post_id) {
+  async getSheetOfOnePost(post_id) {
     try {
       let sheets = await SheetSchema.aggregate([
         {
           $match: {
-            post_id: mongoose.Types.ObjectId(post_id)
+            post_id: mongoose.Types.ObjectId(post_id),
+            created_at: new Date().toDateString()
           },
         },
         {
@@ -96,6 +96,16 @@ class Calls {
 
       return results;
     } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async getAllSheetsOfOnePost(post_id){
+    try{
+      let sheet = await SheetSchema.find({post_id: post_id, created_at: new Date().toDateString()}, {__v: 0, post_id: 0, _id: 0});
+      return sheet;
+    }catch(error){
       console.log(error);
       throw error;
     }

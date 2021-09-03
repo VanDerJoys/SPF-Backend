@@ -16,11 +16,11 @@ router.post("/", (req, res) => {
     });
 });
 
-// get a sheet of a single post
-/* router.get("/:firstDate/:lastDate", (req, res) => {
+// get sheets of all posts
+router.get("/", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .getSheetOfADate(req.params.firstDate, req.params.lastDate)
+    .getAllSheets()
     .then((response) => {
       res.status(200).send(response);
     })
@@ -28,13 +28,13 @@ router.post("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-}); */
+});
 
-// get all sheet 
-/* router.get("/", (req, res) => {
+// get sheets of one post
+router.get("/all/:post_id", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .getAllFiche()
+    .getAllSheetsOfOnePost(req.params.post_id)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -42,32 +42,16 @@ router.post("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-}); */
+});
 
-// get all sheets of a post
+// get sum of sheets of one post
 router.get('/:post_id', (req, res)=>{
     let sheet = new Sheet();
-    sheet.getAllSheetsOfOnePost(req.params.post_id).then(response =>{
+    sheet.getSheetOfOnePost(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');   
-    });
-});
-
-// update a sheet
-router.put('/:sheet_id', (req, res)=>{
-    let sheet = new Sheet();
-    sheet.updateSheet(req.params.sheet_id, req.body).then(response =>{
-        if(Boolean(response.nModified)){
-            res.status(200).send(Boolean(response.nModified));
-        }
-        else{
-            res.status(404).send("La fiche n'existe pas")
-        }
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send("Une erreur est survenue");
     });
 });
 

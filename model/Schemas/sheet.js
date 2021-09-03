@@ -6,38 +6,65 @@ const SheetSchema = new mongoose.Schema({
         required: true,
         ref: "Posts"
     },
-    calls:{// appels
-        type: Number,
-        required: true,
-    },
-    notebooks: {// rendez-vous
-        type: Number,
-        required: true,
-    },
-    arguments: {  // argumentaires
-        type: Number,
-        required: true,
-    },
+    calls:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
+    notebooks: [
+        {
+            contact: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: false,
+                ref: "Contacts"
+            },
+            period: {
+                type: String,
+                required: false
+            }
+        }
+    ],
+    arguments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
     orders: {  // commandes
         type: Number,
         required: true,
     },
-    busy_calls: {  // appel en absence
-        type: Number,
-        required: true,
-    },
-    unavailable: {  // indisponible
-        type: Number,
-        required: true,
-    },
-    unreachable: {  // injoignable
-        type: Number,
-        required: true,
-    },
-    do_not_call: {  // ne plus appeler
-        type: Number,
-        required: true,
-    },
+    busy_calls: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
+    unavailable: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
+    unreachable: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
+    do_not_call: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: "Contacts"
+        }
+    ],
     created_at:{
         type: String,
         default: new Date().toDateString()
