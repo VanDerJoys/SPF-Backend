@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
 });
 
 // get all contacts
-router.get("/", (req, res) => {
+/* router.get("/", (req, res) => {
   const contact = new ContactController();
   contact
     .getAllContacts()
@@ -30,10 +30,10 @@ router.get("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-});
+}); */
 
 // get contacts of a project
-router.get("/project/:project", (req, res) => {
+/* router.get("/project/:project", (req, res) => {
   const contact = new ContactController();
   contact
     .getProjectContacts(req.params.project)
@@ -44,7 +44,7 @@ router.get("/project/:project", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-});
+}); */
 
 // get base contacts
 router.get("/base/:base", (req, res) => {

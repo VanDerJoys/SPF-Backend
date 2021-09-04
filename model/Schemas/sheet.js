@@ -66,8 +66,8 @@ const SheetSchema = new mongoose.Schema({
         }
     ],
     created_at:{
-        type: String,
-        default: new Date().toDateString()
+        type: Date,
+        default: Date.now
     }
 })
 
