@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const AccountSchema = new mongoose.Schema({
-    post_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: "Posts"
-    },
     name: {
         type: String,
         required: true
@@ -20,9 +15,9 @@ const AccountSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
-    role: {
+    type: {
         type: String,
         required: true
     },

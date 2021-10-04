@@ -35,26 +35,21 @@ router.post("/register", (req, res) => {
   let account = new Account();
   account
     .register(
-      req.body.name,
-      req.body.surname,
-      req.body.phone,
-      req.body.password,
-      req.body.role,
-      req.body.post_id
+      req.body.data.name,
+      req.body.data.surname,
+      req.body.data.phone,
+      req.body.data.type
     )
     .then((response) => {
-      if (response.code == 201) {
-        res.status(response.code).send(response.message);
-      } else {
-        res.status(response.code).send(response.message.message);
-      }
+      res.status(201).send(response);
     })
     .catch((error) => {
       console.log("Router: " + error);
-      res.statut(400).send("Une erreur est survenue");
+      res.status(400).send("Une erreur est survenue");
     });
 });
 
+// get all users
 router.get("/", (req, res) => {
   let accounts = new Account();
   accounts
@@ -108,7 +103,7 @@ router.get('/management/:account_id', (req, res)=>{
 router.delete("/:accountId", (req, res) => {
   let account = new Account();
   account
-    .deleteAccount(req.params.accountId, req.body.post_id)
+    .deleteAccount(req.params.accountId)
     .then((response) => {
       res.status(200).send(Boolean(response.deletedCount));
     })
@@ -133,16 +128,15 @@ router.delete('/:account_id/:project_id', (req, res)=>{
   })
 })
 
-router.put("/:idUser", (req, res) => {
+router.put("/:accountId", (req, res) => {
   let account = new Account();
   account
     .updateAccount(
-      req.params.idUser,
-      req.body.name,
-      req.body.surname,
-      req.body.phone,
-      req.body.project_id,
-      req.body.post_id
+      req.params.accountId,
+      req.body.data.name,
+      req.body.data.surname,
+      req.body.data.phone,
+      req.body.data.type
     )
     .then((response) => {
       res.status(200).send(Boolean(response.nModified));

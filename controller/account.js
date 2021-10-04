@@ -26,30 +26,26 @@ class AccountController {
     return user;
   }
 
-  async register(name, surname, phone, password, role, post_id) {
-    let hashedPassword = await this.hashPassword(password);
+  async register(name, surname, phone, type) {
     try {
       const account = new Account({
         name: name,
         surname: surname,
         phone: phone,
-        password: hashedPassword,
-        role: role,
-        post_id: post_id,
+        type: type,
       });
       let results = await account.save();
-      return { code: 201, message: results };
+      return results;
     } catch (error) {
       console.log("Controller: " + error);
-      return { code: 400, message: error };
+      throw error
     }
   }
 
   async getAccounts() {
     try {
       let accounts = await Account.find()
-        .select({ password: 0 })
-        .populate("post_id");
+        .select({ password: 0 });
       return accounts;
     } catch (error) {
       console.log(error);
@@ -91,22 +87,21 @@ class AccountController {
       return projectManagers;
     } catch (error) {
       console.log(error);
-      return error;
+      throw error;
     }
   }
 
-  async deleteAccount(id, postId) {
+  async deleteAccount(id) {
     try {
       let account = await Account.deleteOne({ _id: id });
-      await Post.updateOne({ _id: postId }, { available: true });
       return account;
     } catch (error) {
       console.log(error);
-      return error;
+      throw error;
     }
   }
 
-  async updateAccount(id, name, surname, phone, post_id) {
+  async updateAccount(id, name, surname, phone, type) {
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -114,13 +109,13 @@ class AccountController {
           name: name,
           surname: surname,
           phone: phone,
-          post_id: post_id,
+          type: type,
         }
       );
       return account;
     } catch (error) {
       console.log(error);
-      return error;
+      throw error;
     }
   }
 
@@ -134,7 +129,7 @@ class AccountController {
       return account;
     } catch (error) {
       console.log(error);
-      return error;
+      throw error;
     }
   }
 
