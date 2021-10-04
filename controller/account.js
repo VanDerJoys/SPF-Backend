@@ -63,19 +63,18 @@ class AccountController {
       return error;
     }
   }
-  async getAccountsTelevendeur() {
+  async getAccountsTelemarketer() {
     try {
       let accounts = await Account.find({
-        status: false,
+        archived: false,
         type: "Télévendeur",
-        post_id: null,
       }).select({
         password: 0,
       });
       return accounts;
     } catch (error) {
       console.log(error);
-      return error;
+      throw error;
     }
   }
 

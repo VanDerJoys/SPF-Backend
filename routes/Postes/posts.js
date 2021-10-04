@@ -18,7 +18,7 @@ const router = express.Router();
 
 // Create a new post
 router.post('/', (req, res)=>{
-    post.createPost(req.body.name).then(response =>{
+    post.createPost(req.body.data.name).then(response =>{
         res.status(201).send(response);
     }).catch(error =>{
         console.log(error);

@@ -63,10 +63,10 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/televendeur", (req, res) => {
+router.get("/telemarketer", (req, res) => {
   let accounts = new Account();
   accounts
-    .getAccountsTelevendeur()
+    .getAccountsTelemarketer()
     .then((response) => {
       res.status(200).send(response);
     })

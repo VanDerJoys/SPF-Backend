@@ -29,8 +29,8 @@ class PostController{
         }
     }
 
-    async createPost(postName){
-        const post = new Post({ name: postName });
+    async createPost(name){
+        const post = new Post({ name: name });
         try {
             let message = await post.save();
             return message;

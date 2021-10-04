@@ -46,10 +46,10 @@ app.use('/bases', Base);
 app.use('/user', Account);
 
 // #################### POST MIDDLEWARE ###################
-app.use('/posts', Posts);
+app.use('/post', Posts);
 
 // #################### PROJET MIDDLEWARE ###################
-app.use('/projects', Projects);
+app.use('/project', Projects);
 
 // #################### SHEET MIDDLEWARE #####################
 app.use('/sheet', Sheet);
