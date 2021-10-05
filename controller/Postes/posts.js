@@ -44,7 +44,7 @@ class PostController{
     async getPosts(){
         try {
             let posts = await Post
-            .find({}, {__v: 0})
+            .find({}, {__v: 0, available: 0, created_at: 0})
             .populate({path:'account', select: {__v: 0, password: 0, created_at: 0}});
             return posts;
         } catch (error) {

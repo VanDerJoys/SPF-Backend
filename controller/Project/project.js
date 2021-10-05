@@ -1,11 +1,12 @@
 const Project = require('../../model/Schemas/project');
 const Contact = require('../../model/Schemas/contacts');
+const ManageProject = require('../../model/Schemas/gestion_projet');
 // const Account = require('../../model/Schemas/account');
 
 class ProjectController{
     
-    async createProject(projectName){
-        const project = new Project({ name: projectName, archived:false });
+    async createProject(name, path){
+        const project = new Project({ name: name, path: path });
         try {
             let message = await project.save();
             return message;
@@ -59,6 +60,17 @@ class ProjectController{
         }
     }
 
+// assign project to post
+    async assignPost(projectId, postId){
+        try{
+            const project = new ManageProject({ projectId: projectId, postId: postId });
+            let results = await project.save();
+            return results;
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
     
 }
 

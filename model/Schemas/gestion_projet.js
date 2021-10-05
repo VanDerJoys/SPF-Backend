@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const ProjectManageSchema = new mongoose.Schema({
-    project_id:{
+    projectId:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Projects"
     },
-    account_id:{
+    postId:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "Accounts"
+        ref: "Posts"
     },
     created_at: {
         type: Date,

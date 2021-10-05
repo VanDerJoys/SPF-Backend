@@ -8,11 +8,21 @@ const router = express.Router();
 
 // Create a new project
 router.post('/', (req, res)=>{
-    project.createProject(req.body.name).then(response =>{
+    project.createProject(req.body.data.name, req.body.data.path).then(response =>{
         res.status(201).send(response);
     }).catch(error =>{
         console.log(error);
-        res.send(400).send('Une erreur est survenue');
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
+// assign project to post
+router.post('/assign', (req, res)=>{
+    project.assignPost(req.body.projectId, req.body.postIds).then(response =>{
+        res.status(201).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
     })
 })
 
@@ -35,8 +45,6 @@ router.put('/:project_id', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     })
 });
-
-
 
 // delete a project
 router.delete('/:project_id', (req, res)=>{

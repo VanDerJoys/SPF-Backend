@@ -5,6 +5,10 @@ const ProjectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    path: {
+        type: String,
+        required: false
+    },
     archived:{
         type: Boolean,
         required: false,
