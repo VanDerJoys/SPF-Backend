@@ -62,12 +62,14 @@ class ProjectController{
 
 // assign project to post
     async assignPost(projectId, postId){
-        try{
-            const project = new ManageProject({ projectId: projectId, postId: postId });
-            let results = await project.save();
+        try {
+            let items = [];
+            for (let i = 0; i < postId.length; i++) {
+                items.push({projectId: projectId, postId: postId[i]});
+            }
+            let results = await ManageProject.insertMany(items);
             return results;
-        }catch(error){
-            console.log(error);
+        } catch (error) {
             throw error;
         }
     }
