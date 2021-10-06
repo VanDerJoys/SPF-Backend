@@ -47,14 +47,14 @@ router.get('/available', (req, res)=>{
 });
 
 // Get a single post
-router.get('/:post_id', (req, res)=>{
+/* router.get('/:post_id', (req, res)=>{
     post.getPost(req.params.post_id).then(response =>{
         res.status(200).send(response);
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     })
-})
+}) */
 
 router.put('/:post_id', (req, res)=>{
     post.updatePost(req.params.post_id, req.body.name).then(response =>{
@@ -66,13 +66,13 @@ router.put('/:post_id', (req, res)=>{
 });
 
 // assign a post to an account
-/* router.put('/:post_id/account/:account_id', (req, res)=>{
+router.put('/:post_id/account/:account_id', (req, res)=>{
     post.assignPost(req.params.post_id, req.params.account_id).then(response =>{
         res.status(200).send(Boolean(response.nModified));
     }).catch(error =>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     });
-}); */
+});
 
 module.exports = router;

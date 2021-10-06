@@ -1,7 +1,7 @@
 const Project = require('../../model/Schemas/project');
 const Contact = require('../../model/Schemas/contacts');
 const ManageProject = require('../../model/Schemas/gestion_projet');
-// const Account = require('../../model/Schemas/account');
+const mongoose = require('mongoose');
 
 class ProjectController{
     
@@ -27,7 +27,7 @@ class ProjectController{
         }
     }
 
-    async updateProject(id, name){
+    /* async updateProject(id, name){
         try {
             let project = await Project.updateOne({"_id":id}, {name: name});
             return project;
@@ -35,7 +35,7 @@ class ProjectController{
             console.log(error);
             throw error;
         }
-    }
+    } */
 
     async deleteProject(id){
         try {
@@ -49,11 +49,12 @@ class ProjectController{
         }
     }
 
-// get a single project
-    async getProject(id){
+// get projects of single post
+    async getPostProjects(id){
         try {
-            let project = await Project.findOne({"_id": id});
-            return project;
+            let projects = await ManageProject.find({postId: id}, {postId: 0, created_at: 0, __v: 0})
+            .populate({path: 'projectId', select: {__v: 0, archived: 0, path: 0, created_at: 0, _id: 0}})
+            return projects;
         } catch (error) {
             console.log(error);
             throw error;
@@ -73,7 +74,6 @@ class ProjectController{
             throw error;
         }
     }
-    
 }
 
 module.exports = ProjectController;

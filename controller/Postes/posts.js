@@ -45,7 +45,7 @@ class PostController{
         try {
             let posts = await Post
             .find({}, {__v: 0, available: 0, created_at: 0})
-            .populate({path:'account', select: {__v: 0, password: 0, created_at: 0}});
+            .populate({path:'account', select: {__v: 0, password: 0, created_at: 0, _id: 0, archived: 0}});
             return posts;
         } catch (error) {
             console.log(error);
@@ -64,7 +64,7 @@ class PostController{
         }
     }
 
-    /* async assignPost(postId, accountId){
+    async assignPost(postId, accountId){
         try{
             let post = await Post.updateOne({_id: postId}, {account: accountId, available: false});
             return post;
@@ -72,7 +72,7 @@ class PostController{
             console.log(error);
             throw error;
         }
-    } */
+    }
 
 // get a single post
     async getPost(id){

@@ -5,6 +5,11 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Accounts',
+        required: false
+    },
     available: {
         type: Boolean,
         required: false,

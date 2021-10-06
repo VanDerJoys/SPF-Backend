@@ -36,6 +36,16 @@ router.get('/', (req, res)=>{
     });
 });
 
+// Get projects of single post 
+router.get('/post/:id', (req, res)=>{
+    project.getPostProjects(req.params.id).then(response =>{
+        res.status(200).send(response);
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
 // Update a project
 router.put('/:project_id', (req, res)=>{
     project.updateProject(req.params.project_id, req.body.name).then(response =>{
