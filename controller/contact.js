@@ -1,14 +1,14 @@
-const Contact = require('../model/Schemas/contacts_aloe');
+const Contact = require('../model/Schemas/contacts');
 
 class AccountController {
   async addContact(data) {
     try {
       const contact = new Contact({
         name: data.name,
+        surname: data.surname,
         phone: data.phone,
         town: data.town,
         date_naissance: data.date_naissance,
-        base_id: data.base_id,
       });
       let results = await contact.save();
       return results;
@@ -17,36 +17,6 @@ class AccountController {
       throw error;
     }
   }
-
-  async updateContact(id, data) {
-    try {
-      let contact = await Contact.updateOne(
-        { _id: id },
-        {
-          name: data.name,
-          phone: data.phone,
-          town: data.town,
-          date_naissance: data.date_naissance,
-          base_id: data.base_id,
-        }
-      );
-      return contact;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-  
-  /* async getAllContacts() {
-    try {
-    
-      const contact = await Contact.find({ archived: false });
-      return contact;
-    } catch (error) {
-      console.log("Controller: " + error);
-      throw error;
-    }
-  } */
 
   async getBaseContacts(base_id) {
     try {
@@ -70,15 +40,6 @@ class AccountController {
       throw error;
     }
   }
-  /* async getCollectorContacts(){
-    try {
-        const contact = await Contact.find({}, {'__v':0});
-        return contact;
-    } catch (error) {
-        console.log("Controller: "+error);
-        throw error;
-    }
-  } */
 
   /* async getTheBests(){
     try{

@@ -66,4 +66,14 @@ router.delete('/:project_id', (req, res)=>{
     });
 });
 
+// delete assignation
+router.delete('/post/:id', (req, res)=>{
+    project.removePostProject(req.params.id).then(response =>{
+        res.status(200).send(Boolean(response.deletedCount));
+    }).catch(error =>{
+        console.log(error);
+        res.status(400).send('Une erreur est survenue');
+    });
+});
+
 module.exports = router;

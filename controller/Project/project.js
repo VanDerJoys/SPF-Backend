@@ -1,5 +1,5 @@
 const Project = require('../../model/Schemas/project');
-const Contact = require('../../model/Schemas/contacts');
+const Contact = require('../../model/Schemas/contacts2');
 const ManageProject = require('../../model/Schemas/gestion_projet');
 const mongoose = require('mongoose');
 
@@ -71,6 +71,16 @@ class ProjectController{
             let results = await ManageProject.insertMany(items);
             return results;
         } catch (error) {
+            throw error;
+        }
+    }
+
+    async removePostProject(id){
+        try {
+            let project = await ManageProject.deleteOne({_id: id});  
+            return project;
+        } catch (error) {
+            console.log(error);
             throw error;
         }
     }
