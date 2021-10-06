@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", (req, res) => {
   const contact = new ContactController();
   contact
-    .addContact(req.body)
+    .addContact(req.body.data, req.body.id)
     .then((response) => {
       res.status(201).send(response);
     })
@@ -18,11 +18,11 @@ router.post("/", (req, res) => {
     });
 });
 
-// get all contacts
-/* router.get("/", (req, res) => {
+// get contacts of a post form a single project
+router.get("/:groupId", (req, res) => {
   const contact = new ContactController();
   contact
-    .getAllContacts()
+    .getContacts(req.params.groupId)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
       console.log(error);
       res.status(400).send("Une erreur est survenue");
     });
-}); */
+});
 
 // get contacts of a project
 /* router.get("/project/:project", (req, res) => {

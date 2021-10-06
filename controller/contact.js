@@ -1,14 +1,15 @@
 const Contact = require('../model/Schemas/contacts');
 
 class AccountController {
-  async addContact(data) {
+  async addContact(data, id) {
     try {
       const contact = new Contact({
         name: data.name,
         surname: data.surname,
         phone: data.phone,
         town: data.town,
-        date_naissance: data.date_naissance,
+        birthdate: data.birthdate,
+        group: id
       });
       let results = await contact.save();
       return results;
@@ -18,9 +19,9 @@ class AccountController {
     }
   }
 
-  async getBaseContacts(base_id) {
+  async getContacts(groupId) {
     try {
-      const contact = await Contact.find({ base_id: base_id }, { __v: 0 });
+      let contact = await Contact.find({ group: groupId }, { __v: 0, created_at: 0 });
       return contact;
     } catch (error) {
       console.log("Controller: " + error);

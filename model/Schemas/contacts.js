@@ -22,7 +22,7 @@ const ContactSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    date_naissance: {
+    birthdate: {
         type: String,
         required: false
     },
