@@ -1,28 +1,55 @@
 const mongoose = require('mongoose');
 
 const ListeningSchema = new mongoose.Schema({
-    post_id: {
-        type: mongoose.Schema.Types.ObjectId, // identifiant du poste
-        ref: "Posts",
+    post: {
+        type: String,
         required: true
-    },    
-    hours: {  // Heures d'appel
-        type: String,
-        required: false
-    },
-    duration:{  // durée de l'appel
-        type: String,
-        required: false
-    },
-    notes: {
-        type: String,
-        required: false
     },
     observation: {
         type: String,
         required: false
     },
-    actions: {
+    note1: {
+        type: String,
+        required: false
+    },
+    note2: {
+        type: String,
+        required: false
+    },
+    note3: {
+        type: String,
+        required: false
+    },
+    note4: {
+        type: String,
+        required: false
+    },
+    note5: {
+        type: String,
+        required: false
+    },
+    comment1: {
+        type: String,
+        required: false
+    },
+    comment2: {
+        type: String,
+        required: false
+    },
+    comment3: {
+        type: String,
+        required: false
+    },
+    comment4: {
+        type: String,
+        required: false
+    },
+    comment5: {
+        type: String,
+        required: false
+    },
+    finalNote: {
         type: String,
         required: false
     },

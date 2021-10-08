@@ -1,37 +1,41 @@
-const Listening = require("../model/Schemas/Listening");;
+const Listening = require("../model/Schemas/Listening");
 
 class ListeningController{
-    constructor(post_id, hours, duration, notes, observation, actions){
-        this.post_id = post_id;
-        this.hours = hours;
-        this.duration = duration;
-        this.notes = notes;
+    constructor(observation, finalNote, comment5, note5, comment4, note4, comment3, note3, comment2, note2, comment1, note1, post){
+        this.post = post;
+        this.finalNote = finalNote;
+        this.comment5 = comment5;
+        this.note5 = note5;
+        this.comment4 = comment4;
+        this.note4 = note4;
+        this.comment3 = comment3;
+        this.note3 = note3;
+        this.comment2 = comment2;
+        this.note2 = note2;
+        this.comment1 = comment1;
+        this.note1 = note1;
         this.observation = observation;
-        this.actions = actions;
     }
 
     async createListening(){
         try{
             const listening = new Listening({
-                post_id: this.post_id,
-                hours: this.hours,
-                duration: this.duration,
-                notes: this.notes,
-                observation: this.observation,
-                actions: this.actions
+                post: this.post,
+                finalNote: this.finalNote,
+                comment5: this.comment5,
+                note5: this.note5,
+                comment4: this.comment4,
+                note4: this.note4,
+                comment3: this.comment3,
+                note3: this.note3,
+                comment2: this.comment2,
+                note2: this.note2,
+                comment1: this.comment1,
+                note1: this.note1,
+                observation: this.observation
             });
             const results = await listening.save();
             return results;
-        }catch(error){
-            console.log(error);
-            throw error;
-        }
-    }
-
-    async getPostListenings(post_id){
-        try{
-            const listenings = await Listening.find({post_id: post_id}, {__v: 0});
-            return listenings;
         }catch(error){
             console.log(error);
             throw error;
