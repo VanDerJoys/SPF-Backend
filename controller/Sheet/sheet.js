@@ -2,60 +2,41 @@ const SheetSchema = require("../../model/Schemas/sheet");
 const mongoose = require("mongoose");
 
 class Calls {
-  async createSheet(data) {
-    const sheet = new SheetSchema({
-      post_id: data.post_id,
-      calls: data.calls,
-      notebooks: data.notebooks,
-      arguments: data.arguments,
-      orders: data.orders,
-      busy_calls: data.busy_calls,
-      unavailable: data.unavailable,
-      unreachable: data.unreachable,
-      do_not_call: data.do_not_call
-    });
-    try {
-      let results = await sheet.save();
-      return results;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+  async createSheet(data, postId) {
+    let sheet = await SheetSchema.updateOne(
+      { post: postId },
+      {
+        post: postId,
+        $inc: { //increment the value of contact qualification
+          rdv: data == "s2" ? 1 : 0, 
+          argument: data == "s1" ? 1 : 0, 
+          order: data == "s3" ? 1 : 0, 
+          busy_call: data == "s4" ? 1 : 0, 
+          unavailable: data == "s5" ? 1 : 0, 
+          unreachable: data == "s6" ? 1 : 0, 
+          doNotCall: data == "s7" ? 1 : 0
+        } 
+      },
+      {upsert: true},
+    );
+
+    return sheet;
   }
 
   // get all sheets grouped by post
   async getAllSheets() {
     try {
-      let sheets = await SheetSchema.aggregate([
-        {
-          $match: {
-            created_at: new Date().toDateString(),
-          },
-        },
-        {
-          $group: {
-            _id: "$post_id",
-            calls: { $sum: "$calls" },
-            notebooks: { $sum: "$notebooks" },
-            arguments: { $sum: "$arguments" },
-            orders: { $sum: "$orders" },
-            busy_calls: { $sum: "$busy_calls" },
-            unavailable: { $sum: "$unavailable" },
-            unreachable: { $sum: "$unreachable" },
-            do_not_call: { $sum: "$do_not_call" },
-            post_id: { $push: "$post_id" },
-          },
-        },
-      ]);
-      let results = await SheetSchema.populate(sheets, {
-        path: "post_id",
+      let sheets = await SheetSchema
+      .find({}, { __v: 0, _id: 0 })
+      .populate({
+        path: "post",
         select: {
           __v: 0,
           created_at: 0,
         },
       });
 
-      return results;
+      return sheets;
     } catch (error) {
       console.log(error);
       throw error;
@@ -95,26 +76,6 @@ class Calls {
       });
 
       return results;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-  async getAllSheetsOfOnePost(post_id){
-    try{
-      let sheet = await SheetSchema.find({post_id: post_id, created_at: new Date().toDateString()}, {__v: 0, post_id: 0, _id: 0});
-      return sheet;
-    }catch(error){
-      console.log(error);
-      throw error;
-    }
-  }
-
-  async deleteOneSheet(sheet_id) {
-    try {
-      let call = await SheetSchema.deleteOne({ _id: sheet_id });
-      return call;
     } catch (error) {
       console.log(error);
       throw error;

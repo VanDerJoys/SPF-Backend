@@ -1,70 +1,40 @@
 const mongoose = require('mongoose');
 
 const SheetSchema = new mongoose.Schema({
-    post_id: {  // identifiant du poste
+    post: {  // identifiant du poste
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Posts"
     },
-    calls:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
-    notebooks: [
-        {
-            contact: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: false,
-                ref: "Contacts"
-            },
-            period: {
-                type: String,
-                required: false
-            }
-        }
-    ],
-    arguments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
-    orders: {  // commandes
+    rdv: {
+        type: Number,
+        default: 0
+    },
+    argument: {
+        type: Number,
+        default: 0
+    },
+    order: {  // commandes
         type: Number,
         required: true,
+        default: 0
     },
-    busy_calls: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
-    unavailable: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
-    unreachable: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
-    do_not_call: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Contacts"
-        }
-    ],
+    busy_call: {
+        type: Number,
+        default: 0
+    },
+    unavailable: {
+        type: Number,
+        default: 0
+    },
+    unreachable: {
+        type: Number,
+        default: 0
+    },
+    doNotCall: {
+        type: Number,
+        default: 0
+    },
     created_at:{
         type: Date,
         default: Date.now
