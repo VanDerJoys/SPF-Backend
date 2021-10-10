@@ -1,4 +1,5 @@
 const SheetSchema = require("../../model/Schemas/sheet");
+const dataParser = require('../../helpers/dashboard-data-parser');
 const mongoose = require("mongoose");
 
 class Calls {
@@ -81,6 +82,43 @@ class Calls {
       throw error;
     }
   }
+
+  async getDashboardData() {
+    try {
+      let sheets = await SheetSchema.aggregate([
+        {
+          $group: {
+            _id: "$post",
+            // calls: { $sum: "$calls" },
+            // notebooks: { $sum: "$notebooks" },
+            // arguments: { $sum: "$arguments" },
+            order: { $sum: "$order" },
+            // busy_calls: { $sum: "$busy_calls" },
+            // unavailable: { $sum: "$unavailable" },
+            // unreachable: { $sum: "$unreachable" },
+            // do_not_call: { $sum: "$do_not_call" },
+            post: { $push: "$post" },
+          },
+        },
+      ]);
+      let results = await SheetSchema.populate(sheets, {
+        path: "post",
+        select: {
+          __v: 0,
+          created_at: 0,
+          available: 0,
+          account: 0
+        },
+      });
+
+      return dataParser(results);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+
 }
 
 module.exports = Calls;

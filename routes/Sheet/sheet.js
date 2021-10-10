@@ -55,18 +55,13 @@ router.get('/:post_id', (req, res)=>{
     });
 });
 
-// delete a single sheet
-router.delete("/:sheet_id", (req, res) => {
+router.get('/test/test', (req, res)=>{
   let sheet = new Sheet();
-  sheet
-    .deleteOneSheet(req.params.sheet_id)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(400).send("Une erreur est survenue");
-    });
-});
+  sheet.getDashboardData().then(response =>{
+    res.status(200).send(response);
+  }).catch(error =>{
+    console.log(error);
+  })
+})
 
 module.exports = router;
