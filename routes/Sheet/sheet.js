@@ -45,7 +45,7 @@ router.get("/all/:post_id", (req, res) => {
 });
 
 // get sum of sheets of one post
-router.get('/:post_id', (req, res)=>{
+/* router.get('/:post_id', (req, res)=>{
     let sheet = new Sheet();
     sheet.getSheetOfOnePost(req.params.post_id).then(response =>{
         res.status(200).send(response);
@@ -53,9 +53,9 @@ router.get('/:post_id', (req, res)=>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');   
     });
-});
+}); */
 
-router.get('/test/test', (req, res)=>{
+router.get('/dashboard', (req, res)=>{
   let sheet = new Sheet();
   sheet.getDashboardData().then(response =>{
     res.status(200).send(response);

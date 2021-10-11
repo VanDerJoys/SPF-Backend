@@ -4,27 +4,16 @@ const Account = require("../controller/account");
 const { generateToken } = require("../helpers/web-token");
 const router = express.Router();
 // login
-router.post("/authentification", async (req, res) => {
+router.post("/login", async (req, res) => {
   let account = new Account();
   try {
     let results = await account.logUser(req.body.phone, req.body.password);
     if (results.code == 400) {
       res.status(results.code).send(results.message);
     } else {
-      let token = generateToken(req.body.phone);
+      // let token = generateToken(req.body.phone);
       res
-        .send({
-          id: results._id,
-          name: results.name,
-          surname: results.surname,
-          role: results.role,
-          archived: results.status,
-          post_id: results.post_id,
-          phone: results.phone,
-          authToken: token,
-
-        })
-        .status(201);
+        .send(results).status(201);
     }
   } catch (error) {
     console.log("Router: " + error);
@@ -38,7 +27,8 @@ router.post("/register", (req, res) => {
       req.body.data.name,
       req.body.data.surname,
       req.body.data.phone,
-      req.body.data.type
+      req.body.data.type,
+      req.body.data.password
     )
     .then((response) => {
       res.status(201).send(response);

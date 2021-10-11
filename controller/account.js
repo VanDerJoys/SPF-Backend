@@ -11,28 +11,39 @@ class AccountController {
   }
 
   async logUser(phone, password) {
-    // checking if the phone number exists
-    let user = await Account.findOne({ phone: phone })
-      .populate("project_id")
-      .populate("post_id");
+    // Checking if the phone number exists
+    let user = await Account.findOne({ phone: phone });
     if (!user)
       return { code: 400, message: "le numéro de téléphone est incorrecte" };
 
-    // checking password
+    // Checking password
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword)
       return { code: 400, message: "Le mot de passe est incorrecte" };
-
-    return user;
+    
+    // Checking user type
+    if (user.type == "Télévendeur") {
+      let post = await Post.findOne({account: user._id}, {__v: 0, available: 0, created_at: 0})
+      .populate({path: 'account', select: { 
+        password: 0,
+        created_at: 0,
+        archived: 0,
+        __v: 0,
+       }})
+      return post;
+    }else{
+      return { name: user.name, surname: user.surname, type: user.type }
+    }
   }
 
-  async register(name, surname, phone, type) {
+  async register(name, surname, phone, type, password) {
     try {
       const account = new Account({
         name: name,
         surname: surname,
         phone: phone,
         type: type,
+        password: await this.hashPassword(password)
       });
       let results = await account.save();
       return results;
@@ -52,17 +63,7 @@ class AccountController {
       return error;
     }
   }
-  async getAccountsArchived() {
-    try {
-      let accounts = await Account.find({ status: true }).select({
-        password: 0,
-      });
-      return accounts;
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  }
+
   async getAccountsTelemarketer() {
     try {
       let accounts = await Account.find({
@@ -72,18 +73,6 @@ class AccountController {
         password: 0,
       });
       return accounts;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-  async getProjectByAccount(account_id) {
-    try {
-      let projectManagers = await ProjectManager.find({
-        account_id: account_id,
-      }).populate("project_id");
-      return projectManagers;
     } catch (error) {
       console.log(error);
       throw error;
@@ -126,36 +115,6 @@ class AccountController {
         { archived: account.archived ? false : true }
       );
       return account;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-  async assignPost(postId, accountId) {
-    try {
-      await Post.updateOne({ _id: postId }, { available: false });
-      let account = await Account.updateOne(
-        { _id: accountId },
-        { post_id: postId }
-      );
-      return account;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-  // Assign a project to an account
-  async assignProject(account_id, project_id) {
-    try {
-      const project = new ProjectManager({
-        project_id: project_id,
-        account_id: account_id,
-      });
-
-      let result = await project.save();
-      return result;
     } catch (error) {
       console.log(error);
       throw error;
