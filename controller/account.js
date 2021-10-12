@@ -20,7 +20,6 @@ class AccountController {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword)
       return { code: 400, message: "Le mot de passe est incorrecte" };
-    
     // Checking user type
     if (user.type == "Télévendeur") {
       let post = await Post.findOne({account: user._id}, {__v: 0, available: 0, created_at: 0})

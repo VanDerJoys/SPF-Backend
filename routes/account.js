@@ -8,7 +8,7 @@ router.post("/login", async (req, res) => {
   let account = new Account();
   try {
     let results = await account.logUser(req.body.phone, req.body.password);
-    if (results.code == 400) {
+    if (results.code) {
       res.status(results.code).send(results.message);
     } else {
       // let token = generateToken(req.body.phone);
