@@ -1,10 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-require('dotenv').config();
 
-let databaseInit = require('./config/database');
-databaseInit();
+require('dotenv').config();
+require('./config/database')();
 
 const app = express();
 
@@ -17,8 +16,8 @@ app.use(helmet());
 // ##################### CONTACT ROUTES #########################
 const Contact = require('./routes/Contact/contact');
 
-// ##################### BASES ROUTES #########################
-const Base = require('./routes/Bases/bases');
+// ##################### EVENTS ROUTES #########################
+const Events = require('./routes/events');
 
 // #################### SHEET ROUTE #####################
 const Sheet = require('./routes/Sheet/sheet');
@@ -39,8 +38,8 @@ const Listenings = require('./routes/Listening/listening');
 // #######################   CONTACTS MIDDLEWARE  ###########################
 app.use('/contacts', Contact);
 
-// #######################   BASES MIDDLEWARE  ###########################
-app.use('/bases', Base);
+// #######################   EVENTS MIDDLEWARE  ###########################
+app.use('/events', Events);
 
 // #################### ACCOUNT MIDDLEWARE ###################
 app.use('/user', Account);
