@@ -66,13 +66,4 @@ router.delete('/post/:id', (req, res)=>{
     });
 });
 
-router.get('/groups', (req, res)=>{
-    project.getGroups().then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');
-    })
-})
-
 module.exports = router;

@@ -1,7 +1,7 @@
 const Project = require('../../model/Schemas/project');
 const Contact = require('../../model/Schemas/contacts2');
 const ManageProject = require('../../model/Schemas/gestion_projet');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 class ProjectController{
     
@@ -80,6 +80,20 @@ class ProjectController{
             let project = await ManageProject.deleteOne({_id: id});  
             return project;
         } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async getGroups(){
+        try{
+            let groups = await ManageProject
+            .find({})
+            .populate('projectId')
+            .populate('postId')
+            return groups;
+        }
+        catch(error){
             console.log(error);
             throw error;
         }
