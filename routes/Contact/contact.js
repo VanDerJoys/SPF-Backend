@@ -18,13 +18,41 @@ router.post("/", (req, res) => {
     });
 });
 
-// get contacts of a post form a single project
+// get contacts of a post for a single project
 router.get("/:groupId", (req, res) => {
   const contact = new ContactController();
   contact
     .getContacts(req.params.groupId)
     .then((response) => {
       res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
+});
+
+// get inactive contacts
+router.get("/status/inactive", (req, res) => {
+  const contact = new ContactController();
+  contact
+    .getInactiveContacts()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send("Une erreur est survenue");
+    });
+});
+
+// activate all contacts
+router.put("/", (req, res) => {
+  const contact = new ContactController();
+  contact
+    .activateContacts()
+    .then((response) => {
+      res.status(200).send(Boolean(response.nModified));
     })
     .catch((error) => {
       console.log(error);
@@ -45,33 +73,6 @@ router.get("/:groupId", (req, res) => {
       res.status(400).send("Une erreur est survenue");
     });
 }); */
-
-// get base contacts
-router.get("/base/:base", (req, res) => {
-  const contact = new ContactController();
-  contact
-    .getBaseContacts(req.params.base)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(400).send("Une erreur est survenue");
-    });
-});
-
-router.put("/:contact", (req, res) => {
-  const contact = new ContactController();
-  contact
-    .updateContact(req.params.contact, req.body)
-    .then((response) => {
-      res.status(200).send(Boolean(response.nModified));
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(400).send("Une erreur est survenue");
-    });
-});
 
 // get contact by collector
 router.get("/collector", (req, res) => {

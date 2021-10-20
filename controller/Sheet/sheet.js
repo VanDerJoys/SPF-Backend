@@ -1,9 +1,10 @@
 const SheetSchema = require("../../model/Schemas/sheet");
+const Contacts = require('../../model/Schemas/contacts');
 const dataParser = require('../../helpers/dashboard-data-parser');
 const mongoose = require("mongoose");
 
 class Calls {
-  async createSheet(data, postId) {
+  async createSheet(data, postId, contactId) {
     let sheet = await SheetSchema.updateOne(
       { post: postId },
       {
@@ -18,8 +19,10 @@ class Calls {
           doNotCall: data == "s7" ? 1 : 0
         } 
       },
-      {upsert: true},
+      { upsert: true },
     );
+
+    await Contacts.updateOne({_id: contactId}, {"$set":{archived: true}});
 
     return sheet;
   }

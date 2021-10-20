@@ -2,11 +2,11 @@ const express = require("express");
 const Sheet = require("../../controller/Sheet/sheet");
 const router = express.Router();
 
-// create a sheet
+// add new data in sheet
 router.post("/", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .createSheet(req.body.data, req.body.post)
+    .createSheet(req.body.data, req.body.post, req.body.contactId)
     .then((response) => {
       res.status(200).send(response);
     })
