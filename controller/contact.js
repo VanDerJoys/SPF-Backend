@@ -29,7 +29,7 @@ class AccountController {
     }
   }
 
-  async getInactiveContacts(groupId) {
+  async getInactiveContacts() {
     try {
       let contact = await Contact.find({ archived: true }, { __v: 0, created_at: 0 });
       return contact;
