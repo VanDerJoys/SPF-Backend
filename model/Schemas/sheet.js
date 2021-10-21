@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const SheetSchema = new mongoose.Schema({
-    post: {  // identifiant du poste
+    group: {  // identifiant du poste
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "Posts"
+        ref: "Managements"
     },
     rdv: {
         type: Number,

@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .createSheet(req.body.data, req.body.post, req.body.contactId)
+    .createSheet(req.body.data, req.body.groupId, req.body.contactId)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -17,10 +17,10 @@ router.post("/", (req, res) => {
 });
 
 // get sheets of all posts
-router.get("/", (req, res) => {
+router.get("/:projectId", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .getAllSheets()
+    .getAllSheets(req.params.projectId)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -55,7 +55,7 @@ router.get("/all/:post_id", (req, res) => {
     });
 }); */
 
-router.get('/dashboard', (req, res)=>{
+router.get('/dashboard/order', (req, res)=>{
   let sheet = new Sheet();
   sheet.getDashboardData().then(response =>{
     res.status(200).send(response);

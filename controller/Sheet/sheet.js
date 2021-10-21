@@ -1,14 +1,16 @@
 const SheetSchema = require("../../model/Schemas/sheet");
 const Contacts = require('../../model/Schemas/contacts');
+// const Projects = require('../../model/Schemas/project');
+const Group = require('../../model/Schemas/gestion_projet');
 const dataParser = require('../../helpers/dashboard-data-parser');
 const mongoose = require("mongoose");
 
 class Calls {
-  async createSheet(data, postId, contactId) {
+  async createSheet(data, groupId, contactId) {
     let sheet = await SheetSchema.updateOne(
-      { post: postId },
+      { group: groupId },
       {
-        post: postId,
+        group: groupId,
         $inc: { //increment the value of contact qualification
           rdv: data == "s2" ? 1 : 0, 
           argument: data == "s1" ? 1 : 0, 
@@ -28,18 +30,23 @@ class Calls {
   }
 
   // get all sheets grouped by post
-  async getAllSheets() {
+  async getAllSheets(projectId) {
     try {
+      let groups = await Group.find({projectId: projectId}, {_id: 1});
+      let groupsArray = groups.map(function (obj) { return obj._id; });
       let sheets = await SheetSchema
-      .find({}, { __v: 0, _id: 0 })
+      .find({group: { $in: groupsArray }}, { __v: 0, _id: 0 })
       .populate({
-        path: "post",
+        path: "group",
         select: {
           __v: 0,
           created_at: 0,
         },
+        populate: {
+          path: 'postId',
+          select: { name: 1 }
+        }
       });
-
       return sheets;
     } catch (error) {
       console.log(error);
