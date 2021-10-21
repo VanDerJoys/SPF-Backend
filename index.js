@@ -34,6 +34,9 @@ const Projects = require('./routes/Projects/project');
 // ################### Listening ROUTE #######################
 const Listenings = require('./routes/Listening/listening');
 
+// ################### Dashboard ROUTE #######################
+const Dashboard = require('./routes/dashboard');
+
 // Loading middlewares
 // #######################   CONTACTS MIDDLEWARE  ###########################
 app.use('/contacts', Contact);
@@ -55,6 +58,9 @@ app.use('/sheet', Sheet);
 
 // #################### LISTENING MIDDLEWARE #####################
 app.use('/listening', Listenings);
+
+// #################### DASHBOARD MIDDLEWARE #####################
+app.use('/dashboard', Dashboard);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
