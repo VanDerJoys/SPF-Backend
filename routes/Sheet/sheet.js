@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .createSheet(req.body.data, req.body.groupId, req.body.contactId)
+    .createSheet(req.body.data, req.body.groupId, req.body.contactId, req.body.postId)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -54,14 +54,5 @@ router.get("/all/:post_id", (req, res) => {
         res.status(400).send('Une erreur est survenue');   
     });
 }); */
-
-router.get('/dashboard/order', (req, res)=>{
-  let sheet = new Sheet();
-  sheet.getDashboardData().then(response =>{
-    res.status(200).send(response);
-  }).catch(error =>{
-    console.log(error);
-  })
-})
 
 module.exports = router;

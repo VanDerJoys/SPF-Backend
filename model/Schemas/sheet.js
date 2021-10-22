@@ -6,6 +6,11 @@ const SheetSchema = new mongoose.Schema({
         required: true,
         ref: "Managements"
     },
+    post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Posts',
+        required: true
+    },
     rdv: {
         type: Number,
         default: 0

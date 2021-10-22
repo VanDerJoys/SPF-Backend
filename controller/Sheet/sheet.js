@@ -2,15 +2,15 @@ const SheetSchema = require("../../model/Schemas/sheet");
 const Contacts = require('../../model/Schemas/contacts');
 // const Projects = require('../../model/Schemas/project');
 const Group = require('../../model/Schemas/gestion_projet');
-const dataParser = require('../../helpers/dashboard-data-parser');
 const mongoose = require("mongoose");
 
 class Calls {
-  async createSheet(data, groupId, contactId) {
-    let sheet = await SheetSchema.updateOne(
+  async createSheet(data, groupId, contactId, postId) {
+    await SheetSchema.findupdateOne(
       { group: groupId },
       {
         group: groupId,
+        post: postId,
         $inc: { //increment the value of contact qualification
           rdv: data == "s2" ? 1 : 0, 
           argument: data == "s1" ? 1 : 0, 
@@ -24,9 +24,9 @@ class Calls {
       { upsert: true },
     );
 
-    await Contacts.updateOne({_id: contactId}, {"$set":{archived: true}});
+    let contact = await Contacts.updateOne({_id: contactId}, {"$set":{archived: true}});
 
-    return sheet;
+    return contact;
   }
 
   // get all sheets grouped by post
@@ -92,43 +92,6 @@ class Calls {
       throw error;
     }
   }
-
-  async getDashboardData() {
-    try {
-      let sheets = await SheetSchema.aggregate([
-        {
-          $group: {
-            _id: "$post",
-            // calls: { $sum: "$calls" },
-            // notebooks: { $sum: "$notebooks" },
-            // arguments: { $sum: "$arguments" },
-            order: { $sum: "$order" },
-            // busy_calls: { $sum: "$busy_calls" },
-            // unavailable: { $sum: "$unavailable" },
-            // unreachable: { $sum: "$unreachable" },
-            // do_not_call: { $sum: "$do_not_call" },
-            post: { $push: "$post" },
-          },
-        },
-      ]);
-      let results = await SheetSchema.populate(sheets, {
-        path: "post",
-        select: {
-          __v: 0,
-          created_at: 0,
-          available: 0,
-          account: 0
-        },
-      });
-
-      return dataParser(results);
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-
 }
 
 module.exports = Calls;

@@ -1,13 +1,14 @@
 const express = require("express");
-const Sheet = require("../../controller/Sheet/sheet");
+const Dashboard = require("../controller/dashboard");
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-  let sheet = new Sheet();
-  sheet.getDashboardData().then(response =>{
+  let dashboard = new Dashboard();
+  dashboard.getDashboardData().then(response =>{
     res.status(200).send(response);
   }).catch(error =>{
     console.log(error);
+    res.status(400).send('Une erreur est survenue');
   })
 })
 

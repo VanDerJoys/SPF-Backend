@@ -52,8 +52,9 @@ class ProjectController{
 // get projects of single post
     async getPostProjects(id){
         try {
-            let projects = await ManageProject.find({postId: id}, {postId: 0, created_at: 0, __v: 0})
+            let projects = await ManageProject.find({postId: id}, {created_at: 0, __v: 0})
             .populate({path: 'projectId', select: {__v: 0, archived: 0, path: 0, created_at: 0, _id: 0}})
+            // .populate({path: 'postId', select: {__v: 0, archived: 0, path: 0, created_at: 0}})
             return projects;
         } catch (error) {
             console.log(error);
