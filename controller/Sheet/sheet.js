@@ -1,13 +1,15 @@
+const mongoose = require("mongoose");
+const moment = require('moment');
+
 const SheetSchema = require("../../model/Schemas/sheet");
 const Contacts = require('../../model/Schemas/contacts');
 // const Projects = require('../../model/Schemas/project');
 const Group = require('../../model/Schemas/gestion_projet');
-const mongoose = require("mongoose");
 
 class Calls {
   async createSheet(data, groupId, contactId, postId) {
     let sheet = await SheetSchema.findupdateOne(
-      { group: groupId },
+      { group: groupId, created_at: moment().format('YYYY-MM-DD') },
       {
         group: groupId,
         post: postId,
@@ -35,7 +37,7 @@ class Calls {
       let groups = await Group.find({projectId: projectId}, {_id: 1});
       let groupsArray = groups.map(function (obj) { return obj._id; });
       let sheets = await SheetSchema
-      .find({group: { $in: groupsArray }}, { __v: 0, _id: 0 })
+      .find({group: { $in: groupsArray }, created_at: moment().format('YYYY-MM-DD')}, { __v: 0, _id: 0 })
       .populate({
         path: "group",
         select: {
