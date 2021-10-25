@@ -44,15 +44,4 @@ router.get("/all/:post_id", (req, res) => {
     });
 });
 
-// get sum of sheets of one post
-/* router.get('/:post_id', (req, res)=>{
-    let sheet = new Sheet();
-    sheet.getSheetOfOnePost(req.params.post_id).then(response =>{
-        res.status(200).send(response);
-    }).catch(error =>{
-        console.log(error);
-        res.status(400).send('Une erreur est survenue');   
-    });
-}); */
-
 module.exports = router;

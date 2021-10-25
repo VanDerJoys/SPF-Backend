@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const AccountSchema = new mongoose.Schema({
     name: {
@@ -27,8 +28,8 @@ const AccountSchema = new mongoose.Schema({
         default: false
     },
     created_at: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format('YYYY-MM-DD')
     }
 },  {
         toJSON: { 

@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 class Calls {
   async createSheet(data, groupId, contactId, postId) {
-    await SheetSchema.findupdateOne(
+    let sheet = await SheetSchema.findupdateOne(
       { group: groupId },
       {
         group: groupId,
@@ -24,9 +24,9 @@ class Calls {
       { upsert: true },
     );
 
-    let contact = await Contacts.updateOne({_id: contactId}, {"$set":{archived: true}});
+    await Contacts.updateOne({_id: contactId}, {"$set":{archived: true}});
 
-    return contact;
+    return sheet;
   }
 
   // get all sheets grouped by post

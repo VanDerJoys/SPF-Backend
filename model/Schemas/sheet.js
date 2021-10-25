@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const SheetSchema = new mongoose.Schema({
     group: {  // identifiant du poste
@@ -41,8 +42,8 @@ const SheetSchema = new mongoose.Schema({
         default: 0
     },
     created_at:{
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format('YYYY-MM-DD')
     }
 })
 
