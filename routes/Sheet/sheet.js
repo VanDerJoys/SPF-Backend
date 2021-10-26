@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
   sheet
     .createSheet(req.body.data, req.body.groupId, req.body.contactId, req.body.postId)
     .then((response) => {
-      res.status(200).send(response);
+      res.status(200).send(Boolean(response.nModified));
     })
     .catch((error) => {
       console.log(error);

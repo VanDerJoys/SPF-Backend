@@ -8,7 +8,7 @@ const Group = require('../../model/Schemas/gestion_projet');
 
 class Calls {
   async createSheet(data, groupId, contactId, postId) {
-    let sheet = await SheetSchema.findupdateOne(
+    let sheet = await SheetSchema.updateOne(
       { group: groupId, created_at: moment().format('YYYY-MM-DD') },
       {
         group: groupId,
