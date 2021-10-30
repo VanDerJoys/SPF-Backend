@@ -88,7 +88,7 @@ class AccountController {
     }
   }
 
-  async updateAccount(id, name, surname, phone, type) {
+  async updateAccount(id, name, surname, phone, type, password) {
     try {
       let account = await Account.updateOne(
         { _id: id },
@@ -97,6 +97,7 @@ class AccountController {
           surname: surname,
           phone: phone,
           type: type,
+          password: await this.hashPassword(password)
         }
       );
       return account;

@@ -126,7 +126,8 @@ router.put("/:accountId", (req, res) => {
       req.body.data.name,
       req.body.data.surname,
       req.body.data.phone,
-      req.body.data.type
+      req.body.data.type,
+      req.body.data.password
     )
     .then((response) => {
       res.status(200).send(Boolean(response.nModified));
