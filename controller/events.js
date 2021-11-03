@@ -2,7 +2,7 @@ const Event = require('../model/Schemas/events');
 
 class EventController{
     
-    async createEvent(post, name, start){
+    async createEvent(post, name, start, details){
         function rnd (a, b) {
             return Math.floor((b - a + 1) * Math.random()) + a;
         }
@@ -14,6 +14,7 @@ class EventController{
                     $push: {
                         events: {
                             name: name, 
+                            details: details,
                             start: start, 
                             color: colors[rnd(0, colors.length - 1)], 
                             timed: true
@@ -40,6 +41,7 @@ class EventController{
                 events.forEach(event => {
                     allEvents.push({
                         name: event.name,
+                        details: event.details,
                         start: event.start,
                         color: event.color,
                         timed: event.timed

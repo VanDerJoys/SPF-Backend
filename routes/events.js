@@ -7,7 +7,7 @@ let event = new Event();
 // create a sheet
 router.post("/", (req, res) => {
   event
-    .createEvent(req.body.post, req.body.name, req.body.start)
+    .createEvent(req.body.post, req.body.name, req.body.start, req.body.details)
     .then((response) => {
       res.status(200).send(response);
     })

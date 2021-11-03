@@ -10,6 +10,7 @@ const EventSchema = new mongoose.Schema({
     events: [
         {
             name: String,
+            details: String,
             start: String,
             color: String,
             timed: Boolean
