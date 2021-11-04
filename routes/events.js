@@ -29,4 +29,17 @@ router.get("/:post", (req, res) => {
     });
 });
 
+router.delete('/:postId/:eventId', (req, res)=>{
+  event.deleteEvent(req.params.postId, req.params.eventId).then((response)=>{
+    if (Boolean(response.modifiedCount)) {
+      res.status(200).send('Rendez-vous supprimé!'); 
+    } else {
+      res.status(400).send("L'élément à supprimer n'existe pas!");
+    }
+  }).catch(error =>{
+    console.log(error);
+    res.status(500).send("Une erreur est survenue");
+  })
+})
+
 module.exports = router;

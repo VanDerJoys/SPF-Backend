@@ -55,6 +55,16 @@ class EventController{
             throw error;
         }
     }
+
+    async deleteEvent(postId, eventId){
+        try {
+            let results = await Event.updateOne({post: postId}, {$pull: {events: {_id: eventId}}});
+            return results;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = EventController;

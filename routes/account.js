@@ -130,7 +130,7 @@ router.put("/:accountId", (req, res) => {
       req.body.data.password
     )
     .then((response) => {
-      res.status(200).send(Boolean(response.nModified));
+      res.status(200).send(Boolean(response.modifiedCount));
     })
     .catch((error) => {
       console.log(error);
