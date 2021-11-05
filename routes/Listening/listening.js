@@ -9,6 +9,8 @@ router.post('/', (req, res)=>{
     const listening = new ListeningController(
         req.body.data.observation,
         req.body.data.finalNote,
+        req.body.data.comment6,
+        req.body.data.note6,
         req.body.data.comment5,
         req.body.data.note5,
         req.body.data.comment4,

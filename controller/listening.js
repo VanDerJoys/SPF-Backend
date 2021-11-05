@@ -1,9 +1,11 @@
 const Listening = require("../model/Schemas/Listening");
 
 class ListeningController{
-    constructor(observation, finalNote, comment5, note5, comment4, note4, comment3, note3, comment2, note2, comment1, note1, post){
+    constructor(observation, finalNote, comment6, note6, comment5, note5, comment4, note4, comment3, note3, comment2, note2, comment1, note1, post){
         this.post = post;
         this.finalNote = finalNote;
+        this.comment5 = comment6;
+        this.note5 = note6;
         this.comment5 = comment5;
         this.note5 = note5;
         this.comment4 = comment4;
@@ -22,6 +24,8 @@ class ListeningController{
             const listening = new Listening({
                 post: this.post,
                 finalNote: this.finalNote,
+                comment6: this.comment6,
+                note6: this.note6,
                 comment5: this.comment5,
                 note5: this.note5,
                 comment4: this.comment4,

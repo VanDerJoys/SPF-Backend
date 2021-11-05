@@ -30,6 +30,10 @@ const ListeningSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    note6: {
+        type: String,
+        required: false
+    },
     comment1: {
         type: String,
         required: false
@@ -47,6 +51,10 @@ const ListeningSchema = new mongoose.Schema({
         required: false
     },
     comment5: {
+        type: String,
+        required: false
+    },
+    comment6: {
         type: String,
         required: false
     },
