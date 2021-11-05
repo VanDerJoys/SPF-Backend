@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const moment = require('moment');
 
 const SheetSchema = require("../../model/Schemas/sheet");
@@ -56,39 +55,29 @@ class Calls {
     }
   }
 
-  async getSheetOfOnePost(post_id) {
+  async getTotalSheet() {
     try {
-      let sheets = await SheetSchema.aggregate([
+      let sheet = await SheetSchema.aggregate([
         {
           $match: {
-            post_id: mongoose.Types.ObjectId(post_id),
-            created_at: new Date().toDateString()
+            created_at: moment().format('YYYY-MM-DD')
           },
         },
         {
           $group: {
-            _id: "$post_id",
-            calls: { $sum: "$calls" },
-            notebooks: { $sum: "$notebooks" },
-            arguments: { $sum: "$arguments" },
-            orders: { $sum: "$orders" },
-            busy_calls: { $sum: "$busy_calls" },
+            _id: null,
+            rdv: { $sum: "$rdv" },
+            argument: { $sum: "$argument" },
+            order: { $sum: "$order" },
+            busy_call: { $sum: "$busy_call" },
             unavailable: { $sum: "$unavailable" },
             unreachable: { $sum: "$unreachable" },
-            do_not_call: { $sum: "$do_not_call" },
-            post_id: { $push: "$post_id" },
+            doNotCalls: { $sum: "$doNotCall" },
           },
         },
       ]);
-      let results = await SheetSchema.populate(sheets, {
-        path: "post_id",
-        select: {
-          __v: 0,
-          created_at: 0,
-        },
-      });
 
-      return results;
+      return sheet;
     } catch (error) {
       console.log(error);
       throw error;
