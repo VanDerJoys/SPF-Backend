@@ -72,12 +72,12 @@ class Calls {
             busy_call: { $sum: "$busy_call" },
             unavailable: { $sum: "$unavailable" },
             unreachable: { $sum: "$unreachable" },
-            doNotCalls: { $sum: "$doNotCall" },
+            doNotCall: { $sum: "$doNotCall" },
           },
         },
       ]);
 
-      return sheet;
+      return sheet[0];
     } catch (error) {
       console.log(error);
       throw error;
