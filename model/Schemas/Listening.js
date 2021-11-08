@@ -62,6 +62,10 @@ const ListeningSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    filePath: {
+        type: String,
+        required: false
+    },
     created_at: {
         type: String,
         default: moment().format('YYYY-MM-DD')

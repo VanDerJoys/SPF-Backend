@@ -48,7 +48,7 @@ class ListeningController{
 
     async getListenings(){
         try{
-            const listenings = await Listening.find({}, {__v: 0}).populate({path: 'post_id', select: {__v: 0}});
+            const listenings = await Listening.find({}, {__v: 0});
             return listenings;
         }catch(error){
             console.log(error);
@@ -61,6 +61,16 @@ class ListeningController{
             const listening = await Listening.deleteOne({_id: id});
             return listening;
         }catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async upload(id, path){
+        try {
+            const listening = await Listening.updateOne({_id: id}, {filePath: path});
+            return listening;
+        } catch (error) {
             console.log(error);
             throw error;
         }

@@ -1,4 +1,6 @@
 const express = require('express');
+const formidable = require('formidable');
+const path = require('path');
 const ListeningController = require('../../controller/listening');
 // const { verifyToken } = require('../../helpers/web-token');
 
@@ -29,7 +31,7 @@ router.post('/', (req, res)=>{
         console.log(error);
         res.status(400).send('Une erreur est survenue');
     })
-})
+});
 
 router.get('/', (req, res)=>{
     const listening = new ListeningController();
@@ -40,6 +42,28 @@ router.get('/', (req, res)=>{
         res.status(400).send('Une erreur est survenue');
     });
 });
+
+// File upload
+router.post('/:listeningId/file', (req, res)=>{
+    const listening = new ListeningController();
+    const form = formidable();
+    form.parse(req, (err, fields, files)=>{
+        if(err){
+            console.log(err)
+            res.status(400).send('Le fichier est endommagé!');
+        }
+    });
+
+    form.on('fileBegin', (name, file)=>{
+        file.filepath = path.join('C:/Apache/htdocs/audio/', file.originalFilename);
+        listening.upload(req.params.listeningId, `http://localhost/audio/${file.originalFilename}`).then(response =>{
+            res.status(201).send(response);
+        }).catch(error =>{
+            console.log(error);
+            res.status(500).send('Une erreur est survenue');
+        })
+    })
+})
 
 // delete a listening
 router.delete('/:id', (req, res)=>{
