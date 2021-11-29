@@ -61,19 +61,6 @@ class AccountController {
       throw error;
     }
   }
-  /* async getTheBests(){
-    try{
-        const contact = await Contact.aggregate([
-            {$group: {_id:"$account_id", collectionsNumber: {$sum: 1}}},
-            {$lookup: {"from": "accounts", "localField": "account_id", "foreignField": "account_id", "as": "collecteur"}}
-        ]);
-        // const collectors = await Account.find({role: "collecteur"})
-        return contact;
-    }catch(error){
-        console.log(error);
-        throw error;
-    }
-  } */
 }
 
 module.exports = AccountController;
