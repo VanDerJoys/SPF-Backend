@@ -30,11 +30,11 @@ router.get("/:projectId", (req, res) => {
     });
 });
 
-// get sheets of one post
-router.get("/total/today", (req, res) => {
+// get total sheet of today
+router.get("/total/:projectId", (req, res) => {
   let sheet = new Sheet();
   sheet
-    .getTotalSheet()
+    .getTotalSheet(req.params.projectId)
     .then((response) => {
       res.status(200).send(response);
     })

@@ -34,7 +34,7 @@ class Calls {
   async getAllSheets(projectId) {
     try {
       let groups = await Group.find({projectId: projectId}, {_id: 1});
-      let groupsArray = groups.map(function (obj) { return obj._id; });
+      let groupsArray = groups.map(function (obj) { return obj._id; }); //get groups id
       let sheets = await SheetSchema
       .find({group: { $in: groupsArray }, created_at: moment().format('YYYY-MM-DD')}, { __v: 0, _id: 0 })
       .populate({
@@ -55,11 +55,14 @@ class Calls {
     }
   }
 
-  async getTotalSheet() {
+  async getTotalSheet(projectId) {
     try {
+      let groups = await Group.find({projectId: projectId}, {_id: 1});
+      let groupsArray = groups.map(function (obj) { return obj._id; }); //get groups id
       let sheet = await SheetSchema.aggregate([
         {
           $match: {
+            group: {$in: groupsArray},
             created_at: moment().format('YYYY-MM-DD')
           },
         },
