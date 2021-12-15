@@ -18,6 +18,15 @@ router.post("/", (req, res) => {
     });
 });
 
+router.post('/upload', (req, res)=>{
+  contact.addUploadedContacts(req.body.contacts).then(response =>{
+    res.status(201).send(response);
+  }).catch(error =>{
+    console.log(error);
+    res.status(400).send('Une erreur est survenue');
+  })
+})
+
 // get contacts of a post for a single project
 router.get("/:groupId", (req, res) => {
   contact

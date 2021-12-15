@@ -19,6 +19,16 @@ class AccountController {
     }
   }
 
+  async addUploadedContacts(contacts){
+    try {
+      let results = await Contact.insertMany(contacts);
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
   async getContacts(groupId) {
     try {
       let contact = await Contact.find({ group: groupId, archived: false }, { __v: 0, created_at: 0 });

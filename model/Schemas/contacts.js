@@ -11,10 +11,10 @@ const ContactSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    surname: {
+    /* surname: {
         type: String,
         required: false
-    },
+    }, */
     phone: {
         type: String,
         required: false
@@ -23,10 +23,10 @@ const ContactSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    birthdate: {
+    /* birthdate: {
         type: String,
         required: false
-    },
+    }, */
     archived: {
         type: Boolean,
         default: false
