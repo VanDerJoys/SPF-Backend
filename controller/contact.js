@@ -71,6 +71,15 @@ class AccountController {
       throw error;
     }
   }
+
+  async deleteContacts(groupId){
+    try {
+      const results = await Contact.deleteMany({group: groupId});
+      return results
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = AccountController;

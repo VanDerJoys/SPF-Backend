@@ -66,4 +66,13 @@ router.put("/", (req, res) => {
     });
 });
 
+router.delete('/:groupId', (req, res)=>{
+  contact.deleteContacts(req.params.groupId).then(response =>{
+    res.status(200).send(Boolean(response.deletedCount));
+  }).catch(error =>{
+    console.log(error);
+    res.status(400).send('Une erreur est survenue');
+  })
+})
+
 module.exports = router;
