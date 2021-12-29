@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "debug": "^4.3.2",
     "dotenv": "^10.0.0",
@@ -14,10 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
-    "node-cron": "^3.0.0",
-    "pm2": "^5.1.0",
-    "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6"
+    "pm2": "^5.1.0"
   },
   "devDependencies": {},
   "scripts": {
