@@ -2,8 +2,8 @@ FROM node:alpine
 
 RUN mkdir /porte-feuille-backend
 
-COPY . porte-feuille-backend
-WORKDIR /porte-feuille-backend
+COPY . SPF-Backend
+WORKDIR /SPF-Backend
 
 RUN npm install -D nodemon
 RUN npm install
