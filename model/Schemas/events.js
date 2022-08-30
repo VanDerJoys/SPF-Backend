@@ -10,6 +10,7 @@ const EventSchema = new mongoose.Schema({
     events: [
         {
             name: String,
+            audio: String,
             details: String,
             start: String,
             color: String,

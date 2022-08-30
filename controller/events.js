@@ -33,7 +33,7 @@ class EventController{
 // get Events
     async getEvents(post){
         try {
-            let results = await Event.findOne({post: post}, {__v: 0, created_at: 0, _id: 0});
+            let results = await Event.findOne({post: post}, {__v: 0, created_at: 0});
             let events = [];
             let allEvents = [];
             if(results){
@@ -59,6 +59,16 @@ class EventController{
     async deleteEvent(postId, eventId){
         try {
             let results = await Event.updateOne({post: postId}, {$pull: {events: {_id: eventId}}});
+            return results;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async addAudioFilePath(postEventsId, eventId, audio){
+        try {
+            let results = await Event.updateOne({_id: postEventsId, "events._id": eventId}, {$set: {"events.$.audio": audio}});
             return results;
         } catch (error) {
             console.log(error);
